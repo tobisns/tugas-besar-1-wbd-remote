@@ -1,7 +1,9 @@
 version: '3.9'
 services:
   web:
-    image: php:8.2-apache
+    build:
+      context: .  # Use the current directory as the build context
+      dockerfile: Dockerfile.php  # Custom Dockerfile for PHP
     container_name: php8.2-apache
     ports:
       - "8080:80"

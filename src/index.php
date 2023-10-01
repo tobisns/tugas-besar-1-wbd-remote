@@ -26,4 +26,6 @@ if (!$conn) {
 // Use $conn for database operations
 $result = pg_query($conn, "select * from users");
 var_dump(pg_fetch_all($result));
+
+// to see it you can open at localhost:8080
 ?>

@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Sen:wght@400;700&display=swap');
+@font-face {
+    font-family: "Circular";
+    src: url("src/public/assets/fonts/CircularStd-Bold.otf");
+}
+:root {
+    /* Colors */
+    --black: hsl(0, 0%, 8%);
+    --nav-black: hsl(0, 0%, 4%);
+    --white: #ffffff;
+    --primaryColor-1:#0C7044;
+    --primaryColor-2:#5D8C77;
+    --primaryColor-3:#BBB3B3;
+    --primaryColor-4:#50B48C;
+    --primaryColor-5:#A2D7C2;
+    --primaryColor-6:#31463E;
+
+    /* Font */
+    --sen: 'Sen', sans-serif;
+    --hammersmith-one: 'Hammersmith One', sans-serif;
+    --circular : 'Circular', sans-serif;
+
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: var(--sen);
+    color: var(--black); /* berwarna soft black unless stated otherwise */
+}

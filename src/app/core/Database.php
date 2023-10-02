@@ -1,7 +1,4 @@
 <?php
-
-namespace core;
-
 class Database
 {
     private $host = HOST;

@@ -1,20 +1,10 @@
-# Use the official PHP with Apache image as the base image
-FROM php:8.2-apache
-
-# Install the required PHP extensions
-RUN docker-php-ext-install pdo pdo_pgsql pgsql
-
-# Enable Apache modules (if needed)
-RUN a2enmod rewrite
-
-# Set your working directory
+FROM php:8.0-apache
 WORKDIR /var/www/html
-
-# Copy your PHP application files into the container
-COPY . .
-
-# Expose port 80 for Apache
+COPY ./src/public/index.php .
+RUN apt-get update \
+  && apt-get install -y libpq-dev \
+  && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+  && docker-php-ext-install pdo pdo_pgsql pgsql
+RUN a2enmod rewrite
+RUN apt-get -y update && apt-get -y upgrade && apt-get install -y ffmpeg
 EXPOSE 80
-
-# Define the entrypoint for Apache
-CMD ["apache2-foreground"]

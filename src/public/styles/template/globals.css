@@ -14,12 +14,14 @@
     --primaryColor-4:#50B48C;
     --primaryColor-5:#A2D7C2;
     --primaryColor-6:#31463E;
+    --green:#00BC71;
+    --Red:#FF1C26;
+    --brown:#673900;
 
     /* Font */
     --sen: 'Sen', sans-serif;
     --hammersmith-one: 'Hammersmith One', sans-serif;
     --circular : 'Circular', sans-serif;
-
 }
 
 * {
@@ -28,4 +30,87 @@
     box-sizing: border-box;
     font-family: var(--sen);
     color: var(--black); /* berwarna soft black unless stated otherwise */
+}
+
+.h1{
+    font-family: var(--circular);
+    font-size: 96px;
+}
+
+.h2{
+    font-family: var(--circular);
+    font-size: 64px;
+}
+
+.h3{
+    font-family: var(--hammersmith-one);
+    font-size: 48px;
+}
+
+.h4{
+    font-family: var(--hammersmith-one);
+    font-size: 36px;
+}
+
+.h5{
+    font-family: var(--sen);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.h6{
+    font-family: var(--sen);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.subtitle-1{
+    font-family: var(--sen);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.subtitle-2{
+    font-family: var(--sen);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.body-1{
+    font-family: var(--sen);
+    font-size: 16px;
+}
+
+.body-2{
+    font-family: var(--sen);
+    font-size: 14px;
+}
+
+.button{
+    font-family: var(--sen);
+    font-size: 14px;
+    font-weight: bold;
+    /* case ALL CAPS*/
+}
+
+.caption{
+    font-family: var(--sen);
+    font-size: 12px;
+}
+
+.overline{
+    font-family: var(--sen);
+    font-size: 10px;
+    font-weight: bold;
+    /* case ALL CAPS*/
+}
+
+.tag{
+    font-family: var(--sen);
+    font-size: 10px;
+}
+
+.label{
+    font-family: var(--sen);
+    font-size: 8px;
 }

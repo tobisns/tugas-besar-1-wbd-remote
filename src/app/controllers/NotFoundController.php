@@ -7,8 +7,6 @@ class NotFoundController extends Controller  implements ControllerInterface
 
     public function index()
     {
-        $db = new Database();
-        var_dump($db);
         $notFoundView = $this->view('not-found', 'NotFoundView');
         $notFoundView->render();
     }

@@ -17,7 +17,14 @@
                         <label for="songs-button" class="switch-mode-button">Songs</label>
                     </div>
                     <div id="dynamic-content-container">
-                        <?php include(dirname(__DIR__) . '/admin/AddAlbumPage.php');?>
+
+                        <?php 
+                        if($this->data['content'] == 'songs'){
+                            require_once(dirname(__DIR__) . '/admin/AddSongPage.php');
+                        } else {
+                            require_once(dirname(__DIR__) . '/admin/AddAlbumPage.php');
+                        } 
+                        ?>
                     </div>
                 </div>
             </div>

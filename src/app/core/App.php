@@ -17,12 +17,13 @@ class App
             $controllerClass = $controllerPart . 'Controller';
             $this->controller = new $controllerClass();
         }
+        unset($url[0]);
         // method
         $methodPart = $url[1] ?? null;
         if (isset($methodPart) && method_exists($this->controller, $methodPart)) {
             $this->method = $methodPart;
+            unset($url[1]);
         }
-        unset($url[1]);
         // params
         if (!empty($url)) {
             $this->params = array_values($url);

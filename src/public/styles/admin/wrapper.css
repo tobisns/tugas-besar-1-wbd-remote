@@ -1,0 +1,123 @@
+@import url(../template/globals.css);
+
+.screen-base{
+    display: flex;
+    background-color: #141c19;
+}
+
+.admin-background {
+    background-color: var(--primaryColor-6);
+    width: 75vw;
+    height: 84vh;
+    min-width: 640px;
+    min-height: 410px;
+    display: inline-block;
+    margin: 30px;
+    border-radius: 10px;
+}
+
+.switch-mode-button{
+    font-family: var(--hammersmith-one);
+    background-color: transparent;
+    color: #daefe7;
+    text-align: center;
+    width: 96px;
+    margin-top: 10px;
+    padding-right: 1px;
+    padding-left: 1px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-left: -25px;
+}
+
+.switch-radio:checked+label {
+    width: 96px;
+    margin-top: 10px;
+    padding: 5px;
+    padding-right: 1px;
+    padding-left: 1px;
+    display: inline-block;
+    background-color: #daefe7;
+    border-radius: 10px;
+    text-align: center;
+    font-family: var(--hammersmith-one);
+    color: #31463e;
+}
+
+.switch-mode{
+    padding-left: 20px;
+}
+
+.switch-radio{
+    visibility: hidden;
+}
+
+.search-bar{
+    display: inline-block;
+    height: 30px;
+    align-self: top;
+    margin-left: 15px;
+    width: 250px;
+    flex: 1;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    
+}
+
+.search-ico{
+    display: inline-block;
+}
+
+.search-form{
+    display: inline-block;
+    flex: 1;
+}
+
+.top-util-div{
+    padding-top: 30px;
+    height: 60px;
+    min-width: 500px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.add-button{
+    position: relative;
+    right: 0;
+    font-size: large;
+    font-family: var(--hammersmith-one);
+    background-color: #daefe7;
+    height: 30px;
+    width: 96px;
+    border-radius: 10px;
+    display: inline-block;
+    border: none;
+    margin-right: 70px;
+}
+
+.add-button:hover{
+    font-size: large;
+    font-family: var(--hammersmith-one);
+    background-color: #daefe7;
+    height: 34px;
+    width: 100px;
+    border-radius: 10px;
+    display: inline-block;
+    border: none;
+    margin-right: 68px;
+}
+
+.add-ico{
+    display: inline-block;
+}
+
+.sidebar{
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 25vw;
+    background-color: black;
+    align-items: center;
+}

@@ -1,7 +1,7 @@
 .black-body {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
     overflow-x: hidden;
     background-color: black;
 }
@@ -13,10 +13,10 @@
     justify-content: center;
     align-items: center;
     min-height: 100%;
+    padding: 2rem 0;
 }
 
 .horizontal-row {
-    color: white;
     width: 70%;
     height: 1px;
     margin: 12px 0;
@@ -41,6 +41,7 @@ header {
     justify-content: center;
     align-items: center;
     padding: 50px 0;
+    height: fit-content;
 }
 
 p, label, a {
@@ -52,6 +53,7 @@ input {
     border: 1px solid white;
     background: black;
     padding: 8px;
+    color: white;
 }
 .form-group {
     display: flex;
@@ -69,7 +71,6 @@ button {
     background-color: #17D581;
     width: 100%;
     border: 0px;
-    padding: 4px;
     border-radius: 100px;
     padding: 8px 0;
 }
@@ -88,6 +89,7 @@ button {
 .hidden-input {
     display: none;
 }
+
 
 /* Style the custom button */
 .input-button {
@@ -114,7 +116,11 @@ button {
     background-color: #2980b9;
 }
 
-.alert-hide{
+.alert-hide {
+    visibility: hidden;
+}
+
+.alert-show{
     font-family: var(--sen);
     font-size: 8px;
     color: var(--Red);

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +9,15 @@
     <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/template/navbar.css">
     <!-- Specific CSS -->
     <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/user/register.css">
-
+    <!-- JavaScript Constant and Variables -->
+    <script type="text/javascript" defer>
+        const DEBOUNCE_DELAY = "<?= DEBOUNCE_DELAY ?>";
+    </script>
+    <!-- JavaScript Library -->
+    <script type="text/javascript" src="<?= BASE_URL ?>/javascript/lib/debounce.js" defer></script>
+    <script type="text/javascript" src="<?= BASE_URL ?>/javascript/lib/utils.js" defer></script>
+    <!-- JavaScript DOM and AJAX -->
+    <script type="text/javascript" src="<?= BASE_URL ?>/javascript/user/register.js" defer></script>
     <title>Register</title>
 </head>
 
@@ -43,26 +50,31 @@
                 <div class="form-group">
                     <div class="form-group password">
                         <label for="password">password</label>
-                        <input type="text" name="password" placeholder="password" id="password">
+                        <input type="password" name="password" placeholder="password" id="password">
                         <p id="password-alert" class="alert-hide">Please fill out your password first!</p>
                     </div>
                     <div class="form-group password">
                         <label for="confirm-password">confirm password</label>
-                        <input type="text" name="confirm-password" placeholder="confirm password" id="confirm-password">
+                        <input type="password" name="confirm-password" placeholder="confirm password" id="confirm-password">
                         <p id="confirm-password-alert" class="alert-hide">Please fill out your confirm password first!</p>
                     </div>
                 </div>
                 <div class="form-group">
                     <p>profile picture</p>
                     <div class="input-file">
-                        <input type="file" id="file-input" class="hidden-input">
+                        <input type="file" id="file-input" class="hidden-input" accept="image/*">
                         <label for="file-input" class="input-button">choose image</label>
                         <span id="file-name" class="file-name">no file selected</span>
                     </div>
+                    <p id="file-alert" class="alert-hide">Please fill out your confirm password first!</p>
                 </div>
                 <div class="form-button">
+                    <p id="register-alert" class="alert-hide">Wrong username/password!</p>
                     <button type="submit" class="button black-button">Sign up</button>
                 </div>
+                <?=
+                    TokenMiddleware::getInputToken('register');
+                ?>
             </form>
         </div>
     </div>

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Global CSS -->
     <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/template/globals.css">
-    <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/template/navbar.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/template/sidebar.css">
     <!-- Specific CSS -->
     <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/user/profile.css">
 
@@ -17,7 +17,7 @@
 <body>
 <div class="green-body">
     <!-- Navbar -->
-    <?php include(dirname(__DIR__) . '/template/Aside.php') ?>
+    <?php include(dirname(__DIR__) . '/template/Sidebar.php') ?>
     <div class="wrapper">
         <div class="profile-container">
             <div class="circular-pict">

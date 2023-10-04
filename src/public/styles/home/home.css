@@ -1,0 +1,12 @@
+@import "../template/globals.css";
+@import "../template/sidebar.css";
+
+html,body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    place-items: center;
+    height: 100vh;
+    background-color: var(--primaryColor-6);
+}

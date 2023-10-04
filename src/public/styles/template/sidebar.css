@@ -1,0 +1,222 @@
+@import "../template/globals.css";
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 30vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primaryColor-6);
+    align-items: center;
+}
+.head-logo {
+    top: 0;
+    width: 90%;
+    text-align: center;
+    margin-top: 10%;
+    margin-bottom: 5%;
+    background-color: var(--black);
+    border-radius: 10px;
+    padding: 5px;
+}
+.logo-icon {
+    width: 100%;
+    max-width: 140px;
+    height: auto;
+}
+
+.menu-page {
+    width: 90%;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin-bottom: 5%;
+    background-color: var(--black);
+    border-radius: 10px;
+}
+.home-bar {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items:baseline;
+    padding: 5px;
+}
+.home-bar a {
+    padding: 10px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+}
+.home-icon {
+    width: 4vh;
+    height: auto;
+    margin-right: 10px;
+}
+.home-text {
+    font-family: var(--hammersmith-one);
+    font-size: 20px;
+    color: var(--primaryColor-7);
+    justify-content: center;
+}
+.explore-bar {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items:baseline;
+    padding: 5px;
+}
+.explore-bar a {
+    padding: 10px;
+    padding-left: 15px;
+    padding-top: 0;
+}
+.explore-icon {
+    width: 3.5vh;
+    height: auto;
+    margin-right: 10px;
+}
+.explore-text {
+    font-family: var(--hammersmith-one);
+    font-size: 20px;
+    color: var(--primaryColor-7);
+    justify-content: center;
+}
+
+.menu-user {
+    width: 90%;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin-bottom: 5%;
+    background-color: var(--black);
+    border-radius: 10px;
+}
+.profile-bar {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items:baseline;
+    padding: 5px;
+}
+.profile-bar a {
+    padding: 10px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+}
+.profile-icon {
+    width: 3.5vh;
+    height: auto;
+    margin-right: 10px;
+}
+.profile-text {
+    font-family: var(--hammersmith-one);
+    font-size: 20px;
+    color: var(--primaryColor-7);
+    justify-content: center;
+}
+.like-bar {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items:baseline;
+    padding: 5px;
+}
+.like-bar a {
+    padding: 10px;
+    padding-left: 15px;
+    padding-top: 0;
+}
+.like-icon {
+    width: 3.5vh;
+    height: auto;
+    margin-right: 10px;
+}
+.like-text {
+    font-family: var(--hammersmith-one);
+    font-size: 20px;
+    color: var(--primaryColor-7);
+    justify-content: center;
+}
+.admin-bar {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items:baseline;
+    padding: 5px;
+}
+.admin-bar a {
+    padding: 10px;
+    padding-left: 15px;
+    padding-top: 0;
+}
+.admin-icon {
+    width: 3.5vh;
+    height: auto;
+    margin-right: 10px;
+}
+.admin-text {
+    font-family: var(--hammersmith-one);
+    font-size: 20px;
+    color: var(--primaryColor-7);
+    justify-content: center;
+}
+
+.menu-log {
+    width: 90%;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin-bottom: 5%;
+    background-color: var(--black);
+    border-radius: 10px;
+}
+.login-bar {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items:baseline;
+    padding: 5px;
+}
+.login-bar a {
+    padding: 10px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+}
+.login-icon {
+    width: 3.5vh;
+    height: auto;
+    margin-right: 10px;
+}
+.login-text {
+    font-family: var(--hammersmith-one);
+    font-size: 20px;
+    color: var(--primaryColor-7);
+    justify-content: center;
+}
+.logout-bar {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items:baseline;
+    padding: 5px;
+}
+.logout-bar a {
+    padding: 10px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+}
+.logout-icon {
+    width: 3.5vh;
+    height: auto;
+    margin-right: 10px;
+}
+.logout-text {
+    font-family: var(--hammersmith-one);
+    font-size: 20px;
+    color: var(--darker-Red);
+    justify-content: center;
+}

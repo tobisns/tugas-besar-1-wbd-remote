@@ -92,16 +92,6 @@
     top: 6.7vh;
     transition: 1s linear;
 }
-.dot::before {
-    content: '';
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    border: 1px solid white;
-    border-radius: 50%;
-    left: -5px;
-    top: 7vh;
-}
 .play-tracker input {
     position: absolute;
     width: 100%;

@@ -1,7 +1,7 @@
 @import "../template/globals.css";
 
 .sidebar {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     height: 100vh;
@@ -11,9 +11,10 @@
     background-color: var(--primaryColor-6);
     align-items: center;
 }
+
 .head-logo {
     top: 0;
-    width: 90%;
+    width: 85%;
     text-align: center;
     margin-top: 10%;
     margin-bottom: 5%;
@@ -28,7 +29,7 @@
 }
 
 .menu-page {
-    width: 90%;
+    width: 85%;
     list-style-type: none;
     display: flex;
     flex-direction: column;
@@ -85,7 +86,7 @@
 }
 
 .menu-user {
-    width: 90%;
+    width: 85%;
     list-style-type: none;
     display: flex;
     flex-direction: column;
@@ -165,7 +166,7 @@
 }
 
 .menu-log {
-    width: 90%;
+    width: 85%;
     list-style-type: none;
     display: flex;
     flex-direction: column;

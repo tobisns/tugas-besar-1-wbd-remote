@@ -57,7 +57,7 @@
             </a>
         </li>
         <li class="logout-bar">
-            <a href="#">
+            <a href="user/logout">
                 <div class="logout-container">
                     <img class="logout-icon" src="<?= BASE_URL ?>/assets/images/icon_logout_default.svg" alt="logout">
                     <span class="logout-text">Logout</span>

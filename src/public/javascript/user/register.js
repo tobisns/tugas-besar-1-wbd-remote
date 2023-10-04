@@ -33,16 +33,32 @@ usernameInput.addEventListener(
     "keypress",
     debounce(() => {
         const username = usernameInput.value;
+        const formData = new FormData();
+        formData.append("username", username);
+        axios({
+            method:"get",
+            url:"/public/user/username",
+            payload: formData
+        }).then((e)=>{
+            console.log(e);
+            if (invalidRegex.test(username)) {
+                usernameAlert.innerText = "Invalid username format!";
+                usernameAlert.className = "alert-show";
+                usernameValid = false;
+            } else if(e == "true"){
+                usernameAlert.innerText = "Username already taken!";
+                usernameAlert.className = "alert-show";
+                usernameValid = false;
+            } else {
+                usernameAlert.innerText = "";
+                usernameAlert.className = "alert-hide";
+                usernameValid = true;
+            }
+        }).catch((e)=>{
+            console.log(e)
+        })
 
-        if (invalidRegex.test(username)) {
-            usernameAlert.innerText = "Invalid username format!";
-            usernameAlert.className = "alert-show";
-            usernameValid = false;
-        } else {
-            usernameAlert.innerText = "";
-            usernameAlert.className = "alert-hide";
-            usernameValid = true;
-        }
+
     }, DEBOUNCE_DELAY)
 );
 
@@ -135,25 +151,48 @@ fileInput.addEventListener(
     }
 )
 
+
+// ...
+
+// Function to check if all fields are valid
+function isFormValid() {
+    return usernameValid && displayNameValid && phoneNumberValid && passwordValid && confirmPasswordValid;
+}
+
 registerForm &&
-    registerForm.addEventListener(
-        "submit",
-        async (e) => {
-            e.preventDefault();
-            const formData = new FormData();
-            formData.append("name", "fajarherawan");
-            axios(
-                {
-                    method:"get",
-                    url:"/public/user/register",
-                    payload:formData
-                }
-            ).then((e) => {
-                    console.log(e)
-            }).catch(
-                (e) => {
-                    console.log(e);
-                }
-            )
-        }
-    )
+registerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Check if all form fields are valid
+    if (!isFormValid()) {
+        submitAlert.textContent = "Please fill in all fields correctly.";
+        submitAlert.className = "alert-show";
+        return; // Stop form submission
+    }
+
+    // If all fields are valid, proceed with form submission
+    const username = usernameInput.value;
+    const displayName = displayNameInput.value;
+    const phoneNumber = phoneNumberInput.value;
+    const password = passwordInput.value;
+    const file = fileInput.files[0];
+    const formData = new FormData();
+
+    formData.append("username", username);
+    formData.append("displayname", displayName);
+    formData.append("phonenumber", phoneNumber);
+    formData.append("password", password);
+    formData.append("file", file);
+
+    axios({
+        method: "post",
+        url: "/public/user/register",
+        payload: formData,
+    })
+        .then((response) => {
+            location.replace("http:\/\/localhost:8080\/public\/user\/login");
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+});

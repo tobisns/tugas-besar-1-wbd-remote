@@ -47,65 +47,37 @@ passwordInput.addEventListener(
     })
 );
 
+function isFormValid() {
+    return usernameValid && passwordValid;
+}
+
 loginForm &&
 loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    if (!isFormValid()) {
+        submitAlert.textContent = "Please fill in all fields correctly.";
+        submitAlert.className = "alert-show";
+        return; // Stop form submission
+    }
+
     const username = usernameInput.value;
     const password = passwordInput.value;
 
-    if (!username) {
-        usernameAlert.innerText = "Please fill out your username first!";
-        usernameAlert.className = "alert-show";
-        usernameValid = false;
-    } else if (invalidRegex.test(username)) {
-        usernameAlert.innerText = "Invalid username format!";
-        usernameAlert.className = "alert-show";
-        usernameValid = false;
-    } else {
-        usernameAlert.innerText = "";
-        usernameAlert.className = "alert-hide";
-        usernameValid = true;
-    }
-
-    if (!password) {
-        passwordAlert.innerText = "Please fill out your password first!";
-        passwordAlert.className = "alert-show";
-        passwordValid = false;
-    } else if (invalidRegex.test(password)) {
-        passwordAlert.innerText = "Invalid password format!";
-        passwordAlert.className = "alert-show";
-        passwordValid = false;
-    } else {
-        passwordAlert.innerText = "";
-        passwordAlert.className = "alert-hide";
-        passwordValid = true;
-    }
-
-    if (!usernameValid || !passwordValid) {
-        return;
-    }
-
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/public/user/login");
-
     const formData = new FormData();
+    console.log(password);
     formData.append("username", username);
     formData.append("password", password);
-    formData.append("csrf_token", CSRF_TOKEN);
 
-    xhr.send(formData);
-    xhr.onreadystatechange = function () {
-        if (this.readyState === XMLHttpRequest.DONE) {
-            if (this.status === 201) {
-                document.querySelector("#login-alert").className =
-                    "alert-hide";
-                const data = JSON.parse(this.responseText);
-                location.replace(data.redirect_url);
-            } else {
-                document.querySelector("#login-alert").className =
-                    "alert-show";
-            }
-        }
-    };
+    axios({
+        method: "post",
+        url: "/public/user/login",
+        payload: formData,
+    })
+        .then((response) => {
+            location.replace("http:\/\/localhost:8080\/public\/user");
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 });

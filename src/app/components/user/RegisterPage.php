@@ -62,7 +62,7 @@
                 <div class="form-group">
                     <p>profile picture</p>
                     <div class="input-file">
-                        <input type="file" id="file-input" class="hidden-input" accept="image/*">
+                        <input type="file" name="cover" id="file-input" class="hidden-input" accept="image/*">
                         <label for="file-input" class="input-button">choose image</label>
                         <span id="file-name" class="file-name">no file selected</span>
                     </div>

@@ -16,6 +16,8 @@ class Database
         }
     }
 
+
+
     public function query($query){
         $result = pg_query($query);
         if(!$result){
@@ -23,6 +25,10 @@ class Database
             exit;
         }
         return $result;
+    }
+
+    public function getConn(){
+        return $this->db_connection;
     }
 
 }

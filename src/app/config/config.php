@@ -10,3 +10,12 @@ define('PASSWORD', $_ENV['DB_PASSWORD']);
 define('PORT', $_ENV['DB_PORT']);
 //DEBOUNCE
 define('DEBOUNCE_DELAY', 300);
+//FILE
+define('MAX_SIZE', 10 * 1024 * 1024);
+define('ALLOWED_AUDIOS', [
+    'audio/mpeg' => '.mp3'
+]);
+define('ALLOWED_IMAGES', [
+    'image/jpeg' => '.jpeg',
+    'image/png' => '.png'
+]);

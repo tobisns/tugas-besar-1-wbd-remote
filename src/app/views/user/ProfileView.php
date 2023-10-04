@@ -5,7 +5,7 @@ class profileView implements ViewInterface
     private $data;
     public function __construct($data = [])
     {
-        $this->data = array("display-name"=>"fajarherawan", "username"=>"fajarmhrwn", "phone-number"=>"0812235314337");
+        $this->data = $data;
     }
 
     public function render()

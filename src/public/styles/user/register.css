@@ -118,6 +118,7 @@ button {
 
 .alert-hide {
     visibility: hidden;
+    display: none;
 }
 
 .alert-show{

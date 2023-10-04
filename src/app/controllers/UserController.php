@@ -1,19 +1,70 @@
 <?php
 require_once __DIR__ . '/../interfaces/ControllerInterface.php';
 require_once __DIR__ . '/../core/Controller.php';
+require_once __DIR__ . '/../core/AccessStorage.php';
+require_once __DIR__ . '/../middlewares/TokenMiddleware.php';
+require_once __DIR__ . '/../middlewares/AuthenticationMiddleware.php';
 
 class UserController extends Controller implements ControllerInterface
 {
     public function index()
     {
-        $profileView = $this->view('user', 'ProfileView');
-        $profileView->render();
+        try {
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $isAuth = new AuthenticationMiddleware();
+                    $result = $isAuth->isAuthenticated();
+                    $profileView = $this->view('user', 'ProfileView');
+                    $profileView->render();
+                    exit;
+                default:
+                    throw new Exception('Method Not Allowed', 405);
+            }
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+        }
+
     }
 
     public  function login()
     {
-        $loginView = $this->view('user', 'LoginView');
-        $loginView->render();
+        try {
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $loginView = $this->view('user', 'LoginView');
+                    $loginView->render();
+                    exit;
+                case 'POST':
+                    //prevent crsf
+                    TokenMiddleware::verifyToken('register');
+
+                    $userModel = $this->model('UserModel');
+                    $result = $userModel->login(
+                        $_POST["username"],
+                        $_POST["password"]
+                    );
+
+                    if($result){
+                        http_response_code(201);
+                        $_SESSION["username"] = $result;
+                        exit;
+                    }else{
+                        http_response_code(401);
+                        echo "Login Gagal";
+                        exit;
+                    }
+
+
+                    http_response_code(201);
+
+                    return $uploadedImage;
+                default:
+                    throw new Exception('Method Not Allowed', 405);
+            }
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+        }
+
     }
 
     public  function register()
@@ -24,13 +75,98 @@ class UserController extends Controller implements ControllerInterface
                     $registerView = $this->view('user', 'RegisterView');
                     $registerView->render();
                     exit;
-
-                    break;
                 case 'POST':
-                    // Kembalikan redirect_url
+                    //prevent crsf
+                    TokenMiddleware::verifyToken('register');
+
+                    $image = new AccessStorage("images");
+                    $uploadedImage = $image->saveImage($_FILES['file']['tmp_name']);
+
+                    $userModel = $this->model('UserModel');
+                    $result = $userModel->register(
+                        $_POST["username"],
+                        $_POST["displayname"],
+                        $uploadedImage,
+                        $_POST["phonenumber"],
+                        $_POST["password"]
+                    );
+
                     header('Content-Type: application/json');
+
+                    if($result){
+                        http_response_code(201);
+                        echo json_encode(["redirect_url" => BASE_URL . "/user/login"]);
+                        exit;
+                    }else{
+                        http_response_code(201);
+                        echo "Registrasi Gagal";
+                        exit;
+                    }
+
+
                     http_response_code(201);
-                    echo json_encode($_POST);
+
+                    return $uploadedImage;
+                default:
+                    throw new Exception('Method Not Allowed', 405);
+            }
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+        }
+    }
+
+    public  function username()
+    {
+        try {
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $userModel = $this->model('UserModel');
+                    if($userModel->isUsernameExists($_GET["username"])){
+                        echo "true";
+                    }else{
+                        echo "false";
+                    }
+
+                default:
+                    throw new Exception('Method Not Allowed', 405);
+            }
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+        }
+    }
+
+    public  function logout()
+    {
+        try {
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $loginView = $this->view('user', 'LoginView');
+                    $loginView->render();
+                    exit;
+                case 'POST':
+                    //prevent crsf
+                    TokenMiddleware::verifyToken('register');
+
+                    $userModel = $this->model('UserModel');
+                    $result = $userModel->login(
+                        $_POST["username"],
+                        $_POST["password"]
+                    );
+
+                    if($result){
+                        http_response_code(201);
+                        $_SESSION["username"] = $result;
+                        exit;
+                    }else{
+                        http_response_code(401);
+                        echo "Login Gagal";
+                        exit;
+                    }
+
+
+                    http_response_code(201);
+
+                    return $uploadedImage;
                 default:
                     throw new Exception('Method Not Allowed', 405);
             }

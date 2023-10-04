@@ -15,6 +15,7 @@
     </script>
     <!-- JavaScript Library -->
     <script type="text/javascript" src="<?= BASE_URL ?>/javascript/lib/debounce.js" defer></script>
+    <script type="text/javascript" src="<?= BASE_URL ?>/javascript/lib/utils.js" defer></script>
     <!-- JavaScript DOM and AJAX -->
     <script type="text/javascript" src="<?= BASE_URL ?>/javascript/user/login.js" defer></script>
     <title>Login</title>
@@ -41,6 +42,9 @@
                         <input type="password" name="password" placeholder="Password" id="password" autocomplete="on">
                         <p id="password-alert" class="alert-hide">Please fill out your password first!</p>
                     </div>
+                    <?=
+                    TokenMiddleware::getInputToken('register');
+                    ?>
                     <div class="form-button">
                         <p id="login-alert" class="alert-hide">Wrong username/password!</p>
                         <button type="submit" class="button">Log in</button>

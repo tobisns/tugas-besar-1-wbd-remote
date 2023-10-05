@@ -2,7 +2,7 @@
     <body>
         <h1>MUSIC</h1>
         <?php
-            $result = $this->data['songs'];
+            $result = $this->data['albums'];
             if(!$result) {
                 echo 'ok';
             } else {

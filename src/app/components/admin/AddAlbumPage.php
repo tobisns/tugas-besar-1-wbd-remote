@@ -23,54 +23,68 @@
             </button>
         </div>
         <div class="album-container">
-            <div class="album-grid">
-                <div class="album">
-                    <div class="album-cover"></div>
-                    <div>
-                        <label class="title">Album1</label>
-                    </div>
-                    <div>
-                        <label class="artist">Album1</label>
-                    </div>
+            <?php if(!$this->data['albums']) : ?>
+                No albums available yet.
+            <?php else : ?>
+                <div class="album-grid">
+                    <?php while ($album = pg_fetch_array($this->data['albums'])) : ?>
+                        <a href="">
+                            <div class="album">
+                                <div class="album-cover">
+                                    <?php if($album['cover_file'] == null) :?>
+                                    <img src="<?= STORAGE_URL ?>/images/no_image.png" alt="no image!" class="cover-img">
+                                    <? else : ?>
+                                    <img src="<?= STORAGE_URL ?>/images/<?= $album['cover_file'] ?>" alt="<?= $album['name'] ?>">
+                                    <?php endif; ?>
+                                </div>
+                                <div>
+                                    <label class="title"><?php echo $album['name']?></label>
+                                </div>
+                                <div>
+                                    <label class="artist">Album1</label>
+                                </div>
+                            </div>
+                        </a>
+                    <?php endwhile; ?>
                 </div>
-                <div class="album">
-                    <div class="album-cover"></div>
-                    <div>
-                        <label class="title">Album2</label>
-                    </div>
-                    <div>
-                        <label class="artist">Album1</label>
-                    </div>
+                <div class="pagination">
+                    <button class="prev-button">
+                        <svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.875 0.9375L0 7.57875L7.875 14.0625V8.8125H21V6.1875H7.875V0.9375Z" fill="#74B18F"/>
+                        </svg>
+                        prev
+                    </button>
+                <?php if((int) $this->data['current_page'] > 5) : ?>
+                    <button class=pagination-button>1</button>
+                    <button class=pagination-button>2</button>
+                    <button class=pagination-button>...</button>
+                    <button class=pagination-button><?php echo $this->data['current_page'] - 2; ?></button>
+                    <button class=pagination-button><?php echo $this->data['current_page'] - 1; ?></button>
+                    <button class=pagination-button><?php echo $this->data['current_page']; ?></button>
+                <?php else : ?>
+                    <?php for ($i = 1; $i <= $this->data['current_page']; $i++) : ?>
+                        <button class=pagination-button><?php echo  $i;?></button>
+                    <?php endfor; ?>
+                <?php endif; ?>
+                <?php if((int) $this->data['total_page'] > $this->data['current_page'] + 5) : ?>
+                    <button class=pagination-button><?php echo $this->data['current_page'] + 1; ?></button>
+                    <button class=pagination-button><?php echo $this->data['current_page'] + 2; ?></button>
+                    <button class=pagination-button>...</button>
+                    <button class=pagination-button><?php echo $this->data['total_page'] + -1; ?></button>
+                    <button class=pagination-button><?php echo $this->data['total_page']; ?></button>
+                <?php else : ?>
+                    <?php for ($i = $this->data['current_page'] + 1; $i <= $this->data['total_page']; $i++) : ?>
+                        <button class=pagination-button><?php echo  $i;?></button>
+                    <?php endfor; ?>
+                <?php endif; ?>
+                    <button class="next-button">
+                        next
+                        <svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.125 0.9375L21 7.57875L13.125 14.0625V8.8125H0V6.1875H13.125V0.9375Z" fill="#74B18F"/>
+                        </svg>
+                    </button>
                 </div>
-                <div class="album">
-                    <div class="album-cover"></div>
-                    <div>
-                        <label class="title">Album3</label>
-                    </div>
-                    <div>
-                        <label class="artist">Album1</label>
-                    </div>
-                </div>
-                <div class="album">
-                    <div class="album-cover"></div>
-                    <div>
-                        <label class="title">Album4</label>
-                    </div>
-                    <div>
-                        <label class="artist">Album1</label>
-                    </div>
-                </div>
-                <div class="album">
-                    <div class="album-cover"></div>
-                    <div>
-                        <label class="title">Album5</label>
-                    </div>
-                    <div>
-                        <label class="artist">Album1</label>
-                    </div>
-                </div>
-            </div>
-            <div class="pagination"></div>
+            <?php endif; ?>
         </div>
     </body>
     

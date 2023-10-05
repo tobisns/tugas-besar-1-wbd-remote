@@ -5,7 +5,7 @@ var albums = document.querySelectorAll(".album");
 var albumContainer = document.querySelector(".album-container");
 var albumState = {};
 
-console.log(dynamicContainer);
+reallign_album();
 
 albumsButton &&
 albumsButton.addEventListener('change', (e) => {
@@ -33,12 +33,14 @@ const updateContainer = (content) => {
         xhr.send();
         xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (this.status === 200) {
+                if (this.status === 201) {
                     console.log(this.responseText);
                     dynamicContainer.innerHTML = this.responseText;
                     albums = document.querySelectorAll(".album");
                     albumContainer = document.querySelector(".album-container");
                     albumState = {};
+
+                    reallign_album();
 
                     //set new url
                     const currentURL = window.location.href;
@@ -65,7 +67,7 @@ const updateContainer = (content) => {
         xhr.send();
         xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (this.status === 200) {
+                if (this.status === 201) {
                     console.log(this.responseText);
                     dynamicContainer.innerHTML = this.responseText;
                     
@@ -103,3 +105,17 @@ window.addEventListener('resize', async () => {
     });
 
 });
+
+function reallign_album(){
+    var i = 0;
+    albums.forEach(album => {
+        if(album.offsetLeft + album.offsetWidth > albumContainer.offsetLeft + albumContainer.offsetWidth){
+            album.style.display = "none";
+        } else {
+            if(i>0 && getComputedStyle(albums[i-1]).getPropertyValue("display") != "none"){
+                album.style.display = "block";
+            }
+        }
+        i++;
+    });
+}

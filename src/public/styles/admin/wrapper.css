@@ -30,6 +30,10 @@
     margin-left: -25px;
 }
 
+.switch-mode-button:hover{
+    cursor: pointer;
+}
+
 .switch-radio:checked+label {
     width: 96px;
     margin-top: 10px;
@@ -95,6 +99,7 @@
     display: inline-block;
     border: none;
     margin-right: 70px;
+    cursor: pointer;
 }
 
 .add-button:hover{
@@ -107,6 +112,7 @@
     display: inline-block;
     border: none;
     margin-right: 68px;
+    cursor: pointer;
 }
 
 .add-ico{
@@ -116,3 +122,4 @@
 .sidebar{
     background-color: #141c19 !important;
 }
+

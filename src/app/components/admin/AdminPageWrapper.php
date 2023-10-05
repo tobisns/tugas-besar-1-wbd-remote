@@ -9,6 +9,16 @@
         <link rel="stylesheet" href="<?= BASE_URL ?>/styles/admin/wrapper.css">
 
         <link rel="icon" type="image" sizes="64x64" href="<?= BASE_URL ?>/assets/images/logo.svg">
+
+        <!-- JavaScript Constant and Variables -->
+        <script type="text/javascript" defer>
+            const DEBOUNCE_DELAY = "<?= DEBOUNCE_DELAY ?>";
+        </script>
+        <!-- JavaScript Library -->
+        <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/debounce.js" defer></script>
+        <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/utils.js" defer></script>
+        <!-- JavaScript DOM and AJAX -->
+        <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/admin/admin_wrapper.js" defer></script>
         <title>Admin</title>
     </head>
     <body>
@@ -43,7 +53,6 @@
             </div>
         </div>
         
-        <script src="<?= BASE_URL ?>/javascripts/admin/admin_wrapper.js"></script>
         
     </body>
 </html>

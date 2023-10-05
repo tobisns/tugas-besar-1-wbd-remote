@@ -18,4 +18,13 @@ class AlbumModel
 
         return $result;
     }
+
+    public function albumCount(){
+        $query = 'SELECT count(album_id) as count FROM album';
+        
+        $q_result = $this->database->query($query);
+        $albumCount = pg_fetch_array($q_result);
+
+        return (int) $albumCount['count'];
+    }
 }

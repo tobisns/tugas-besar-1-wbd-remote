@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="<?= BASE_URL ?>/assets/images/favicon.ico">
     <!-- Global CSS -->
     <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/template/globals.css">
     <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/template/navbar.css">
@@ -14,10 +15,10 @@
         const DEBOUNCE_DELAY = "<?= DEBOUNCE_DELAY ?>";
     </script>
     <!-- JavaScript Library -->
-    <script type="text/javascript" src="<?= BASE_URL ?>/javascript/lib/debounce.js" defer></script>
-    <script type="text/javascript" src="<?= BASE_URL ?>/javascript/lib/utils.js" defer></script>
+    <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/debounce.js" defer></script>
+    <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/utils.js" defer></script>
     <!-- JavaScript DOM and AJAX -->
-    <script type="text/javascript" src="<?= BASE_URL ?>/javascript/user/register.js" defer></script>
+    <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/user/register.js" defer></script>
     <title>Register</title>
 </head>
 
@@ -66,7 +67,6 @@
                         <label for="file-input" class="input-button">choose image</label>
                         <span id="file-name" class="file-name">no file selected</span>
                     </div>
-                    <p id="file-alert" class="alert-hide">Please fill out your confirm password first!</p>
                 </div>
                 <div class="form-button">
                     <p id="register-alert" class="alert-hide">Wrong username/password!</p>

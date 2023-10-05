@@ -76,4 +76,89 @@ class UserModel
             return false; // Password does not match
         }
     }
+
+    public function getUser($username)
+    {
+        $conn = $this->database->getConn();
+
+        $query = "SELECT * FROM users WHERE username = $1";
+        $result = pg_prepare($conn, "get_user", $query);
+        $result = pg_execute($conn, "get_user", array($username));
+
+        $user = pg_fetch_assoc($result);
+        if (!$user) {
+            return false;
+        }else{
+            return $user;
+        }
+    }
+
+    public function updateUser(
+        $username,
+        $displayname,
+        $profpic,
+        $phone,
+        $password
+    )
+    {
+            $conn = $this->database->getConn();
+
+            $existingUser = $this->isUsernameExists($_SESSION["username"]);
+            if (!$existingUser) {
+                return false;
+            }
+
+            $query = "UPDATE users SET ";
+            $params = array();
+            $paramCount = 1;
+
+            if ($username !== "") {
+                $query .= "username = $" . $paramCount . ", ";
+                $params[] = $username;
+                $paramCount++;
+            }
+
+            if ($displayname !== "") {
+                $query .= "display_name = $" . $paramCount . ", ";
+                $params[] = $displayname;
+                $paramCount++;
+            }
+
+            if ($profpic !== null) {
+                $query .= "profile_picture_file = $" . $paramCount . ", ";
+                $params[] = $profpic;
+                $paramCount++;
+            }
+
+            if ($phone !== "") {
+                $query .= "phone = $" . $paramCount . ", ";
+                $params[] = $phone;
+                $paramCount++;
+            }
+
+            if ($password !== "") {
+                $query .= "phone = $" . $paramCount . ", ";
+                $params[] = password_hash($password, PASSWORD_DEFAULT);
+                $paramCount++;
+            }
+            if($paramCount == 1){
+                return false;
+            }
+
+            $query = rtrim($query, ', ');
+
+            $query .= " WHERE username = $" . $paramCount;
+            $params[] = $_SESSION["username"];
+
+            $result = pg_prepare($conn, "update_user_query", $query);
+            $result = pg_execute($conn, "update_user_query", $params);
+
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
+    }
+
+
 }

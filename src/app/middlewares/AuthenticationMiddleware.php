@@ -12,18 +12,22 @@ class AuthenticationMiddleware
     public function isAuthenticated()
     {
         if (!isset($_SESSION["username"])) {
-            throw new Exception('Unauthorized', 401);
+            throw new Exception('Session id not found', 402);
         }
         $conn = $this->database->getConn();
         $query = 'SELECT username FROM users WHERE username = $1 LIMIT 1';
 
+        $username = $_SESSION["username"];
 
-        $result = pg_prepare($conn, "get_user_query", $query);
-        $result = pg_execute($conn, "get_user_query", array($_SESSION['username']));
-
+        $result = pg_prepare($conn, "user_query", $query);
+        $result = pg_execute($conn, "user_query", array($username));
         $user = pg_fetch_assoc($result);
-        if (!$user) {
-            throw new Exception('Unauthorized', 401);
+
+
+        if (!$user["username"]) {
+            throw new Exception('User id not found', 401);
+        }else{
+            return true;
         }
     }
 

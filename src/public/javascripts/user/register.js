@@ -189,7 +189,7 @@ registerForm.addEventListener("submit", async (e) => {
         payload: formData,
     })
         .then((response) => {
-            location.replace("http:\/\/localhost:8080\/public\/user\/login");
+            console.log(response)
         })
         .catch((error) => {
             console.log(error);

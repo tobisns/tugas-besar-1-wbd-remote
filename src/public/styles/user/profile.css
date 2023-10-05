@@ -9,7 +9,7 @@
     width: 100%;
 }
 
-.profile-container {
+.profile-container-wrap {
     display: flex;
     background-color: #31463E;
     padding: 40px 30px;
@@ -142,7 +142,13 @@ input {
     background-color: #2980b9;
 }
 
-.alert-hide{
+.alert-hide {
+    visibility: hidden;
+    display: none;
+}
+
+
+.alert-show{
     font-family: var(--sen);
     font-size: 8px;
     color: var(--Red);

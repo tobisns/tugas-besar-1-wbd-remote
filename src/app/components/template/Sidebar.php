@@ -57,13 +57,13 @@
             </a>
         </li>
         <li class="logout-bar">
-            <form action="<?= BASE_URL ?>/user/logout" method="post">
+            <form class="form-sidebar" action="<?= BASE_URL ?>/user/logout" method="post">
+                <?=
+                TokenMiddleware::getInputToken('logout');
+                ?>
                 <div class="logout-container">
-                    <?=
-                    TokenMiddleware::getInputToken('logout');
-                    ?>
                     <img class="logout-icon" src="<?= BASE_URL ?>/assets/images/icon_logout_default.svg" alt="logout">
-                    <button type="submit" class="logout-text">Log out</button>
+                    <button class="logout-text">logout</button>
                 </div>
             </form>
         </li>

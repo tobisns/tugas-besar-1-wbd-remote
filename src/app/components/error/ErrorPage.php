@@ -8,11 +8,11 @@
     <link rel="icon" type="image/x-icon" href="<?= BASE_URL ?>/assets/images/favicon.ico">
     <!-- Global CSS -->
     <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/template/globals.css">
-    <title>Page not found!</title>
+    <title>Page Error!</title>
 </head>
 
 <body>
-    <h1 class="main-text">Sorry, we couldn't find the page that you were looking for!</h1>
+<h1 class="main-text">Error page!</h1>
 </body>
 
 </html>

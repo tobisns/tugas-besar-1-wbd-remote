@@ -220,4 +220,6 @@
     font-size: 20px;
     color: var(--darker-Red);
     justify-content: center;
+    background-color: transparent;
+    border: none;
 }

@@ -1,0 +1,141 @@
+@import "../template/globals.css";
+@import "../template/sidebar.css";
+
+html,body{
+    display: flex;
+    justify-content: baseline;
+    align-items: center;
+    place-items: center;
+    height: 100vh;
+    width: 100%;
+    background-color: var(--primaryColor-9);
+}
+
+.explorepage-container {
+    position: sticky;
+    width: 80%;
+    min-height: 85%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    top: 0;
+    left: 30vh;
+    margin-top: 3vh;
+    margin-bottom: 12vh;
+    background-color: var(--black);
+    border-radius: 10px;
+    padding: 4vh;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.search-bar {
+    width: 60%;
+    padding: 10px;
+    height: fit-content;
+    background-color: white;
+    border-width: 1px;
+    border-color: var(--primaryColor-6);
+    border-radius: 20px;
+    color: var(--black);
+    font-size: 16px;
+    justify-content: center;
+}
+
+.filter-genre-container {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+.filter-genre-container h4 {
+    color: white;
+    width: 100%;
+}
+.filter-genre-list {
+    width: fit-content;
+    padding: 10px;
+    justify-items: center;
+    border-radius: 20px;
+    border: 2px solid white;
+}
+
+.filter-artist-container {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+.filter-artist-container h4 {
+    color: white;
+    width: 100%;
+}
+.filter-artist-list {
+    width: fit-content;
+    padding: 10px;
+    justify-items: center;
+    border-radius: 20px;
+    border: 2px solid white;
+}
+
+.sort-container {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+.sort-container h4 {
+    color: white;
+    /* width: 100%; */
+}
+.sort-list {
+    width: 100%;
+    padding: 10px;
+    justify-items: center;
+    border-radius: 20px;
+    border: 2px solid white;
+}
+
+.search-content {
+    width: 100%;
+}
+
+.search-song-container {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+.search-song-cover {
+    width: 9vh;
+}
+.search-cover-img {
+    width: 75%;
+    border-radius: 10px;
+}
+.search-song-title {
+    color: white;
+    font-size: 16px;
+    width: 50%;
+}
+.search-song-artist {
+    color: white;
+    font-size: 16px;
+    font-weight: lighter;
+    width: 50%;
+}
+.search-song-like {
+    width: 25px;
+}

@@ -6,7 +6,7 @@ require_once __DIR__ . '/../core/AccessStorage.php';
 require_once __DIR__ . '/../middlewares/TokenMiddleware.php';
 require_once __DIR__ . '/../middlewares/AuthenticationMiddleware.php';
 
-class HomeController extends Controller implements ControllerInterface{
+class ExploreController extends Controller implements ControllerInterface{
     public function index(){
         try {
             switch ($_SERVER['REQUEST_METHOD']) {
@@ -14,8 +14,8 @@ class HomeController extends Controller implements ControllerInterface{
                     // $isAuth = new AuthenticationMiddleware();
                     // $result = $isAuth->isAuthenticated();
 
-                    $homeView = $this->view('home', 'HomeView');
-                    $homeView->render();
+                    $exploreView = $this->view('song', 'ExploreView');
+                    $exploreView->render();
                     exit;
                 default:
                     throw new Exception('Method Not Allowed', 405);
@@ -23,7 +23,10 @@ class HomeController extends Controller implements ControllerInterface{
         } catch (Exception $e) {
             http_response_code($e->getCode());
         }
-        // $homeView = $this->view('home', 'HomeView');
-        // $homeView->render();
+
+        // $isAuth = new AuthenticationMiddleware();
+        //             $result = $isAuth->isAuthenticated();
+        // $exploreView = $this->view('song', 'exploreView');
+        // $exploreView->render();
     }
 }

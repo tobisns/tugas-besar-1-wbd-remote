@@ -1,6 +1,6 @@
 <?php
 
-class HomeView implements ViewInterface{
+class ExploreView implements ViewInterface{
     private $data;
     public function __construct($data = []){
         $this->data = $data;
@@ -8,6 +8,6 @@ class HomeView implements ViewInterface{
     }
 
     public function render(){
-        require_once __DIR__ . '/../../components/home/Home.php';
+        require_once __DIR__ . '/../../components/song/Explore.php';
     }
 }

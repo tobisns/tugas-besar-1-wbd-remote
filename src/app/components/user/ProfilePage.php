@@ -8,7 +8,6 @@
     <link rel="icon" type="image/x-icon" href="<?= BASE_URL ?>/assets/images/favicon.ico">
     <!-- Global CSS -->
     <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/template/globals.css">
-    <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/template/sidebar.css">
     <!-- Specific CSS -->
     <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/user/profile.css">
     <!-- JavaScript Constant and Variables -->
@@ -101,6 +100,7 @@
             </form>
         </div>
     </div>
+    <?php include(dirname(__DIR__) . '/template/Player.php') ?>
 </div>
 </body>
 

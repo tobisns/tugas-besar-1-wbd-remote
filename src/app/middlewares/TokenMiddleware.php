@@ -2,20 +2,18 @@
 
 class TokenMiddleware
 {
-    protected static function setNewToken(string $page, int $expiry) {
+    public static function setNewToken(string $page, int $expiry = 1800) {
 
         $token = new \stdClass();
         $token->page   = $page;
         $token->expiry = time() + $expiry;
         $token->sessiontoken  = base64_encode(random_bytes(32));
         $token->cookietoken   = md5(base64_encode(random_bytes(32)));
-        ob_start();
         setcookie(self::makeCookieName($page), $token->cookietoken, $token->expiry);
-        ob_end_flush();
         return $_SESSION['csrftokens'][$page] = $token;
     }
 
-    protected static function getSessionToken(string $page) {
+    public static function getSessionToken(string $page) {
 
         return !empty($_SESSION['csrftokens'][$page]) ? $_SESSION['csrftokens'][$page] : null;
     }

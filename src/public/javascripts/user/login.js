@@ -74,7 +74,7 @@ loginForm.addEventListener("submit", async (e) => {
         payload: formData,
     })
         .then((response) => {
-            location.replace("http:\/\/localhost:8080\/public\/user");
+            location.replace("http:\/\/localhost:8080\/public\/home");
         })
         .catch((error) => {
             console.log(error);

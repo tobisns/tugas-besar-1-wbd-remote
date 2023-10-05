@@ -12,6 +12,9 @@ class UserController extends Controller implements ControllerInterface
         try {
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'GET':
+                    $token = (TokenMiddleware::getSessionToken('edit') ?? TokenMiddleware::setNewToken('edit'));
+                    $token = (TokenMiddleware::getSessionToken('logout') ?? TokenMiddleware::setNewToken('logout'));
+
                     $isAuth = new AuthenticationMiddleware();
                     $result = $isAuth->isAuthenticated();
 
@@ -37,12 +40,13 @@ class UserController extends Controller implements ControllerInterface
         try {
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'GET':
+                    $token = (TokenMiddleware::getSessionToken('login') ?? TokenMiddleware::setNewToken('login'));
                     $loginView = $this->view('user', 'LoginView');
                     $loginView->render();
                     exit;
                 case 'POST':
                     //prevent crsf
-                    TokenMiddleware::verifyToken('register');
+                    TokenMiddleware::verifyToken('login');
 
                     $userModel = $this->model('UserModel');
                     $result = $userModel->login(
@@ -74,6 +78,8 @@ class UserController extends Controller implements ControllerInterface
         try {
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'GET':
+                    $token = (TokenMiddleware::getSessionToken('register') ?? TokenMiddleware::setNewToken('register'));
+
                     $registerView = $this->view('user', 'RegisterView');
                     $registerView->render();
                     exit;
@@ -152,6 +158,7 @@ class UserController extends Controller implements ControllerInterface
                     TokenMiddleware::verifyToken('logout');
 
                     unset($_SESSION['username']);
+                    unset($_SESSION['music']);
                     header('Location: ' . BASE_URL . '/user/login');
                     exit;
                 default:

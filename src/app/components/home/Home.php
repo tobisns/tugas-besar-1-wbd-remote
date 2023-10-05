@@ -11,7 +11,11 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/styles/home/home.css">
     <link rel="icon" type="image" sizes="64x64" href="<?= BASE_URL ?>/assets/images/logo.svg">
     <link rel="stylesheet" href="<?= BASE_URL ?>/styles/template/sidebar.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/styles/template/player.css">
+    <!-- Utils JS -->
+    <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/utils.js" defer></script>
+    <!-- Home JS -->
+    <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/home/home.js" defer></script>
+
     <title>Home</title>
 </head>
 
@@ -55,36 +59,13 @@
     </div>
     <h2>New Song Release</h2>
     <div class="new-song-container">
-        <div class="new-song">
-            <img class="new-song-cover" src="<?= BASE_URL ?>/assets/images/default-profpic.jpg">
-            <h3 class="new-song-title">Song Title</h3>
-            <subtitle-2 class="new-song-artist">Artist Name</subtitle-2>
-        </div>
-        <div class="new-song">
-            <img class="new-song-cover" src="<?= BASE_URL ?>/assets/images/default-profpic.jpg">
-            <h3 class="new-song-title">Song Title</h3>
-            <subtitle-2 class="new-song-artist">Artist Name</subtitle-2>
-        </div>
-        <div class="new-song">
-            <img class="new-song-cover" src="<?= BASE_URL ?>/assets/images/default-profpic.jpg">
-            <h3 class="new-song-title">Song Title</h3>
-            <subtitle-2 class="new-song-artist">Artist Name</subtitle-2>
-        </div>
-        <div class="new-song">
-            <img class="new-song-cover" src="<?= BASE_URL ?>/assets/images/default-profpic.jpg">
-            <h3 class="new-song-title">Song Title</h3>
-            <subtitle-2 class="new-song-artist">Artist Name</subtitle-2>
-        </div>
-        <div class="new-song">
-            <img class="new-song-cover" src="<?= BASE_URL ?>/assets/images/default-profpic.jpg">
-            <h3 class="new-song-title">Song Title</h3>
-            <subtitle-2 class="new-song-artist">Artist Name</subtitle-2>
-        </div>
-        <div class="new-song">
-            <img class="new-song-cover" src="<?= BASE_URL ?>/assets/images/default-profpic.jpg">
-            <h3 class="new-song-title">Song Title</h3>
-            <subtitle-2 class="new-song-artist">Artist Name</subtitle-2>
-        </div>
+        <?php for ($i = 0; $i < 6; $i++) { ?>
+            <div class="new-song" onclick="play(<?=$i?>)">
+                <img class="new-song-cover"  src="<?= BASE_URL ?>/assets/images/default-profpic.jpg">
+                <h3 class="new-song-title">Song Title</h3>
+                <subtitle-2 class="new-song-artist">Artist Name</subtitle-2>
+            </div>
+        <?php }?>
     </div>
 </div>
 <div>

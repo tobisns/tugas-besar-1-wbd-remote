@@ -44,7 +44,7 @@
                         <p id="password-alert" class="alert-hide">Please fill out your password first!</p>
                     </div>
                     <?=
-                    TokenMiddleware::getInputToken('register');
+                    TokenMiddleware::getInputToken('login');
                     ?>
                     <div class="form-button">
                         <p id="login-alert" class="alert-hide">Wrong username/password!</p>

@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/template/sidebar.css">
 <div class="sidebar">
     <div class="head-logo">
         <img class="logo-icon" src="<?= BASE_URL ?>/assets/images/logo.svg" alt="muse logo">
@@ -5,7 +6,7 @@
 
     <ul class="menu-page">
         <li class="home-bar">
-            <a href="#">
+            <a href="<?= BASE_URL ?>/home">
                 <div class="home-container">
                     <img class="home-icon" src="<?= BASE_URL ?>/assets/images/icon_home_default.svg" alt="home">
                     <span class="home-text">Home</span>
@@ -23,7 +24,7 @@
     </ul>
     <ul class="menu-user">
         <li class="profile-bar">
-            <a href="#">
+            <a href="<?= BASE_URL ?>/user">
                 <div class="profile-container">
                     <img class="profile-icon" src="<?= BASE_URL ?>/assets/images/icon_profile_default.svg" alt="profile">
                     <span class="profile-text">Profile</span>

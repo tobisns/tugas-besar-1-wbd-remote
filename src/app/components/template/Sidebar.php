@@ -31,14 +31,6 @@
                 </div>
             </a>
         </li>
-        <li class="like-bar">
-            <a href="#">
-                <div class="like-container">
-                    <img class="like-icon" src="<?= BASE_URL ?>/assets/images/icon_like_default.svg" alt="liked songs">
-                    <span class="like-text">Liked Songs</span>
-                </div>
-            </a>
-        </li>
         <li class="admin-bar">
             <a href="#">
                 <div class="admin-container">

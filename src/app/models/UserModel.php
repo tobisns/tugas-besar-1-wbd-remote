@@ -17,7 +17,13 @@ class UserModel
 
         $result = pg_execute($conn, "my_query", array($params));
 
-        return  pg_fetch_all($result)[0]["username"] == $params;
+        $user = pg_fetch_assoc($result);
+
+        if(empty($user["username"])){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     public function register(
@@ -60,7 +66,7 @@ class UserModel
 
         // Check if a user with the given username exists
         if (!$user) {
-            return "usernotexist"; // User does not exist
+            return false; // User does not exist
         }
         $hash = substr( $user['password_hash'], 0, 60 );
         // Verify the password against the hashed password stored in the database

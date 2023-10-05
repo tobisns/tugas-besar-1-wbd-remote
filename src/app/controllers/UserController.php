@@ -14,6 +14,7 @@ class UserController extends Controller implements ControllerInterface
                 case 'GET':
                     $isAuth = new AuthenticationMiddleware();
                     $result = $isAuth->isAuthenticated();
+
                     $profileView = $this->view('user', 'ProfileView');
                     $profileView->render();
                     exit;
@@ -47,17 +48,13 @@ class UserController extends Controller implements ControllerInterface
                     if($result){
                         http_response_code(201);
                         $_SESSION["username"] = $result;
+                        echo $_SESSION["username"];
                         exit;
                     }else{
                         http_response_code(401);
                         echo "Login Gagal";
                         exit;
                     }
-
-
-                    http_response_code(201);
-
-                    return $uploadedImage;
                 default:
                     throw new Exception('Method Not Allowed', 405);
             }
@@ -98,7 +95,7 @@ class UserController extends Controller implements ControllerInterface
                         echo json_encode(["redirect_url" => BASE_URL . "/user/login"]);
                         exit;
                     }else{
-                        http_response_code(201);
+                        http_response_code(401);
                         echo "Registrasi Gagal";
                         exit;
                     }
@@ -121,6 +118,8 @@ class UserController extends Controller implements ControllerInterface
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'GET':
                     $userModel = $this->model('UserModel');
+                    header('Content-Type: application/json');
+                    http_response_code(201);
                     if($userModel->isUsernameExists($_GET["username"])){
                         echo "true";
                     }else{
@@ -139,34 +138,16 @@ class UserController extends Controller implements ControllerInterface
     {
         try {
             switch ($_SERVER['REQUEST_METHOD']) {
-                case 'GET':
-                    $loginView = $this->view('user', 'LoginView');
-                    $loginView->render();
-                    exit;
                 case 'POST':
                     //prevent crsf
-                    TokenMiddleware::verifyToken('register');
+                    TokenMiddleware::verifyToken('logout');
+                    //check auth
+                    $isAuth = new AuthenticationMiddleware();
+                    $result = $isAuth->isAuthenticated();
 
-                    $userModel = $this->model('UserModel');
-                    $result = $userModel->login(
-                        $_POST["username"],
-                        $_POST["password"]
-                    );
-
-                    if($result){
-                        http_response_code(201);
-                        $_SESSION["username"] = $result;
-                        exit;
-                    }else{
-                        http_response_code(401);
-                        echo "Login Gagal";
-                        exit;
-                    }
-
-
-                    http_response_code(201);
-
-                    return $uploadedImage;
+                    unset($_SESSION['username']);
+                    header('Location: ' . BASE_URL . '/user/login');
+                    exit;
                 default:
                     throw new Exception('Method Not Allowed', 405);
             }

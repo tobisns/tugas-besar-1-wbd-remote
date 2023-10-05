@@ -33,7 +33,7 @@
                 <hr class="horizontal-row"/>
                 <form class="login-form">
                     <div class="form-group">
-                        <label for="username">Email or username</label>
+                        <label for="username">Username</label>
                         <input type="text" name="username" placeholder="Username" id="username">
                         <p id="username-alert" class="alert-hide">Please fill out your username first!</p>
                     </div>

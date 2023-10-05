@@ -57,12 +57,15 @@
             </a>
         </li>
         <li class="logout-bar">
-            <a href="user/logout">
+            <form action="<?= BASE_URL ?>/user/logout" method="post">
                 <div class="logout-container">
+                    <?=
+                    TokenMiddleware::getInputToken('logout');
+                    ?>
                     <img class="logout-icon" src="<?= BASE_URL ?>/assets/images/icon_logout_default.svg" alt="logout">
-                    <span class="logout-text">Logout</span>
+                    <button type="submit" class="logout-text">Log out</button>
                 </div>
-            </a>
+            </form>
         </li>
     </ul>
 

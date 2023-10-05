@@ -4,24 +4,14 @@ async function axios({
     return new Promise((resolve,reject) => {
         const xhr = new XMLHttpRequest();
 
-        xhr.onload = ()=>{
-            return resolve(xhr.responseText);
-        }
-
-        xhr.onerror = ()=>{
-            return reject(
-                new Error(xhr.statusText)
-            );
-        }
         var hiddenInput = document.querySelector('input[name="csrftoken"]');
 
         // Check if the hidden input element exists
         if (hiddenInput) {
             // Get the value of the hidden input
             var tokenValue = hiddenInput.value;
-            console.log(tokenValue); // Output the value to the console
         } else {
-            console.log("Hidden input not found");
+            console.log("crsf token not found");
         }
 
         payload.append(
@@ -29,7 +19,6 @@ async function axios({
         )
 
         if (method !== "get"){
-            console.log(url);
             xhr.open(method,`${url}`);
             xhr.send(payload)
         }else{
@@ -39,5 +28,15 @@ async function axios({
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.send();
         }
+
+        xhr.onreadystatechange = function () {
+            if (this.readyState === XMLHttpRequest.DONE) {
+                if (this.status === 201) {
+                        resolve(this.responseText);
+                } else {
+                        reject(this.responseText);
+                }
+            }
+        };
     })
 }

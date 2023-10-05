@@ -65,7 +65,6 @@ loginForm.addEventListener("submit", async (e) => {
     const password = passwordInput.value;
 
     const formData = new FormData();
-    console.log(password);
     formData.append("username", username);
     formData.append("password", password);
 

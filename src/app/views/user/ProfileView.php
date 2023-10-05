@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../middlewares/TokenMiddleware.php';
 
 class profileView implements ViewInterface
 {

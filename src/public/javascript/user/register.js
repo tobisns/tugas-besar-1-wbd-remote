@@ -40,7 +40,6 @@ usernameInput.addEventListener(
             url:"/public/user/username",
             payload: formData
         }).then((e)=>{
-            console.log(e);
             if (invalidRegex.test(username)) {
                 usernameAlert.innerText = "Invalid username format!";
                 usernameAlert.className = "alert-show";
@@ -55,7 +54,7 @@ usernameInput.addEventListener(
                 usernameValid = true;
             }
         }).catch((e)=>{
-            console.log(e)
+            console.log("error")
         })
 
 

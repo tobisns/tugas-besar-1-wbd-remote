@@ -9,9 +9,9 @@ class TokenMiddleware
         $token->expiry = time() + $expiry;
         $token->sessiontoken  = base64_encode(random_bytes(32));
         $token->cookietoken   = md5(base64_encode(random_bytes(32)));
-
+        ob_start();
         setcookie(self::makeCookieName($page), $token->cookietoken, $token->expiry);
-
+        ob_end_flush();
         return $_SESSION['csrftokens'][$page] = $token;
     }
 

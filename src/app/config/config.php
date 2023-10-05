@@ -19,3 +19,5 @@ define('ALLOWED_IMAGES', [
     'image/jpeg' => '.jpeg',
     'image/png' => '.png'
 ]);
+//SESSION
+define('SESSION_TIME',30*60);

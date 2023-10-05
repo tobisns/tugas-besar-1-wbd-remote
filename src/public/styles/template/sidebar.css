@@ -210,6 +210,15 @@
     padding-bottom: 5px;
     padding-left: 15px;
 }
+
+.logout-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 12px;
+}
+
+
 .logout-icon {
     width: 3.5vh;
     height: auto;

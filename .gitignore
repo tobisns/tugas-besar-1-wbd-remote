@@ -1,3 +1,4 @@
 .env
+.ide
 pg_data/
 src/storage

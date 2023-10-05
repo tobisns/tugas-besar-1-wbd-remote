@@ -146,7 +146,6 @@ class UserController extends Controller implements ControllerInterface
                 case 'POST':
                     //check auth
                     $isAuth = new AuthenticationMiddleware();
-                    var_dump($_SESSION['username']);
                     $result = $isAuth->isAuthenticated();
 
                     //prevent crsf

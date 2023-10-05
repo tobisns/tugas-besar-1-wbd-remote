@@ -72,7 +72,6 @@
             </div>
             <div class="pagination"></div>
         </div>
-        <script src="<?= BASE_URL ?>/javascripts/admin/album_list.js"></script>
     </body>
     
 </add_album>

@@ -11,14 +11,6 @@ html,body{
     background-color: var(--primaryColor-9);
 }
 
-.sidebar-container {
-    position: sticky;
-    padding: 0;
-    margin: 0;
-    top: 0;
-    left: 0;
-}
-
 .homepage-container {
     position: sticky;
     width: 80%;

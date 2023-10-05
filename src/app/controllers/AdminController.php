@@ -46,17 +46,20 @@ class AdminController extends Controller implements ControllerInterface
         
     }
 
-    public function get_sub_div($content){
+    public function get_sub_div($content, $page=1){
         try {
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'GET':
+                    $isAuth = new AuthenticationMiddleware();
+                    $result = $isAuth->isAdmin();
+
                     $albumModel = $this->model('AlbumModel');
                     ob_start(); // capture script output
                     if ($content == 'albums') {
-                        $res = $albumModel->readAlbumPaged(1);
+                        $res = $albumModel->readAlbumPaged($page);
                         $total_page = ceil($albumModel->albumCount() / 5);
                         
-                        $adminAlbumView = $this->view('admin', 'AdminAlbumSongView', ['total_page' => $total_page, 'albums' => $res, 'songs' => null]);
+                        $adminAlbumView = $this->view('admin', 'AdminAlbumSongView', ['current_page' => $page, 'total_page' => $total_page, 'albums' => $res, 'songs' => null]);
                         $adminAlbumView->render_album();
                     } else {
                         $res = $albumModel->readAlbumPaged(2);

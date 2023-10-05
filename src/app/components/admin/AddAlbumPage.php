@@ -58,22 +58,26 @@
                     <button class=pagination-button>1</button>
                     <button class=pagination-button>2</button>
                     <button class=pagination-button>...</button>
-                    <button class=pagination-button><?php echo $this->data['current_page'] - 2; ?></button>
-                    <button class=pagination-button><?php echo $this->data['current_page'] - 1; ?></button>
-                    <button class=pagination-button><?php echo $this->data['current_page']; ?></button>
+                    <?php if((int) $this->data['total_page'] > $this->data['current_page'] + 5) : ?>
+                        <button class=pagination-button><?php echo $this->data['current_page'] - 2; ?></button>
+                        <button class=pagination-button><?php echo $this->data['current_page'] - 1; ?></button>
+                    <?php endif; ?>
                 <?php else : ?>
-                    <?php for ($i = 1; $i <= $this->data['current_page']; $i++) : ?>
+                    <?php for ($i = 1; $i < min(max($this->data['current_page'], 6), $this->data['total_page']); $i++) : ?>
                         <button class=pagination-button><?php echo  $i;?></button>
                     <?php endfor; ?>
                 <?php endif; ?>
                 <?php if((int) $this->data['total_page'] > $this->data['current_page'] + 5) : ?>
-                    <button class=pagination-button><?php echo $this->data['current_page'] + 1; ?></button>
-                    <button class=pagination-button><?php echo $this->data['current_page'] + 2; ?></button>
+                    <?php if((int) $this->data['current_page'] > 5) : ?>
+                        <button class=pagination-button><?php echo max($this->data['current_page'],5); ?></button>
+                    <?php endif; ?>
+                    <button class=pagination-button><?php echo max($this->data['current_page'],5) + 1; ?></button>
+                    <button class=pagination-button><?php echo max($this->data['current_page'],5) + 2; ?></button>
                     <button class=pagination-button>...</button>
                     <button class=pagination-button><?php echo $this->data['total_page'] + -1; ?></button>
                     <button class=pagination-button><?php echo $this->data['total_page']; ?></button>
-                <?php else : ?>
-                    <?php for ($i = $this->data['current_page'] + 1; $i <= $this->data['total_page']; $i++) : ?>
+                <?php elseif($this->data['total_page'] > 10) : ?>
+                    <?php for ($i =  $this->data['total_page'] - 6; $i <= $this->data['total_page']; $i++) : ?>
                         <button class=pagination-button><?php echo  $i;?></button>
                     <?php endfor; ?>
                 <?php endif; ?>

@@ -1,8 +1,6 @@
-music = document.getElementById("song1")
-
-function play(params) {
+function play(id) {
     const formData = new FormData();
-    formData.append("song_id", params);
+    formData.append("song_id", id);
     axios({
         method:"get",
         url:"/public/song/",

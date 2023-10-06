@@ -14,13 +14,13 @@ html,body{
 .homepage-container {
     position: sticky;
     width: 80%;
-    min-height: 85%;
+    height: 86%;
+    scroll-behavior:smooth;
     overflow-x: hidden;
     overflow-y: auto;
     top: 0;
     left: 30vh;
-    margin-top: 3vh;
-    margin-bottom: 12vh;
+    margin-bottom: 8.5vh;
     background-color: var(--black);
     border-radius: 10px;
     padding: 4vh;
@@ -66,17 +66,22 @@ html,body{
     font-size: 14px;
 }
 
-.new-song-container {
+.new-song-list {
     display: flex;
+    flex: 1;
     flex-direction: row;
+    overflow: hidden;
     gap: 10px;
     width: 100%;
 }
 .new-song {
     background-color: var(--primaryColor-6);
     border-radius: 10px;
-    height: fit-content;
+    height: 100%;
+    max-width: 100%;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
 }
 .new-song-cover {
     width: 100%;
@@ -84,7 +89,9 @@ html,body{
 }
 .new-song-title {
     margin-top: 5px;
+    font-size: 16px;
     color: white;
+    font-weight: bold;
 }
 .new-song-artist {
     color: white;

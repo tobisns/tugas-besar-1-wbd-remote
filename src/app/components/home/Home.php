@@ -37,14 +37,16 @@
         <?php endwhile; ?>
     </div>
     <h2>New Song Release</h2>
-    <div class="new-song-container">
-        <?php for ($i = 0; $i < 6; $i++) { ?>
-            <div class="new-song" onclick="play(<?=$i?>)">
-                <img class="new-song-cover"  src="<?= BASE_URL ?>/assets/images/default-profpic.jpg">
-                <h3 class="new-song-title">Song Title</h3>
-                <subtitle-2 class="new-song-artist">Artist Name</subtitle-2>
-            </div>
-        <?php }?>
+    <div class="new-song-list">
+        <?php while ($song = pg_fetch_array($this->data['songs'])) : ?>
+            <a href="#">
+                <div class="new-song">
+                    <img class="new-song-cover" src="<?= STORAGE_URL ?>/images/<?= $song['cover_file'] ?>">
+                    <div class="new-song-title"><?php echo $song['title']?></div>
+                    <div class="new-song-artist"><?php echo $song['name']?></div>
+                </div>
+            </a>
+        <?php endwhile; ?>
     </div>
 </div>
 <div>

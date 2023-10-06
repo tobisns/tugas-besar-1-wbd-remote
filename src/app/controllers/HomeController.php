@@ -18,8 +18,9 @@ class HomeController extends Controller implements ControllerInterface{
                     
                     $homeModel = $this->model('HomeModel');
                     $newAlbums = $homeModel->fetchNewAlbums();
+                    $newSongs = $homeModel->fetchNewSongs();
 
-                    $homeView = $this->view('home', 'HomeView', ['albums' => $newAlbums]);
+                    $homeView = $this->view('home', 'HomeView', ['albums' => $newAlbums, 'songs' => $newSongs]);
                     $homeView->render();
                     break;
                 default:

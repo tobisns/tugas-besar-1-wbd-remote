@@ -1,4 +1,4 @@
-let newAlbumList = document.querySelector('.new-album-list');
+// let newAlbumList = document.querySelector('.new-album-list');
 
 function play(id) {
     const formData = new FormData();
@@ -22,33 +22,33 @@ function play(id) {
 }
 
 
-let listAlbum = [];
-let albums = [{
-    id: 1,
-    title: 'La La Land',
-    artist: 'Some Artists',
-    image: '../../../storage/images/contoh.jpg'
-}, {
-    id: 2,
-    title: 'Nicole',
-    artist: 'NIKI',
-    image: '../../../storage/images/contoh.jpg'
-}, {
-    id: 3,
-    title: 'Viva La Vida and the Death of His Friends',
-    artist: 'Coldplay',
-    image: '../../../storage/images/contoh.jpg'
-}, {
-    id: 4,
-    title: 'Fearless',
-    artist: 'Taylor Swift',
-    image: '../../../storage/images/contoh.jpg'
-}, {
-    id: 5,
-    title: 'folklore',
-    artist: 'Taylor Swift',
-    image: '../../../storage/images/contoh.jpg'
-}]
+// let listAlbum = [];
+// let albums = [{
+//     id: 1,
+//     title: 'La La Land',
+//     artist: 'Some Artists',
+//     image: '../../../storage/images/contoh.jpg'
+// }, {
+//     id: 2,
+//     title: 'Nicole',
+//     artist: 'NIKI',
+//     image: '../../../storage/images/contoh.jpg'
+// }, {
+//     id: 3,
+//     title: 'Viva La Vida and the Death of His Friends',
+//     artist: 'Coldplay',
+//     image: '../../../storage/images/contoh.jpg'
+// }, {
+//     id: 4,
+//     title: 'Fearless',
+//     artist: 'Taylor Swift',
+//     image: '../../../storage/images/contoh.jpg'
+// }, {
+//     id: 5,
+//     title: 'folklore',
+//     artist: 'Taylor Swift',
+//     image: '../../../storage/images/contoh.jpg'
+// }]
 
 
 

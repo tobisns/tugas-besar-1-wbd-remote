@@ -40,7 +40,7 @@
     <div class="new-song-list">
         <?php while ($song = pg_fetch_array($this->data['songs'])) : ?>
             <a href="#">
-                <div class="new-song">
+                <div class="new-song" onclick="play(<?=$song['music_id']?>)">
                     <img class="new-song-cover" src="<?= STORAGE_URL ?>/images/<?= $song['cover_file'] ?>">
                     <div class="new-song-title"><?php echo $song['title']?></div>
                     <div class="new-song-artist"><?php echo $song['name']?></div>
@@ -53,6 +53,6 @@
     <?php include(dirname(__DIR__) . '/template/Player.php') ?>
 </div>
 
-<!-- <script src="<?= BASE_URL ?>/javascripts/home/home.js"></script> -->
+<script src="<?= BASE_URL ?>/javascripts/home/home.js"></script>
 
 </html>

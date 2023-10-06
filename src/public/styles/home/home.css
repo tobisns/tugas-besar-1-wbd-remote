@@ -34,17 +34,22 @@ html,body{
     margin: 35px 0px 15px 0px;
 }
 
-.new-album-container {
+.new-album-list {
     display: flex;
+    flex: 1;
     flex-direction: row;
+    overflow: hidden;
     gap: 10px;
     width: 100%;
 }
 .new-album {
     background-color: var(--primaryColor-6);
     border-radius: 10px;
-    height: fit-content;
+    height: 100%;
+    max-width: 100%;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
 }
 .new-album-cover {
     width: 100%;
@@ -52,7 +57,9 @@ html,body{
 }
 .new-album-title {
     margin-top: 5px;
+    font-size: 16px;
     color: white;
+    font-weight: bold;
 }
 .new-album-artist {
     color: white;

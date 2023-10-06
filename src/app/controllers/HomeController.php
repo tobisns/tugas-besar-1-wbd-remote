@@ -11,12 +11,17 @@ class HomeController extends Controller implements ControllerInterface{
         try {
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'GET':
-                    $isAuth = new AuthenticationMiddleware();
-                     $result = $isAuth->isAuthenticated();
+                    // $isAuth = new AuthenticationMiddleware();
+                    //  $result = $isAuth->isAuthenticated();
 
-                    $homeView = $this->view('home', 'HomeView');
+                    // $this->model('HomeModel')->check();
+                    
+                    $homeModel = $this->model('HomeModel');
+                    $newAlbums = $homeModel->fetchNewAlbums();
+
+                    $homeView = $this->view('home', 'HomeView', ['albums' => $newAlbums]);
                     $homeView->render();
-                    exit;
+                    break;
                 default:
                     throw new Exception('Method Not Allowed', 405);
             }

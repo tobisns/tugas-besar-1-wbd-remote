@@ -23,11 +23,11 @@ class AdminController extends Controller implements ControllerInterface
 
                         $total_page = ceil($albumModel->albumCount() / 5);
 
-                        $adminAlbumView = $this->view('admin', 'AdminAlbumSongView', ['current_page' => $page, 'total_page' => $total_page, 'content' => $sub_div, 'albums' => $res, 'songs' => null]);
+                        $adminAlbumView = $this->view('admin', 'AdminView', ['current_page' => $page, 'total_page' => $total_page, 'content' => $sub_div, 'albums' => $res, 'songs' => null]);
                         $adminAlbumView->render();
                     } else if($sub_div == 'songs') {
                         $res = $albumModel->readAlbumPaged($page);
-                        $adminSongView = $this->view('admin', 'AdminAlbumSongView', ['content' => $sub_div, 'albums' => $res, 'songs' => null]);
+                        $adminSongView = $this->view('admin', 'AdminView', ['content' => $sub_div, 'albums' => $res, 'songs' => null]);
                         $adminSongView->render();
                     } else {
                         $notFoundView = $this->view('not-found', 'NotFoundView');
@@ -83,5 +83,24 @@ class AdminController extends Controller implements ControllerInterface
             exit;
         }
         
+    }
+
+    public function test(){
+        try {
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    json_encode($_GET);
+                    http_response_code(201);
+                    echo (json_encode($_GET));
+                    exit;
+
+                    break;
+                default:
+                    throw new LoggedException('Method Not Allowed', 405);
+            }
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+            exit;
+        }
     }
 }

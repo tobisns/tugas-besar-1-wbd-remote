@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="<?= BASE_URL ?>/assets/images/favicon.ico">
     <!-- Global CSS -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/styles/template/global.css">
     <!-- Page CSS -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/styles/song/explore.css">
-    <link rel="icon" type="image" sizes="64x64" href="<?= BASE_URL ?>/assets/images/logo.svg">
     <link rel="stylesheet" href="<?= BASE_URL ?>/styles/template/sidebar.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/styles/template/player.css">
     <!-- Icon Lib -->
@@ -21,54 +21,65 @@
     <?php include(dirname(__DIR__) . '/template/Sidebar.php') ?>
 </aside>
 <div class="explorepage-container">
+    <!-- <div class="tab">
+        <button class="tab-album">Album</button>
+        <button class="tab-song">Song</button>
+    </div> -->
     <div class="search-container">
-        <input class="search-bar" type="text" placeholder="Search songs and albums...">
-        <div class="filter-genre-container">
-            <h4>Genre: </h4>
-            <select class="filter-genre-list" name="filter-genre-list[]">
-                <option value="filter-genre-classic">Classic</option>
-                <option value="filter-genre-jazz">Jazz</option>
-                <option value="filter-genre-pop">Pop</option>
-                <option value="filter-genre-rock">Rock</option>
-            </select>
-        </div>
-        <div class="filter-artist-container">
-            <h4>Artist: </h4>
-            <select class="filter-artist-list" name="filter-artist-list[]">
-                <option value="filter-artist-1">Dummy Artist 1</option>
-                <option value="filter-artist-2">Dummy Artist 2</option>
-                <option value="filter-artist-3">Dummy Artist 3</option>
-                <option value="filter-artist-4">Dummy Artist 4</option>
-            </select>
-        </div>
-        <div class="sort-container">
-            <h4>Sort: </h4>
-            <select class="sort-list" name="sort-list[]">
-                <option value="sort-album-asc">Title (A-Z)</option>
-                <option value="sort-album-desc">Title (Z-A)</option>
-                <option value="sort-album-asc">Release Date (Latest)</option>
-                <option value="sort-album-desc">Release Date (Earliest)</option>
-            </select>
-        </div>
+        <form action="<?= BASE_URL ?>/song/search" METHOD="GET" class="search-form">
+            <input class="search-bar" type="text" id="search" name="keyword" placeholder="Search songs and albums...">
+            <div class="filter-type-container">
+                <h4>Type: </h4>
+                <select class="filter-type-list" name="filtertype" id="filtertype">
+                    <option value="albums" <?php if (isset($_GET['filtertype']) && $_GET['filtertype'] == 'albums') : ?> selected="selected" <?php endif; ?>>Albums</option>
+                    <option value="songs" <?php if (isset($_GET['filtertype']) && $_GET['filtertype'] == 'songs') : ?> selected="selected" <?php endif; ?>>Songs</option>
+                </select>
+            </div>
+            <div class="filter-genre-container">
+                <h4>Genre: </h4>
+                <select class="filter-genre-list" name="filtergenre" id="filtergenre">
+                    <option value="all">All genre</option>
+
+                    <?php while ($genres = pg_fetch_array($this->data['genres'])) : ?>
+                        <option value="<?= $genres['genre'] ?>">
+                            <?php echo $genres['genre']?>
+                        </option>
+                    <?php endwhile; ?>
+
+                </select>
+            </div>
+            <div class="sort-container">
+                <h4>Sort: </h4>
+                <select class="sort-list" name="sort" id="sort">
+                    <option value="title asc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'title asc') : ?> selected="selected" <?php endif; ?>>Title (A-Z)</option>
+                    <option value="title desc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'title desc') : ?> selected="selected" <?php endif; ?>>Title (Z-A)</option>
+                    <option value="upload_date asc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'upload_dateasc') : ?> selected="selected" <?php endif; ?>>Release Date (Latest)</option>
+                    <option value="upload_date desc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'upload_date desc') : ?> selected="selected" <?php endif; ?>>Release Date (Earliest)</option>
+                </select>
+            </div>
+            <div class="search-button-container">
+                <button type="submit" class="search-button">Search</button>
+            </div>
+        </form>
     </div>
 
-    <div class="search-content">
-        <div class="search-song-container">
-            <div class="search-song-cover">
-                <img class="cover-img" src="<?= BASE_URL ?>/assets/images/default-profpic.jpg">
-            </div>
-            <h3 class="search-song-title">Song Title</h3>
-            <h3 class="search-song-artist">Artist Name</h3>
-            <div class="search-song-like">
-                <img class="cover-img" src="<?= BASE_URL ?>/assets/images/icon_like_default.svg">
-            </div>
-        </div>
+    <div class="result-container">
+        <?php 
+            if($this->data['filtertype'] == 'songs'){
+                require_once(dirname(__DIR__) . '/song/Song.php');
+            } else {
+                require_once(dirname(__DIR__) . '/album/Album.php');
+            } 
+        ?>
+
+        
     </div>
-    
 
 </div>
 <div>
     <?php include(dirname(__DIR__) . '/template/Player.php') ?>
 </div>
+
+<script src="<?= BASE_URL ?>/javascripts/song/explore.js"></script>
 
 </html>

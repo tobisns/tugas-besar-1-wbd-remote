@@ -1,0 +1,42 @@
+.result-song-list {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+.result-song-cover {
+    width: 9vh;
+    display: inline-block;
+    position: relative;
+}
+.result-cover-img {
+    width: 75%;
+    border-radius: 10px;
+}
+.result-song-title {
+    color: white;
+    font-size: 16px;
+    width: 35%;
+}
+.result-song-artist {
+    color: white;
+    font-size: 16px;
+    font-weight: lighter;
+    width: 35%;
+}
+.result-song-genre {
+    color: white;
+    font-size: 16px;
+    font-weight: lighter;
+    width: 25%;
+}
+.result-song-duration {
+    color: white;
+    font-size: 16px;
+    font-weight: lighter;
+    width: 5%;
+}

@@ -14,7 +14,19 @@ class ExploreController extends Controller implements ControllerInterface{
                     // $isAuth = new AuthenticationMiddleware();
                     // $result = $isAuth->isAuthenticated();
 
-                    $exploreView = $this->view('song', 'ExploreView');
+                    $keyword = '';
+                    if (isset($_GET['keyword'])) {
+                        $keyword = $_GET['keyword'];
+                    }
+
+                    $exploreModel = $this->model('ExploreModel');
+                    $resultGenres = $exploreModel->getGenres();
+                    // $resultAlbums = $exploreModel->searchAlbums($keyword);
+                    // $resultSongs = $exploreModel->searchSongs($keyword);
+                    $result = $exploreModel->search($keyword);
+
+                    $exploreView = $this->view('song', 'ExploreView', ['genres' => $resultGenres, 'result' => $result]);
+                    // $exploreView = $this->view('song', 'ExploreView', ['genres' => $resultGenres, 'albums' => $resultAlbums, 'songs' => $resultSongs]);
                     $exploreView->render();
                     exit;
                 default:
@@ -23,10 +35,7 @@ class ExploreController extends Controller implements ControllerInterface{
         } catch (Exception $e) {
             http_response_code($e->getCode());
         }
-
-        // $isAuth = new AuthenticationMiddleware();
-        //             $result = $isAuth->isAuthenticated();
-        // $exploreView = $this->view('song', 'exploreView');
-        // $exploreView->render();
     }
+
+    
 }

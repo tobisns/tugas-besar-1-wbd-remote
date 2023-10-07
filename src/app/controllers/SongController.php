@@ -16,19 +16,45 @@ class SongController extends controller implements ControllerInterface
                     $isAuth = new AuthenticationMiddleware();
                     $result = $isAuth->isAuthenticated();
                     $songModel = $this->model("SongModel");
-                    $user = $songModel->getSong($_GET["song_id"]);
-                    $_SESSION["music"]["id"] = $_GET["song_id"];
+                    $user = $songModel->getSong($_GET["music_id"]);
+                    $_SESSION["music"]["id"] = $_GET["music_id"];
                     if($user){
-                        http_response_code(201);
-                        echo json_encode($user) ;
-                        exit;
+                        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+                        $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : 1;
+                        $filtergenre = isset($_GET['filtergenre']) ? $_GET['filtergenre'] : 1;
+                        $sort = isset($_GET['sort']) ? $_GET['sort'] : 1;
+    
+                        $qres = $songModel->readSongsPaged($page, $keyword, $filtergenre, $sort);
+                        $total_page = ceil($songModel->songsCount($keyword) / 5);
+    
+                        if ($qres && $total_page) {
+                            $songs = array();
+                            while ($row = pg_fetch_assoc($qres)){
+                                $songs[] = $row;
+                            }
+                            $response = array(
+                                "songs" => $songs,
+                                "total_page" => $total_page
+                            );
+                            header('Content-Type: application/json');
+                            http_response_code(201);
+                            echo json_encode($user) ;
+                            exit;
+                        } else {
+                            http_response_code(401);
+                            echo "error occured";
+                            exit;
+                        }
                     }else{
                         http_response_code(401);
-                        echo $_GET["song_id"];
+                        echo $_GET["music_id"];
                         echo "Login Gagal";
                         exit;
                     }
+
+
                     exit;
+                    break;
                 default:
                     throw new Exception('Method Not Allowed', 405);
             }

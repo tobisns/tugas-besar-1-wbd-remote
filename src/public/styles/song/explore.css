@@ -29,13 +29,29 @@ html,body{
     gap: 30px;
 }
 
-.search-container {
+.tab {
     display: flex;
     flex-direction: row;
+    gap: 20px;
+}
+.tab button {
+    font-family: var(--hammersmith-one);
+    font-size: 24px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.search-container {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
     gap: 10px;
+    height: fit-content;
 }
 .search-bar {
-    width: 60%;
+    width: 40vh;
     padding: 10px;
     height: fit-content;
     background-color: white;
@@ -47,9 +63,26 @@ html,body{
     justify-content: center;
 }
 
+.filter-type-container {
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+.filter-type-container h4 {
+    color: white;
+    width: 100%;
+}
+.filter-type-list {
+    width: fit-content;
+    padding: 10px;
+    justify-items: center;
+    border-radius: 20px;
+    border: 2px solid white;
+}
+
 .filter-genre-container {
     width: fit-content;
-    height: fit-content;
     display: flex;
     flex-direction: row;
     gap: 5px;
@@ -59,25 +92,6 @@ html,body{
     width: 100%;
 }
 .filter-genre-list {
-    width: fit-content;
-    padding: 10px;
-    justify-items: center;
-    border-radius: 20px;
-    border: 2px solid white;
-}
-
-.filter-artist-container {
-    width: fit-content;
-    height: fit-content;
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-}
-.filter-artist-container h4 {
-    color: white;
-    width: 100%;
-}
-.filter-artist-list {
     width: fit-content;
     padding: 10px;
     justify-items: center;
@@ -104,11 +118,55 @@ html,body{
     border: 2px solid white;
 }
 
-.search-content {
+.search-button-container {
+    width: 100%;
+}
+.search-button {
+    background-color: var(--primaryColor-7);
+    font-family: var(--hammersmith-one);
+}
+
+.result-container {
     width: 100%;
 }
 
-.search-song-container {
+.result-list {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    overflow: hidden;
+    gap: 10px;
+    width: 100%;
+}
+.result {
+    background-color: var(--primaryColor-6);
+    border-radius: 10px;
+    height: 100%;
+    max-width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.result:hover {
+    background-color: var(--primaryColor-8);
+}
+.result:active {
+    background-color: var(--primaryColor-8);
+    transform: translateY(2px);
+}
+.result-cover {
+    width: 100%;
+    border-radius: 10px;
+}
+.result-title {
+    margin-top: 5px;
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+}
+
+
+/* .result-song-list {
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -118,24 +176,35 @@ html,body{
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
 }
-.search-song-cover {
+.result-song-cover {
     width: 9vh;
+    display: inline-block;
+    position: relative;
 }
-.search-cover-img {
+.result-cover-img {
     width: 75%;
     border-radius: 10px;
 }
-.search-song-title {
+.result-song-title {
     color: white;
     font-size: 16px;
-    width: 50%;
+    width: 35%;
 }
-.search-song-artist {
+.result-song-artist {
     color: white;
     font-size: 16px;
     font-weight: lighter;
-    width: 50%;
+    width: 35%;
 }
-.search-song-like {
-    width: 25px;
+.result-song-genre {
+    color: white;
+    font-size: 16px;
+    font-weight: lighter;
+    width: 25%;
 }
+.result-song-duration {
+    color: white;
+    font-size: 16px;
+    font-weight: lighter;
+    width: 5%;
+} */

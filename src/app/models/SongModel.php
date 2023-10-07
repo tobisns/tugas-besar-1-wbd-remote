@@ -28,4 +28,37 @@ class SongModel
             return false;
         }
     }
+
+    public function readSongsPaged($page=1, $keyword='', $filtergenre='all', $sort='title asc')
+    {
+        $offset = ((int) $page - 1) * 5;
+        if ($filtergenre==='all'){
+            $query = 
+                "SELECT music_id, cover_file, title, artist.name, duration
+                FROM music NATURAL JOIN artist
+                WHERE (title ILIKE '%{$keyword}%' OR artist.name ILIKE '%{$keyword}%')
+                ORDER BY {$sort}
+                LIMIT 5
+                OFFSET {$offset};";
+        } else {
+            $query = 
+                "SELECT music_id, cover_file, title, artist.name, duration
+                FROM music NATURAL JOIN artist
+                WHERE (title ILIKE '%{$keyword}%' OR artist.name ILIKE '%{$keyword}%') AND genre = '%{$filtergenre}%'
+                ORDER BY {$sort}
+                LIMIT 5
+                OFFSET {$offset};";
+        }
+        $result = $this->database->query($query);
+        return $result;
+    }
+
+    public function songsCount($keyword){
+        $query = "SELECT count(music_id) as count FROM music WHERE title ILIKE '%{$keyword}%'";
+        
+        $q_result = $this->database->query($query);
+        $songsCount = pg_fetch_array($q_result);
+
+        return (int) $songsCount['count'];
+    }
 }

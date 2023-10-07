@@ -3,6 +3,7 @@ var prevButton = document.querySelector(".prev-button");
 var paginationButtons = document.querySelectorAll(".pagination-button");
 var albums = document.querySelectorAll(".album");
 var albumContainer = document.querySelector(".album-container");
+var button = document.querySelector(".add-button");
 var albumState = {};
 
 const searchBar = document.querySelector(".search-bar");
@@ -13,6 +14,7 @@ reallign_album();
 reload_page_button();
 get_current_album_page();
 console.log(paginationButtons);
+
 
 albums &&
 window.addEventListener('resize', async () => {
@@ -156,6 +158,8 @@ const updateAlbumPage = (page) => {
 
         //set new url
         const currentURL = window.location.href;
+        history.pushState(null, null, currentURL);
+
         const parts = currentURL.split('/');
         let partIndex = parts.indexOf('admin');
 
@@ -202,6 +206,15 @@ function reload_page_button(){
     nextButton.addEventListener('click', () => {
         updateAlbumPage(get_current_album_page() + 1);
     })
+
+    button &&
+    button.addEventListener(
+        "click",
+        () => {
+            history.pushState(null, null, window.location.href);
+            location.replace("http:\/\/localhost:8080\/public\/admin\/add_album");
+        }
+    );
 }
 
 

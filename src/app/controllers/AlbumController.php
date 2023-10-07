@@ -15,13 +15,17 @@ class AlbumController extends Controller implements ControllerInterface
             switch($_SERVER['REQUEST_METHOD']){
                 case 'GET':
                     $isAuth = new AuthenticationMiddleware();
-                    $result = $isAuth->isAdmin();
+                    $result = $isAuth->isAuthenticated();
+
+                    $userModel = $this->model('UserModel');
+                    $user = $userModel->getUser($_SESSION['username']);
+                    $isAdmin = $userModel->isAdmin($_SESSION['username']);
 
                     $albumModel = $this->model('AlbumModel');
                     $res = $albumModel->readAlbumPaged($page);
                     $total_page = ceil($albumModel->albumCount('') / 5);
                     if($res && $total_page){
-                        $AlbumView = $this->view('album', 'AlbumView', ['current_page' => $page, 'total_page' => $total_page, 'albums' => $res]);
+                        $AlbumView = $this->view('album', 'AlbumView', ['username' => $user, 'admin' => $isAdmin, 'current_page' => $page, 'total_page' => $total_page, 'albums' => $res]);
                         ob_start();
                         $AlbumView->render();
                         $return = ob_get_clean();
@@ -46,13 +50,48 @@ class AlbumController extends Controller implements ControllerInterface
         }
         
     }
+
+    public function album_details($album_id){
+        try{
+            switch($_SERVER['REQUEST_METHOD']){
+                case 'GET':
+                    $isAuth = new AuthenticationMiddleware();
+                    $result = $isAuth->isAuthenticated();
+
+                    $albumModel = $this->model('AlbumModel');
+                    $res = $albumModel->readAlbumSongs($album_id);
+
+                    $userModel = $this->model('UserModel');
+                    $user = $userModel->getUser($_SESSION['username']);
+                    $isAdmin = $userModel->isAdmin($_SESSION['username']);
+
+                    $album = $albumModel->getAlbumData($album_id);
+                    $AlbumDetailsView = $this->view('album', 'AlbumDetailsView', ['username' => $user, 'admin' => $isAdmin, 'musics' => $res, 'album' => $album]);
+                    ob_start();
+                    $AlbumDetailsView->render();
+                    $return = ob_get_clean();
+                    header('Content-Type: text/html');
+                    http_response_code(201);
+                    echo $return;
+
+                    exit;
+                    break;
+                
+                default:
+                    throw new LoggedException('Method Not Allowed', 405);
+            }
+        } catch(Exception $e){
+            http_response_code($e->getCode());
+            exit;
+        }
+    }
     
     public function fetch(){
         try{
             switch($_SERVER['REQUEST_METHOD']){
                 case 'GET':
                     $isAuth = new AuthenticationMiddleware();
-                    $result = $isAuth->isAdmin();
+                    $result = $isAuth->isAuthenticated();
 
                     $page = isset($_GET['page']) ? $_GET['page'] : 1;
                     $search = isset($_GET['search']) ? $_GET['search'] : '';

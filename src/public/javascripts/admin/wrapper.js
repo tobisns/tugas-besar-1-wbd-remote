@@ -2,23 +2,13 @@ const dynamicContainer = document.querySelector("#dynamic-content-container");
 const albumsButton = document.querySelector("#albums-button");
 const songsButton = document.querySelector("#songs-button");
 
-const button = document.querySelector(".add-button");
-
-button &&
-button.addEventListener(
-    "click",
-    () => {
-        location.replace("http:\/\/localhost:8080\/public\/admin\/add_album");
-    }
-);
-
 albumsButton &&
 albumsButton.addEventListener('click', (e) => {
     if(e.target.checked){
         const formData = new FormData();
         axios({
             method: "GET",
-            url: `/public/album`,
+            url: `/public/album?admin=true`,
             payload: formData,
         })
         .then((response) => {
@@ -31,12 +21,15 @@ albumsButton.addEventListener('click', (e) => {
 
             nextButton = document.querySelector(".next-button");
             prevButton = document.querySelector(".prev-button");
+            button = document.querySelector(".add-button");
 
             reallign_album();
             reload_page_button();                                                                                           
 
             //set new url
             const currentURL = window.location.href;
+            history.pushState(null, null, currentURL);
+
             const parts = currentURL.split('/');
             let partIndex = parts.indexOf('admin');
 
@@ -55,17 +48,17 @@ albumsButton.addEventListener('click', (e) => {
 
 songsButton &&
 songsButton.addEventListener('click', () => {
-    const username = "aaa";
     const formData = new FormData();
-    formData.append("test", username);
     axios({
         method:"get",
-        url:"/public/admin/test",
+        url:"/public/album/album_details",
         payload: formData
-    }).then((e)=>{
-        console.log(e);
+    }).then((response)=>{
+        dynamicContainer.innerHTML = response;
         //set new url
         const currentURL = window.location.href;
+        history.pushState(null, null, currentURL);
+
         const parts = currentURL.split('/');
         let partIndex = parts.indexOf('admin');
 
@@ -103,6 +96,8 @@ const updateContainer = (content) => {
 
             //set new url
             const currentURL = window.location.href;
+            history.pushState(null, null, currentURL);
+
             const parts = currentURL.split('/');
             let partIndex = parts.indexOf('admin');
 

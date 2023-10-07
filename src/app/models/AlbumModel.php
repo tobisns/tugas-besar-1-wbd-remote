@@ -41,4 +41,18 @@ class AlbumModel
             return false;
         }
     }
+
+    public function readAlbumSongs($album_id){
+        $query = "SELECT * FROM music NATURAL JOIN album_music WHERE album_id = {$album_id}";
+        $songs = $this->database->query($query);
+
+        return $songs;
+    }
+
+    public function getAlbumData($album_id){
+        $query = "SELECT * FROM album WHERE album_id = {$album_id}";
+        $q_result = $this->database->query($query);
+
+        return pg_fetch_assoc($q_result);
+    }
 }

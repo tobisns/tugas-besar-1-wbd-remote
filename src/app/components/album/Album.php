@@ -1,4 +1,4 @@
-<add_album class="in-page-admin">
+<album class="in-page-admin">
     <head>
         <link rel="stylesheet" href="<?= BASE_URL ?>/styles/admin/album.css">
     </head>
@@ -15,7 +15,7 @@
                                     <?php if($album['cover_file'] == null) :?>
                                     <img src="<?= STORAGE_URL ?>/images/no_image.png" alt="no image!" class="cover-img">
                                     <? else : ?>
-                                    <img src="<?= STORAGE_URL ?>/images/<?= $album['cover_file'] ?>" alt="<?= $album['name'] ?>">
+                                    <img src="<?= STORAGE_URL ?>/images/<?= $album['cover_file'] ?>" alt="<?= $album['name'] ?> " class="cover-img">
                                     <?php endif; ?>
                                 </div>
                                 <div>
@@ -80,4 +80,4 @@
             <?php endif; ?>
         </div>
     </body>
-</add_album>
+</album>

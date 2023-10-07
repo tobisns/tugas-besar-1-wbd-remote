@@ -48,45 +48,6 @@ class AdminController extends Controller implements ControllerInterface
         
     }
 
-    public function get_sub_div($content, $page=1){
-        try {
-            switch ($_SERVER['REQUEST_METHOD']) {
-                case 'GET':
-                    $isAuth = new AuthenticationMiddleware();
-                    $result = $isAuth->isAdmin();
-
-                    $albumModel = $this->model('AlbumModel');
-                    ob_start(); // capture script output
-                    if ($content == 'albums') {
-                        $res = $albumModel->readAlbumPaged($page);
-                        $total_page = ceil($albumModel->albumCount('') / 5);
-                        
-                        $adminAlbumView = $this->view('admin', 'AdminAlbumSongView', ['current_page' => $page, 'total_page' => $total_page, 'albums' => $res, 'songs' => null]);
-                        $adminAlbumView->render_album();
-                    } else {
-                        $res = $albumModel->readAlbumPaged(2);
-                        
-                        $adminAlbumView = $this->view('admin', 'AdminAlbumSongView', ['total_page' => $content, 'albums' => $res, 'songs' => null]);
-                        $adminAlbumView->render_song();
-                    }
-                    $scriptContent = ob_get_clean(); // get captured output script
-
-                    header('Content-Type: text/html');
-                    http_response_code(201);
-                    echo $scriptContent;
-                    exit;
-
-                    break;
-                default:
-                    throw new LoggedException('Method Not Allowed', 405);
-            }
-        } catch (Exception $e) {
-            http_response_code($e->getCode());
-            exit;
-        }
-        
-    }
-
     public function test(){
         try {
             switch ($_SERVER['REQUEST_METHOD']) {
@@ -97,6 +58,58 @@ class AdminController extends Controller implements ControllerInterface
                     exit;
 
                     break;
+                default:
+                    throw new LoggedException('Method Not Allowed', 405);
+            }
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+            exit;
+        }
+    }
+
+    public function add_album(){
+        try {
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $token = (TokenMiddleware::getSessionToken('add') ?? TokenMiddleware::setNewToken('add'));
+
+                    $isAuth = new AuthenticationMiddleware();
+                    $result = $isAuth->isAdmin();
+
+                    $adminAlbumView = $this->view('admin', 'AddAlbumView', []);
+                    $adminAlbumView->render();
+
+                    break;
+                case 'POST':
+                    //prevent crsf
+                    TokenMiddleware::verifyToken('add');
+                    $uploadedImage = null;
+
+                    if(isset($_FILES['cover_file'])){
+                        $image = new AccessStorage("images");
+                        $uploadedImage = $image->saveImage($_FILES['cover_file']['tmp_name']);
+                    }
+
+                    $userModel = $this->model('AlbumModel');
+                    $result = $userModel->upload(
+                        $_POST["name"],
+                        $_POST["upload_date"],
+                        $uploadedImage,
+                    );
+
+                    header('Content-Type: application/json');
+
+                    if($result){
+                        http_response_code(201);
+                        echo json_encode(["redirect_url" => BASE_URL . "/admin/albums"]);
+                        exit;
+                    }else{
+                        http_response_code(500);
+                        echo "Update Gagal";
+                        exit;
+                    }
+
+                    exit;
                 default:
                     throw new LoggedException('Method Not Allowed', 405);
             }

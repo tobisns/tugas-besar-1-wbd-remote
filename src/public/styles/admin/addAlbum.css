@@ -1,0 +1,129 @@
+.black-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: black;
+}
+
+
+.gradient-body {
+    background-image: linear-gradient(rgba(255, 255, 200, 0.2) 0%, rgb(0, 0, 0) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.horizontal-row {
+    width: 70%;
+    height: 1px;
+    margin: 12px 0;
+}
+
+.register-form {
+    padding: 20px;
+    width: 70%;
+}
+
+header {
+    text-align: left;
+    width: 70%;
+}
+
+.card {
+    background-color: black;
+    width: 40%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+    height: fit-content;
+}
+
+p, label, a {
+    color: white;
+}
+
+input {
+    border-radius: 5px;
+    border: 1px solid white;
+    background: #31463e;
+    padding: 8px;
+    color: white;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin: 12px 0;
+}
+
+.form-group.upload-date {
+    display: flex;
+    flex-direction: column;
+    margin: 1px 0;
+    background-color: grey;
+}
+
+button {
+    background-color: #17D581;
+    width: 100%;
+    border: 0px;
+    border-radius: 100px;
+    padding: 8px 0;
+}
+
+.button.black-button{
+    margin-top: 32px;
+}
+
+.form-hyperlink {
+    text-align: end;
+}
+.input-file{
+    margin-top: 12px;
+}
+/* Hide the default file input */
+.hidden-input {
+    display: none;
+}
+
+
+/* Style the custom button */
+.input-button {
+    display: inline-block;
+    padding: 7px 14px;
+    background-color: #17D581;
+    color: black;
+    cursor: pointer;
+    border-radius: 100px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+/* Style the file name display */
+.file-name {
+    margin-left: 10px;
+    font-style: italic;
+    font-size: 10px;
+    color: white;
+}
+
+/* Add hover effect to the button */
+.input-button:hover {
+    background-color: #2980b9;
+}
+
+.alert-hide {
+    visibility: hidden;
+    display: none;
+}
+
+.alert-show{
+    font-family: var(--sen);
+    font-size: 8px;
+    color: var(--Red);
+}

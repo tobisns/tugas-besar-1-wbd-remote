@@ -70,7 +70,7 @@
                     <div id="dynamic-content-container">
                         <?php 
                         if($this->data['content'] == 'songs'){
-                            require_once(dirname(__DIR__) . '/admin/AddSongPage.php');
+                            require_once(dirname(__DIR__) . '/song/Explore.php');
                         } else {
                             require_once(dirname(__DIR__) . '/album/Album.php');
                         } 

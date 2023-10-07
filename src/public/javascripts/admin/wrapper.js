@@ -8,20 +8,7 @@ button &&
 button.addEventListener(
     "click",
     () => {
-        const username = "aaa";
-        const formData = new FormData();
-        formData.append("test", username);
-        axios({
-            method:"get",
-            url:"/public/admin/test",
-            payload: formData
-        }).then((e)=>{
-            console.log(e);
-        }).catch((e)=>{
-            console.log("error")
-        })
-
-
+        location.replace("http:\/\/localhost:8080\/public\/admin\/add_album");
     }
 );
 

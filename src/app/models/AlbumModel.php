@@ -27,4 +27,18 @@ class AlbumModel
 
         return (int) $albumCount['count'];
     }
+
+    public function upload($name, $upload_date, $cover_file){
+        $conn = $this->database->getConn();
+
+        $query = "INSERT INTO album(name, upload_date, cover_file) VALUES ($1, $2, $3)";
+        $result = pg_prepare($conn, "insert_user_query", $query);
+        $result = pg_execute($conn, "insert_user_query", array($name, $upload_date, $cover_file));
+
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

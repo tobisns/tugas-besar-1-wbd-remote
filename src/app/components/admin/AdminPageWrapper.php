@@ -31,15 +31,21 @@
                     <div class="switch-mode">
                         <?php 
                         if($this->data['content'] == 'songs') : ?>
-                            <input type="radio" name="switch-button" id="albums-button" class="switch-radio">
-                            <label for="albums-button" class="switch-mode-button">Albums</label>
-                            <input type="radio" name="switch-button" id="songs-button" checked="checked" class="switch-radio">
-                            <label for="songs-button" class="switch-mode-button">Songs</label>
+                            <form action="">
+                                <input type="radio" name="switch-button" id="albums-button" class="switch-radio">
+                                <label for="albums-button" class="switch-mode-button">Albums</label>
+                                <input type="radio" name="switch-button" id="songs-button" checked="checked" class="switch-radio">
+                                <label for="songs-button" class="switch-mode-button">Songs</label>
+                                <?= TokenMiddleware::getInputToken('admin') ?>
+                            </form>
                         <?php else : ?>
-                            <input type="radio" name="switch-button" id="albums-button" checked="checked" class="switch-radio">
-                            <label for="albums-button" class="switch-mode-button">Albums</label>
-                            <input type="radio" name="switch-button" id="songs-button" class="switch-radio">
-                            <label for="songs-button" class="switch-mode-button">Songs</label>
+                            <form action="">
+                                <input type="radio" name="switch-button" id="albums-button" checked="checked" class="switch-radio">
+                                <label for="albums-button" class="switch-mode-button">Albums</label>
+                                <input type="radio" name="switch-button" id="songs-button" class="switch-radio">
+                                <label for="songs-button" class="switch-mode-button">Songs</label>
+                                <?= TokenMiddleware::getInputToken('admin') ?>
+                            </form>
                         <? endif; ?>
                     </div>
                     <div class="top-util-div">
@@ -49,7 +55,7 @@
                                 <path d="M10.0625 18.9688C14.9813 18.9688 18.9688 14.9813 18.9688 10.0625C18.9688 5.14371 14.9813 1.15625 10.0625 1.15625C5.14371 1.15625 1.15625 5.14371 1.15625 10.0625C1.15625 14.9813 5.14371 18.9688 10.0625 18.9688Z" stroke="#FEFEFE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
-                        <form action="" class="search-form">
+                        <form action="<?= BASE_URL ?>/admin/albums/1" class="search-form">
                             <input type="text" name="search" class="search-bar">
                         </form>
                         <button class="add-button">
@@ -70,6 +76,7 @@
                         } 
                         ?>
                     </div>
+                    
                 </div>
             </div>
         </div>

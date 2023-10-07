@@ -19,7 +19,7 @@ class AlbumController extends Controller implements ControllerInterface
 
                     $albumModel = $this->model('AlbumModel');
                     $res = $albumModel->readAlbumPaged($page);
-                    $total_page = ceil($albumModel->albumCount() / 5);
+                    $total_page = ceil($albumModel->albumCount('') / 5);
                     if($res && $total_page){
                         $AlbumView = $this->view('album', 'AlbumView', ['current_page' => $page, 'total_page' => $total_page, 'albums' => $res]);
                         ob_start();
@@ -47,16 +47,20 @@ class AlbumController extends Controller implements ControllerInterface
         
     }
     
-    public function fetch($page){
+    public function fetch(){
         try{
             switch($_SERVER['REQUEST_METHOD']){
                 case 'GET':
                     $isAuth = new AuthenticationMiddleware();
                     $result = $isAuth->isAdmin();
 
+                    $page = isset($_GET['page']) ? $_GET['page'] : 1;
+                    $search = isset($_GET['search']) ? $_GET['search'] : '';
+                    $sort = isset($_GET['sort']) ? $_GET['sort'] : 'name';
+
                     $albumModel = $this->model('AlbumModel');
-                    $qres = $albumModel->readAlbumPaged($page);
-                    $total_page = ceil($albumModel->albumCount() / 5);
+                    $qres = $albumModel->readAlbumPaged($page, $search, $sort);
+                    $total_page = ceil($albumModel->albumCount($search) / 5);
                     if($qres && $total_page){
                         $albums = array();
                         while ($row = pg_fetch_assoc($qres)) {

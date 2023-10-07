@@ -5,6 +5,8 @@ var albums = document.querySelectorAll(".album");
 var albumContainer = document.querySelector(".album-container");
 var albumState = {};
 
+const searchBar = document.querySelector(".search-bar");
+
 var totalPage = 0;
 
 reallign_album();
@@ -30,10 +32,15 @@ window.addEventListener('resize', async () => {
 
 const updateAlbumPage = (page) => {
     console.log("fired");
+    const params = new URLSearchParams(window.location.search);
     const formData = new FormData();
+    var sort = params.get("sort");
+    var search = params.get("search");
+    if(!sort) {sort = 'name'}
+    if(!search) {search = ''}
     axios({
         method: "GET",
-        url: `/public/album/fetch/${page}`,
+        url: `/public/album/fetch?page=${page}&search=${search}&sort=${sort}`,
         payload: formData,
     })
     .then((response) => {
@@ -48,13 +55,13 @@ const updateAlbumPage = (page) => {
             <a href="">
                 <div class="album">
                     <div class="album-cover">
-                        <img src="${STORAGE_URL}/images/${album.cover_file}" alt="no image!" class="cover-img">
+                        <img src="${STORAGE_URL}/images/${album.cover_file}" alt="${album.cover_file}" class="cover-img">
                     </div>
                     <div>
                         <label class="title">${album.name}</label>
                     </div>
                     <div>
-                        <label class="artist">Album1</label>
+                        <label class="upload_date">${album.upload_date}</label>
                     </div>
                 </div>
             </a>
@@ -156,6 +163,10 @@ const updateAlbumPage = (page) => {
 
         const urlUntilAdmin = parts.slice(0, partIndex + 1).join('/');
         newURL = urlUntilAdmin+`/albums/${page}`;
+        if(params.get("sort") || params.get("search")){newURL += '?'}
+        if(params.get("search")){newURL += `search=${search}`}
+        if(params.get("sort") && params.get("search")){newURL += '&'}
+        if(params.get("sort")){newURL += `sort=${sort}`}
         history.pushState(null, null, newURL);
     })
     .catch((error) => {

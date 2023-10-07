@@ -22,7 +22,7 @@
                                     <label class="title"><?php echo $album['name']?></label>
                                 </div>
                                 <div>
-                                    <label class="artist">Album1</label>
+                                    <label class="upload_date"><?php echo $album['upload_date']?></label>
                                 </div>
                             </div>
                         </a>

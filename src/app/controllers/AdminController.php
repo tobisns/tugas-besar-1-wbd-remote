@@ -19,9 +19,11 @@ class AdminController extends Controller implements ControllerInterface
 
                     $albumModel = $this->model('AlbumModel');
                     if($sub_div == 'albums'){
-                        $res = $albumModel->readAlbumPaged($page);
+                        $search = isset($_GET['search']) ? $_GET['search'] : '';
+                        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'name';
+                        $res = $albumModel->readAlbumPaged($page, $search, $sort);
 
-                        $total_page = ceil($albumModel->albumCount() / 5);
+                        $total_page = ceil($albumModel->albumCount($search) / 5);
 
                         $adminAlbumView = $this->view('admin', 'AdminView', ['current_page' => $page, 'total_page' => $total_page, 'content' => $sub_div, 'albums' => $res, 'songs' => null]);
                         $adminAlbumView->render();
@@ -57,7 +59,7 @@ class AdminController extends Controller implements ControllerInterface
                     ob_start(); // capture script output
                     if ($content == 'albums') {
                         $res = $albumModel->readAlbumPaged($page);
-                        $total_page = ceil($albumModel->albumCount() / 5);
+                        $total_page = ceil($albumModel->albumCount('') / 5);
                         
                         $adminAlbumView = $this->view('admin', 'AdminAlbumSongView', ['current_page' => $page, 'total_page' => $total_page, 'albums' => $res, 'songs' => null]);
                         $adminAlbumView->render_album();

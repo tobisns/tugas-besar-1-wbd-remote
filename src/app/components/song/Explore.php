@@ -27,7 +27,7 @@
     </div> -->
     <div class="search-container">
         <form action="<?= BASE_URL ?>/song/search" METHOD="GET" class="search-form">
-            <input class="search-bar" type="text" id="search" name="keyword" placeholder="Search songs and albums...">
+            <input class="search-bar" type="text" id="search" name="keyword" placeholder="Search...">
             <div class="filter-type-container">
                 <h4>Type: </h4>
                 <select class="filter-type-list" name="filtertype" id="filtertype">

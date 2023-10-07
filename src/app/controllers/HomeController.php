@@ -20,7 +20,11 @@ class HomeController extends Controller implements ControllerInterface{
                     $newAlbums = $homeModel->fetchNewAlbums();
                     $newSongs = $homeModel->fetchNewSongs();
 
-                    $homeView = $this->view('home', 'HomeView', ['albums' => $newAlbums, 'songs' => $newSongs]);
+                    $userModel = $this->model('UserModel');
+                    $user = $userModel->getUser($_SESSION['username']);
+                    $isAdmin = $userModel->isAdmin($_SESSION['username']);
+
+                    $homeView = $this->view('home', 'HomeView', ['username' => $user, 'admin' => $isAdmin, 'albums' => $newAlbums, 'songs' => $newSongs]);
                     $homeView->render();
                     break;
                 default:

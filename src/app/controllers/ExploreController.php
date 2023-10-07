@@ -25,7 +25,11 @@ class ExploreController extends Controller implements ControllerInterface{
                     // $resultSongs = $exploreModel->searchSongs($keyword);
                     $result = $exploreModel->search($keyword);
 
-                    $exploreView = $this->view('song', 'ExploreView', ['genres' => $resultGenres, 'result' => $result]);
+                    $userModel = $this->model('UserModel');
+                    $user = $userModel->getUser($_SESSION['username']);
+                    $isAdmin = $userModel->isAdmin($_SESSION['username']);
+
+                    $exploreView = $this->view('song', 'ExploreView', ['username' => $user, 'admin' => $isAdmin, 'genres' => $resultGenres, 'result' => $result]);
                     // $exploreView = $this->view('song', 'ExploreView', ['genres' => $resultGenres, 'albums' => $resultAlbums, 'songs' => $resultSongs]);
                     $exploreView->render();
                     exit;

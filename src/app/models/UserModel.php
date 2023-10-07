@@ -93,6 +93,22 @@ class UserModel
         }
     }
 
+    public function isAdmin($username)
+    {
+        $conn = $this->database->getConn();
+
+        $query = "SELECT * FROM users WHERE username = $1 AND admin='t'";
+        $result = pg_prepare($conn, "get_isAdmin", $query);
+        $result = pg_execute($conn, "get_isAdmin", array($username));
+
+        $isAdmin = pg_fetch_assoc($result);
+        if (!$isAdmin) {
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     public function updateUser(
         $username,
         $displayname,

@@ -50,8 +50,15 @@ html,body{
     gap: 10px;
     height: fit-content;
 }
+.search-container form {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
 .search-bar {
-    width: 40vh;
+    width: fit-content;
     padding: 10px;
     height: fit-content;
     background-color: white;
@@ -64,7 +71,7 @@ html,body{
 }
 
 .filter-type-container {
-    width: fit-content;
+    width: 100%;
     display: flex;
     flex-direction: row;
     gap: 5px;
@@ -78,11 +85,12 @@ html,body{
     padding: 10px;
     justify-items: center;
     border-radius: 20px;
-    border: 2px solid white;
+    border: 2px solid black;
+    background-color: var(--primaryColor-3);
 }
 
 .filter-genre-container {
-    width: fit-content;
+    width: 100%;
     display: flex;
     flex-direction: row;
     gap: 5px;
@@ -96,11 +104,12 @@ html,body{
     padding: 10px;
     justify-items: center;
     border-radius: 20px;
-    border: 2px solid white;
+    border: 2px solid black;
+    background-color: var(--primaryColor-3);
 }
 
 .sort-container {
-    width: fit-content;
+    width: 100%;
     height: fit-content;
     display: flex;
     flex-direction: row;
@@ -111,19 +120,25 @@ html,body{
     /* width: 100%; */
 }
 .sort-list {
-    width: 100%;
+    width: fit-content;
     padding: 10px;
     justify-items: center;
     border-radius: 20px;
-    border: 2px solid white;
+    border: 2px solid black;
+    background-color: var(--primaryColor-3);
 }
 
 .search-button-container {
     width: 100%;
 }
 .search-button {
-    background-color: var(--primaryColor-7);
+    background-color: var(--green);
     font-family: var(--hammersmith-one);
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 20px;
+    outline: none;
 }
 
 .result-container {

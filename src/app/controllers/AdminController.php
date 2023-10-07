@@ -25,7 +25,11 @@ class AdminController extends Controller implements ControllerInterface
 
                         $total_page = ceil($albumModel->albumCount($search) / 5);
 
-                        $adminAlbumView = $this->view('admin', 'AdminView', ['current_page' => $page, 'total_page' => $total_page, 'content' => $sub_div, 'albums' => $res, 'songs' => null]);
+                        $userModel = $this->model('UserModel');
+                        $user = $userModel->getUser($_SESSION['username']);
+                        $isAdmin = $userModel->isAdmin($_SESSION['username']);
+
+                        $adminAlbumView = $this->view('admin', 'AdminView', ['username' => $user, 'admin' => $isAdmin, 'current_page' => $page, 'total_page' => $total_page, 'content' => $sub_div, 'albums' => $res, 'songs' => null]);
                         $adminAlbumView->render();
                     } else if($sub_div == 'songs') {
                         $res = $albumModel->readAlbumPaged($page);

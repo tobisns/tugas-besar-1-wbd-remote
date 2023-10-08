@@ -11,7 +11,7 @@ define('PORT', $_ENV['DB_PORT']);
 //DEBOUNCE
 define('DEBOUNCE_DELAY', 300);
 //FILE
-define('MAX_SIZE', 10 * 1024 * 1024);
+define('MAX_SIZE', 50 * 1024 * 1024);
 define('ALLOWED_AUDIOS', [
     'audio/mpeg' => '.mp3'
 ]);

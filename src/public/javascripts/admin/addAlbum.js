@@ -6,6 +6,7 @@ const fileInput = document.querySelector("#file-input");
 registerForm &&
 registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+    console.log(fileInput.files[0]);
 
     // If all fields are valid, proceed with form submission
     const name = albumName.value;
@@ -22,11 +23,11 @@ registerForm.addEventListener("submit", async (e) => {
         url: "/public/admin/add_album",
         payload: formData,
     })
-        .then((response) => {
-            location.replace("http:\/\/localhost:8080\/public\/admin\/albums");
-            console.log(response);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+    .then((response) => {
+        location.replace("http:\/\/localhost:8080\/public\/admin\/albums");
+        console.log(response);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 });

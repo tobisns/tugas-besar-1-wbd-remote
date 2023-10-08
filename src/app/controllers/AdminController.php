@@ -147,4 +147,69 @@ class AdminController extends Controller implements ControllerInterface
             exit;
         }
     }
+
+    public function add_song(){
+        try {
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $token = (TokenMiddleware::getSessionToken('add') ?? TokenMiddleware::setNewToken('add'));
+
+                    $isAuth = new AuthenticationMiddleware();
+                    $result = $isAuth->isAdmin();
+
+                    $adminSongView = $this->view('admin', 'AddSongView', []);
+                    $adminSongView->render();
+
+                    break;
+                case 'POST':
+                    //prevent crsf
+                    TokenMiddleware::verifyToken('add');
+                    $uploadedImage = null;
+                    $uploadedAudio = null;
+                    
+                    // echo json_encode($_FILES['audio_file']['tmp_name']);
+
+                    if(isset($_FILES['cover_file'])){
+                        $image = new AccessStorage("images");
+                        $uploadedImage = $image->saveImage($_FILES['cover_file']['tmp_name']);
+                    }
+                    if(isset($_FILES['audio_file'])){
+                        $image = new AccessStorage("music");
+                        $uploadedAudio = $image->saveAudio($_FILES['audio_file']['tmp_name']);
+                    }
+
+
+
+                    $userModel = $this->model('SongModel');
+                    $result = $userModel->upload(
+                        $_POST["title"],
+                        $_POST["artist_id"],
+                        $_POST["genre"],
+                        $_POST["duration"],
+                        $_POST["upload_date"],
+                        $uploadedAudio,
+                        $uploadedImage
+                    );
+
+                    header('Content-Type: application/json');
+
+                    if($result){
+                        http_response_code(201);
+                        echo json_encode(["redirect_url" => BASE_URL . "/admin/songs"]);
+                        exit;
+                    }else{
+                        http_response_code(500);
+                        echo "Update Gagal";
+                        exit;
+                    }
+
+                    exit;
+                default:
+                    throw new LoggedException('Method Not Allowed', 405);
+            }
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+            exit;
+        }
+    }
 }

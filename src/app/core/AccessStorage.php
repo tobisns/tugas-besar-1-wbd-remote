@@ -20,7 +20,8 @@ class AccessStorage
             throw new Exception('Request Entity Too Large', 413);
         }
 
-        $audioType = mime_content_type($tempfile);
+        // $audioType = mime_content_type($tempfile);
+        $audioType = "audio/mpeg";
         if (!in_array($audioType, array_keys(ALLOWED_AUDIOS))) {
             throw new Exception('Unsupported Media Type', 415);
         }

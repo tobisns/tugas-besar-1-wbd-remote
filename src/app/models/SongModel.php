@@ -68,17 +68,31 @@ class SongModel
                 "SELECT music_id, cover_file, title, artist.name, duration
                 FROM music NATURAL JOIN artist
                 WHERE (title ILIKE '%{$keyword}%' OR artist.name ILIKE '%{$keyword}%')
-                ORDER BY {$sort}
-                LIMIT 5";
+                ORDER BY {$sort}";
         } else {
             $query = 
                 "SELECT music_id, cover_file, title, artist.name, duration
                 FROM music NATURAL JOIN artist
                 WHERE (title ILIKE '%{$keyword}%' OR artist.name ILIKE '%{$keyword}%') AND genre = '%{$filtergenre}%'
-                ORDER BY {$sort}
-                LIMIT 5";
+                ORDER BY {$sort}";
         }
         $result = $this->database->query($query);
         return $result;
+    }
+
+    public function upload($title, $artist_id,
+                            $genre, $duration, $upload_date,
+                            $audio_file, $cover_file){
+        $conn = $this->database->getConn();
+        $duration = $duration . ' M';
+        $query = "INSERT INTO music(title, artist_id, genre, duration, upload_date, audio_file, cover_file) VALUES ($1, $2, $3, $4, $5, $6, $7)";
+        $result = pg_prepare($conn, "insert_user_query", $query);
+        $result = pg_execute($conn, "insert_user_query", array($title, $artist_id, $genre, $duration, $upload_date, $audio_file, $cover_file));
+
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

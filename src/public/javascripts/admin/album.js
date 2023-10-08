@@ -206,15 +206,6 @@ function reload_page_button(){
     nextButton.addEventListener('click', () => {
         updateAlbumPage(get_current_album_page() + 1);
     })
-
-    button &&
-    button.addEventListener(
-        "click",
-        () => {
-            history.pushState(null, null, window.location.href);
-            location.replace("http:\/\/localhost:8080\/public\/admin\/add_album");
-        }
-    );
 }
 
 

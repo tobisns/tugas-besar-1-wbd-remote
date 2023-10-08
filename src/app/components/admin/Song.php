@@ -22,7 +22,7 @@
     <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/debounce.js" defer></script>
     <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/utils.js" defer></script>
     <!-- JavaScript DOM and AJAX -->
-    <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/admin/albumDetails.js" defer></script>
+    <!-- <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/admin/song.js" defer></script> -->
     <title>Explore</title>
 </head>
 <body>
@@ -37,7 +37,7 @@
             <form action="<?= BASE_URL ?>/admin/albums/1" class="search-form">
                 <input type="text" name="search" class="search-bar">
             </form>
-            <button class="add-button">
+            <button class="add-button" id="add-song">
                 <div class="add-ico">
                     <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13 8.51741H8V13.8408C8 14.4264 7.55 14.9055 7 14.9055C6.45 14.9055 6 14.4264 6 13.8408V8.51741H1C0.45 8.51741 0 8.03831 0 7.45274C0 6.86716 0.45 6.38806 1 6.38806H6V1.06468C6 0.479105 6.45 0 7 0C7.55 0 8 0.479105 8 1.06468V6.38806H13C13.55 6.38806 14 6.86716 14 7.45274C14 8.03831 13.55 8.51741 13 8.51741Z" fill="#31463E"/>

@@ -2,6 +2,8 @@ const dynamicContainer = document.querySelector("#dynamic-content-container");
 const albumsButton = document.querySelector("#albums-button");
 const songsButton = document.querySelector("#songs-button");
 
+reload_add_button();
+
 albumsButton &&
 albumsButton.addEventListener('click', (e) => {
     if(e.target.checked){
@@ -24,7 +26,8 @@ albumsButton.addEventListener('click', (e) => {
             button = document.querySelector(".add-button");
 
             reallign_album();
-            reload_page_button();                                                                                           
+            reload_page_button();  
+            reload_add_button();                                                                                  
 
             //set new url
             const currentURL = window.location.href;
@@ -47,29 +50,33 @@ albumsButton.addEventListener('click', (e) => {
 });
 
 songsButton &&
-songsButton.addEventListener('click', () => {
-    const formData = new FormData();
-    axios({
-        method:"get",
-        url:"/public/admin/song_render",
-        payload: formData
-    }).then((response)=>{
-        dynamicContainer.innerHTML = response;
-        //set new url
-        const currentURL = window.location.href;
-        history.pushState(null, null, currentURL);
+songsButton.addEventListener('click', (e) => {
+    if(e.target.checked){
+        const formData = new FormData();
+        axios({
+            method:"get",
+            url:"/public/admin/song_render",
+            payload: formData
+        }).then((response)=>{
+            dynamicContainer.innerHTML = response;
+            //set new url
+            const currentURL = window.location.href;
+            history.pushState(null, null, currentURL);
 
-        const parts = currentURL.split('/');
-        let partIndex = parts.indexOf('admin');
-
-        var newURL;
-
-        const urlUntilAdmin = parts.slice(0, partIndex + 1).join('/');
-        newURL = urlUntilAdmin+'/songs';
-        history.pushState(null, null, newURL);
-    }).catch((e)=>{
-        console.log("error")
-    })
+            reload_add_button();
+    
+            const parts = currentURL.split('/');
+            let partIndex = parts.indexOf('admin');
+    
+            var newURL;
+    
+            const urlUntilAdmin = parts.slice(0, partIndex + 1).join('/');
+            newURL = urlUntilAdmin+'/songs';
+            history.pushState(null, null, newURL);
+        }).catch((e)=>{
+            console.log("error")
+        })
+    }
 });
 
 const updateContainer = (content) => {
@@ -128,5 +135,26 @@ const updateContainer = (content) => {
     }
 };
 
+function reload_add_button() {
+    const addSongButton = document.querySelector("#add-song");
+    const addAlbumButton = document.querySelector("#add-album");
 
+    addSongButton &&
+    addSongButton.addEventListener(
+        "click",
+        () => {
+            history.pushState(null, null, window.location.href);
+            location.replace("http:\/\/localhost:8080\/public\/admin\/add_song");
+        }
+    );
+
+    addAlbumButton &&
+    addAlbumButton.addEventListener(
+        "click",
+        () => {
+            history.pushState(null, null, window.location.href);
+            location.replace("http:\/\/localhost:8080\/public\/admin\/add_album");
+        }
+    );
+}
 

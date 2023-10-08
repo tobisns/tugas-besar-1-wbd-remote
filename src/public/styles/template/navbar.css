@@ -1,4 +1,8 @@
 .black-navbar {
     background-color: black;
     padding: 12px;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
 }

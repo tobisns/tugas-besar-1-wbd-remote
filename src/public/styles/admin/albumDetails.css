@@ -28,8 +28,11 @@ html,body{
     gap: 30px;
 }
 
-.album-text{
+.album-info{
     display: inline-block;
+}
+
+.album-text{
     font-size: 100px;
     color: white;
 
@@ -54,17 +57,18 @@ html,body{
     flex-direction: row;
     gap: 10px;
 }
-.search-bar {
-    width: 60%;
-    padding: 10px;
-    height: fit-content;
-    background-color: white;
-    border-width: 1px;
-    border-color: var(--primaryColor-6);
-    border-radius: 20px;
-    color: var(--black);
-    font-size: 16px;
-    justify-content: center;
+
+.search-bar{
+    display: inline-block;
+    height: 30px;
+    align-self: top;
+    margin-left: 15px;
+    width: 250px;
+    flex: 1;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    
 }
 
 .filter-genre-container {
@@ -158,4 +162,38 @@ html,body{
 }
 .search-song-like {
     width: 25px;
+}
+
+
+.add-button{
+    position: relative;
+    right: 0;
+    font-size: large;
+    font-family: var(--hammersmith-one);
+    background-color: #daefe7;
+    height: 30px;
+    width: 96px;
+    border-radius: 10px;
+    display: inline-block;
+    border: none;
+    margin-right: 70px;
+    cursor: pointer;
+    align-self: center;
+}
+
+.add-button:hover{
+    font-size: large;
+    font-family: var(--hammersmith-one);
+    background-color: #daefe7;
+    height: 34px;
+    width: 100px;
+    border-radius: 10px;
+    display: inline-block;
+    border: none;
+    margin-right: 68px;
+    cursor: pointer;
+}
+
+.add-ico{
+    display: inline-block;
 }

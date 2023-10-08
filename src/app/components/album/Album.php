@@ -13,7 +13,7 @@
             <form action="<?= BASE_URL ?>/admin/albums/1" class="search-form">
                 <input type="text" name="search" class="search-bar">
             </form>
-            <?php if($this->data['admin']) : ?>
+            <?php if($this->data['from_admin']) : ?>
             <button class="add-button">
                 <div class="add-ico">
                     <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,7 +30,11 @@
             <?php else : ?>
                 <div class="album-grid">
                     <?php while ($album = pg_fetch_assoc($this->data['albums'])) : ?>
-                        <a href="<?= BASE_URL ?>/album/album_details/<?= $album['album_id'] ?>">
+                        <?php if($this->data['from_admin']) : ?>
+                            <a href="<?= BASE_URL ?>/album/album_details/<?= $album['album_id'] ?>?admin=true">
+                        <?php else : ?>
+                            <a href="<?= BASE_URL ?>/album/album_details/<?= $album['album_id'] ?>">
+                        <?php endif; ?>
                             <div class="album">
                                 <div class="album-cover">
                                     <?php if($album['cover_file'] == null) :?>

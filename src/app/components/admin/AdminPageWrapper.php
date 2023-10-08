@@ -51,7 +51,7 @@
                     <div id="dynamic-content-container">
                         <?php 
                         if($this->data['content'] == 'songs'){
-                            require_once(dirname(__DIR__) . '/album/AlbumDetails.php');
+                            require_once(dirname(__DIR__) . '/admin/Song.php');
                         } else {
                             require_once(dirname(__DIR__) . '/album/Album.php');
                         } 

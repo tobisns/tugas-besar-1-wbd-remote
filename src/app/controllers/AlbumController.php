@@ -21,11 +21,13 @@ class AlbumController extends Controller implements ControllerInterface
                     $user = $userModel->getUser($_SESSION['username']);
                     $isAdmin = $userModel->isAdmin($_SESSION['username']);
 
+                    $from_admin = isset($_GET['admin']) ? $_GET['admin'] : false;
+
                     $albumModel = $this->model('AlbumModel');
                     $res = $albumModel->readAlbumPaged($page);
                     $total_page = ceil($albumModel->albumCount('') / 5);
                     if($res && $total_page){
-                        $AlbumView = $this->view('album', 'AlbumView', ['username' => $user, 'admin' => $isAdmin, 'current_page' => $page, 'total_page' => $total_page, 'albums' => $res]);
+                        $AlbumView = $this->view('album', 'AlbumView', ['from_admin' => $from_admin, 'username' => $user, 'admin' => $isAdmin, 'current_page' => $page, 'total_page' => $total_page, 'albums' => $res]);
                         ob_start();
                         $AlbumView->render();
                         $return = ob_get_clean();
@@ -61,12 +63,14 @@ class AlbumController extends Controller implements ControllerInterface
                     $albumModel = $this->model('AlbumModel');
                     $res = $albumModel->readAlbumSongs($album_id);
 
+                    $from_admin = isset($_GET['admin']) ? $_GET['admin'] : false;
+
                     $userModel = $this->model('UserModel');
                     $user = $userModel->getUser($_SESSION['username']);
                     $isAdmin = $userModel->isAdmin($_SESSION['username']);
 
                     $album = $albumModel->getAlbumData($album_id);
-                    $AlbumDetailsView = $this->view('album', 'AlbumDetailsView', ['username' => $user, 'admin' => $isAdmin, 'musics' => $res, 'album' => $album]);
+                    $AlbumDetailsView = $this->view('album', 'AlbumDetailsView', ['from_admin' => $from_admin, 'username' => $user, 'admin' => $isAdmin, 'musics' => $res, 'album' => $album]);
                     ob_start();
                     $AlbumDetailsView->render();
                     $return = ob_get_clean();

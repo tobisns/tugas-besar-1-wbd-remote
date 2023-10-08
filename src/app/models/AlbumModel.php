@@ -43,7 +43,7 @@ class AlbumModel
     }
 
     public function readAlbumSongs($album_id){
-        $query = "SELECT * FROM music NATURAL JOIN album_music WHERE album_id = {$album_id}";
+        $query = "SELECT * FROM (music NATURAL JOIN album_music)a NATURAL JOIN artist WHERE album_id = {$album_id}";
         $songs = $this->database->query($query);
 
         return $songs;

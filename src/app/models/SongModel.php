@@ -61,4 +61,24 @@ class SongModel
 
         return (int) $songsCount['count'];
     }
+
+    public function readSongAll($keyword='', $filtergenre='all', $sort='title asc'){
+        if ($filtergenre==='all'){
+            $query = 
+                "SELECT music_id, cover_file, title, artist.name, duration
+                FROM music NATURAL JOIN artist
+                WHERE (title ILIKE '%{$keyword}%' OR artist.name ILIKE '%{$keyword}%')
+                ORDER BY {$sort}
+                LIMIT 5";
+        } else {
+            $query = 
+                "SELECT music_id, cover_file, title, artist.name, duration
+                FROM music NATURAL JOIN artist
+                WHERE (title ILIKE '%{$keyword}%' OR artist.name ILIKE '%{$keyword}%') AND genre = '%{$filtergenre}%'
+                ORDER BY {$sort}
+                LIMIT 5";
+        }
+        $result = $this->database->query($query);
+        return $result;
+    }
 }

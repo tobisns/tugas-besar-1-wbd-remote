@@ -51,7 +51,7 @@ songsButton.addEventListener('click', () => {
     const formData = new FormData();
     axios({
         method:"get",
-        url:"/public/album/album_details",
+        url:"/public/admin/song_render",
         payload: formData
     }).then((response)=>{
         dynamicContainer.innerHTML = response;

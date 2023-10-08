@@ -29,12 +29,22 @@ class AdminController extends Controller implements ControllerInterface
                         $user = $userModel->getUser($_SESSION['username']);
                         $isAdmin = $userModel->isAdmin($_SESSION['username']);
 
-                        $adminAlbumView = $this->view('admin', 'AdminView', ['username' => $user, 'admin' => $isAdmin, 'current_page' => $page, 'total_page' => $total_page, 'content' => $sub_div, 'albums' => $res, 'songs' => null]);
+                        
+
+                        $adminAlbumView = $this->view('admin', 'AdminView', ['from_admin' => true, 'username' => $user, 'admin' => $isAdmin, 'current_page' => $page, 'total_page' => $total_page, 'content' => $sub_div, 'albums' => $res]);
                         $adminAlbumView->render();
                     } else if($sub_div == 'songs') {
-                        $res = $albumModel->readAlbumPaged($page);
-                        $adminSongView = $this->view('admin', 'AdminView', ['content' => $sub_div, 'albums' => $res, 'songs' => null]);
-                        $adminSongView->render();
+
+                        
+                        $userModel = $this->model('UserModel');
+                        $user = $userModel->getUser($_SESSION['username']);
+                        $isAdmin = $userModel->isAdmin($_SESSION['username']);
+
+                        $songModel = $this->model('SongModel');
+                        $musics = $songModel->readSongAll();
+
+                        $SongView = $this->view('admin', 'AdminView', ['from_admin' => true, 'username' => $user, 'admin' => $isAdmin, 'content' => $sub_div, 'albums' => null, 'musics' => $musics]);
+                        $SongView->render();
                     } else {
                         $notFoundView = $this->view('not-found', 'NotFoundView');
                         $notFoundView->render();
@@ -52,16 +62,31 @@ class AdminController extends Controller implements ControllerInterface
         
     }
 
-    public function test(){
+    public function song_render(){
         try {
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'GET':
-                    json_encode($_GET);
-                    http_response_code(201);
-                    echo (json_encode($_GET));
-                    exit;
+                    $isAuth = new AuthenticationMiddleware();
+                    $result = $isAuth->isAdmin();
 
+                    $userModel = $this->model('UserModel');
+                    $user = $userModel->getUser($_SESSION['username']);
+                    $isAdmin = $userModel->isAdmin($_SESSION['username']);
+
+                    $songModel = $this->model('SongModel');
+                    $musics = $songModel->readSongAll();
+
+                    $SongView = $this->view('admin', 'SongView', ['from_admin' => true, 'username' => $user, 'admin' => $isAdmin, 'albums' => null, 'musics' => $musics]);
+                    ob_start();
+                    $SongView->render();
+                    $return = ob_get_clean();
+                    header('Content-Type: text/html');
+                    http_response_code(201);
+                    echo $return;
+
+                    exit;
                     break;
+                
                 default:
                     throw new LoggedException('Method Not Allowed', 405);
             }

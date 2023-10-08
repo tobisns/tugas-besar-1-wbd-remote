@@ -9,10 +9,10 @@ class AlbumModel
         $this->database = new Database();
     }
 
-    public function readAlbumPaged($page=1, $search='', $sort='name')
+    public function readAlbumPaged($page=1, $search='', $sort='name asc')
     {
         $offset = ((int) $page - 1) * 5;
-        $query = "SELECT album_id, name, upload_date, cover_file FROM album WHERE name LIKE '%{$search}%' ORDER BY {$sort} ASC LIMIT 5 OFFSET {$offset}";
+        $query = "SELECT album_id, name, upload_date, cover_file FROM album WHERE name LIKE '%{$search}%' ORDER BY {$sort} LIMIT 5 OFFSET {$offset}";
         
         $result = $this->database->query($query);
 

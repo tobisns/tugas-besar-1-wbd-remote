@@ -60,7 +60,7 @@ class ExploreModel {
     //     return $result;
     // }
 
-    // public function searchSongs($keyword, $filtergenre='all', $sort='name asc'){
+    // public function searchSongs($keyword, $filtergenre='all', $sort='title asc'){
     //     if ($filtergenre==='all'){
     //         $query = 
     //             "SELECT music_id, cover_file, title, artist.name, duration

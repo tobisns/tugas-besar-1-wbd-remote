@@ -29,18 +29,44 @@ html,body{
     gap: 30px;
 }
 
-.tab {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-}
-.tab button {
+.switch-mode-button{
     font-family: var(--hammersmith-one);
-    font-size: 24px;
-    color: white;
     background-color: transparent;
-    border: none;
-    outline: none;
+    color: #daefe7;
+    text-align: center;
+    width: 96px;
+    margin-top: 10px;
+    padding-right: 1px;
+    padding-left: 1px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-left: -25px;
+}
+
+.switch-mode-button:hover{
+    cursor: pointer;
+}
+
+.switch-radio:checked+label {
+    width: 96px;
+    margin-top: 10px;
+    padding: 5px;
+    padding-right: 1px;
+    padding-left: 1px;
+    display: inline-block;
+    background-color: #daefe7;
+    border-radius: 10px;
+    text-align: center;
+    font-family: var(--hammersmith-one);
+    color: #31463e;
+}
+
+.switch-mode{
+    padding-left: 20px;
+}
+
+.switch-radio{
+    visibility: hidden;
 }
 
 .search-container {

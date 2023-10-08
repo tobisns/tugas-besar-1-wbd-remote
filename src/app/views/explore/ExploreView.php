@@ -8,6 +8,6 @@ class ExploreView implements ViewInterface{
     }
 
     public function render(){
-        require_once __DIR__ . '/../../components/song/Explore.php';
+        require_once __DIR__ . '/../../components/explore/Explore.php';
     }
 }

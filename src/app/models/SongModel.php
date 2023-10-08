@@ -80,6 +80,12 @@ class SongModel
         return $result;
     }
 
+    public function getGenres(){
+        $query = "SELECT DISTINCT genre FROM music;";
+        $result = $this->database->query($query);
+        return $result;
+    }
+
     public function upload($title, $artist_id,
                             $genre, $duration, $upload_date,
                             $audio_file, $cover_file){

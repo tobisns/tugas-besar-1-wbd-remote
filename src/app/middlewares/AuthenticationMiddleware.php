@@ -44,7 +44,7 @@ class AuthenticationMiddleware
         $result = pg_execute($conn, "check_admin_query", array($_SESSION['username']));
 
         $isAdmin = pg_fetch_result($result, 0, "admin");
-        if ($isAdmin === true) {
+        if ($isAdmin !== 't') {
             throw new Exception('Unauthorized', 401);
         }
     }

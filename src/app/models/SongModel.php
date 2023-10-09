@@ -29,25 +29,20 @@ class SongModel
         }
     }
 
-    public function readSongsPaged($page=1, $keyword='', $filtergenre='all', $sort='title asc')
+    public function readSongsPaged($keyword='', $filtergenre='all', $sort='title asc')
     {
-        $offset = ((int) $page - 1) * 5;
         if ($filtergenre==='all'){
             $query = 
                 "SELECT music_id, cover_file, title, artist.name, duration
                 FROM music NATURAL JOIN artist
                 WHERE (title ILIKE '%{$keyword}%' OR artist.name ILIKE '%{$keyword}%')
-                ORDER BY {$sort}
-                LIMIT 5
-                OFFSET {$offset};";
+                ORDER BY {$sort}";
         } else {
             $query = 
                 "SELECT music_id, cover_file, title, artist.name, duration
                 FROM music NATURAL JOIN artist
                 WHERE (title ILIKE '%{$keyword}%' OR artist.name ILIKE '%{$keyword}%') AND genre = '%{$filtergenre}%'
-                ORDER BY {$sort}
-                LIMIT 5
-                OFFSET {$offset};";
+                ORDER BY {$sort}";
         }
         $result = $this->database->query($query);
         return $result;

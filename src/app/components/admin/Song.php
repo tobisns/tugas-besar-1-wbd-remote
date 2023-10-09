@@ -34,11 +34,11 @@
                     <path d="M10.0625 18.9688C14.9813 18.9688 18.9688 14.9813 18.9688 10.0625C18.9688 5.14371 14.9813 1.15625 10.0625 1.15625C5.14371 1.15625 1.15625 5.14371 1.15625 10.0625C1.15625 14.9813 5.14371 18.9688 10.0625 18.9688Z" stroke="#FEFEFE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
-            <form action="<?= BASE_URL ?>/admin/albums/1" class="search-form">
+            <form action="<?= BASE_URL ?>/admin/songs" class="search-form">
                 <input type="text" name="search" class="search-bar">
                 <select class="sort-list" name="sort" id="sort">
-                    <option value="name asc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'name asc') : ?> selected="selected" <?php endif; ?>>Title (A-Z)</option>
-                    <option value="name desc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'name desc') : ?> selected="selected" <?php endif; ?>>Title (Z-A)</option>
+                    <option value="title asc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'title asc') : ?> selected="selected" <?php endif; ?>>Title (A-Z)</option>
+                    <option value="title desc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'title desc') : ?> selected="selected" <?php endif; ?>>Title (Z-A)</option>
                     <option value="upload_date asc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'upload_date asc') : ?> selected="selected" <?php endif; ?>>Release Date (Latest)</option>
                     <option value="upload_date desc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'upload_date desc') : ?> selected="selected" <?php endif; ?>>Release Date (Earliest)</option>
                 </select>
@@ -74,9 +74,7 @@
                         </div>
                         <h3 class="search-song-title"><?php echo $music['title'] ?></h3>
                         <h3 class="search-song-artist"><?php echo $music['name'] ?></h3>
-                        <div class="search-song-like">
-                            <img class="cover-img" src="<?= BASE_URL ?>/assets/images/icon_like_default.svg">
-                        </div>
+                        <h3 class="search-song-duration"><?php echo $music['duration'] ?></h3>
                         <button class="edit-music" music_id="<?= $music['music_id'] ?>">edit</button>
                         <button class="delete-music" music_id="<?= $music['music_id'] ?>">delete</button>
                     </div>

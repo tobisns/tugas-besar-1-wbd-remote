@@ -25,7 +25,7 @@ class SongController extends controller implements ControllerInterface
                         $sort = isset($_GET['sort']) ? $_GET['sort'] : 1;
     
                         $qres = $songModel->readSongsPaged($page, $keyword, $filtergenre, $sort);
-                        $total_page = ceil($songModel->songsCount($keyword) / 5);
+                        // $total_page = ceil($songModel->songsCount($keyword) / 5);
 
                         $genres = $songModel->getGenres();
     

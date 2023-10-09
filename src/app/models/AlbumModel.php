@@ -20,7 +20,7 @@ class AlbumModel
     }
 
     public function albumCount($search){
-        $query = "SELECT count(album_id) as count FROM album WHERE name LIKE '%{$search}%'";
+        $query = "SELECT count(album_id) as count FROM album WHERE name ILIKE '%{$search}%'";
         
         $q_result = $this->database->query($query);
         $albumCount = pg_fetch_array($q_result);

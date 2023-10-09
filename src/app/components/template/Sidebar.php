@@ -13,14 +13,6 @@
                 </div>
             </a>
         </li>
-        <li class="explore-bar">
-            <a href="<?= BASE_URL ?>/explore">
-                <div class="explore-container">
-                    <img class="explore-icon" src="<?= BASE_URL ?>/assets/images/icon_explore_default.svg" alt="explore">
-                    <span class="explore-text">Explore</span>
-                </div>
-            </a>
-        </li>
     </ul>
     <ul class="menu-user">
         <?php if ($this->data['username']) : ?>

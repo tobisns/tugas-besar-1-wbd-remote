@@ -68,13 +68,15 @@ class SongModel
                 "SELECT music_id, cover_file, title, artist.name, duration
                 FROM music NATURAL JOIN artist
                 WHERE (title ILIKE '%{$keyword}%' OR artist.name ILIKE '%{$keyword}%')
-                ORDER BY {$sort}";
+                ORDER BY {$sort}
+                LIMIT 100";
         } else {
             $query = 
                 "SELECT music_id, cover_file, title, artist.name, duration
                 FROM music NATURAL JOIN artist
                 WHERE (title ILIKE '%{$keyword}%' OR artist.name ILIKE '%{$keyword}%') AND genre = '%{$filtergenre}%'
-                ORDER BY {$sort}";
+                ORDER BY {$sort}
+                LIMIT 100";
         }
         $result = $this->database->query($query);
         return $result;

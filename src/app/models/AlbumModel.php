@@ -55,4 +55,36 @@ class AlbumModel
 
         return pg_fetch_assoc($q_result);
     }
+
+    public function delete($album_id){
+        $conn = $this->database->getConn();
+        $query = "SELECT cover_file from album WHERE album_id = $1;";
+        $result = pg_prepare($conn, "get_file", $query);
+        $result = pg_execute($conn, "get_file", array($album_id));
+
+        if($result){
+            $files = pg_fetch_assoc($result);
+            $image = new AccessStorage("images");
+            if($files['cover_file']){
+                $uploadedImage = $image->deleteFile($files['cover_file']);
+            }
+
+        } else {
+            return false;
+        }
+
+        $query1 = "DELETE from album_music WHERE album_id = $1;";
+        $query2 = "DELETE from album WHERE album_id = $1;";
+        $result1 = pg_prepare($conn, "delete_album_music_query", $query1);
+        $result2 = pg_prepare($conn, "delete_album_query", $query2);
+        $result1 = pg_execute($conn, "delete_album_music_query", array($album_id));
+        $result2 = pg_execute($conn, "delete_album_query", array($album_id));
+
+        if($result1 && $result2){
+            return true;
+        } else {
+            echo "Error deleting record: " . pg_last_error($conn);
+            return false;
+        }
+    }
 }

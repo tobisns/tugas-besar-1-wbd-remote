@@ -43,8 +43,8 @@
                     <?php echo $this->data['album']['name'] ?>
                 </div>
                 <?php if($this->data['from_admin']) : ?>
-                    <button music_id="<?= $this->data['album']['album_id'] ?>">edit info</button>
-                    <button music_id="<?= $this->data['album']['album_id'] ?>">delete</button>
+                    <button class="edit-button" album_id="<?= $this->data['album']['album_id'] ?>" >edit info</button>
+                    <button class="delete-button" album_id="<?= $this->data['album']['album_id'] ?>" >delete</button>
                 <?php endif; ?>
             </div>
         </div>

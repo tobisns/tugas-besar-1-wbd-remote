@@ -83,7 +83,31 @@ class AlbumController extends Controller implements ControllerInterface
 
                     exit;
                     break;
-                
+                case 'POST':
+                    //prevent crsf
+                    if(!TokenMiddleware::verifyToken('details')){
+                        exit;
+                    }
+
+                    $isAuth = new AuthenticationMiddleware();
+                    $result = $isAuth->isAdmin();
+
+                    $result = false;
+                    $AlbumModel = $this->model('AlbumModel');
+
+                    $result = $AlbumModel->delete($album_id);
+                    if($result){
+                        http_response_code(201);
+                        echo json_encode(["redirect_url" => BASE_URL . "/admin/albums"]);
+                        exit;
+                    }else{
+                        http_response_code(500);
+                        echo "Delete Gagal";
+                        exit;
+                    }
+                    break;
+                    exit;
+
                 default:
                     throw new LoggedException('Method Not Allowed', 405);
             }

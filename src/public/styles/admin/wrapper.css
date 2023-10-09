@@ -6,7 +6,7 @@
 }
 
 .admin-background {
-    background-color: var(--primaryColor-6);
+    background-color: var(--black);
     width: 75vw;
     height: 84vh;
     min-width: 640px;

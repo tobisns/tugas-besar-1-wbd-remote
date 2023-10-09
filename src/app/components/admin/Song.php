@@ -1,31 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<song class="in-page-admin">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Global CSS -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>/styles/template/global.css">
     <!-- Page CSS -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/styles/admin/song.css">
-    <link rel="icon" type="image" sizes="64x64" href="<?= BASE_URL ?>/assets/images/logo.svg">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/styles/template/player.css">
-    <!-- Icon Lib -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <!-- JavaScript Constant and Variables -->
-    <script type="text/javascript" defer>
-        const DEBOUNCE_DELAY = "<?= DEBOUNCE_DELAY ?>";
-        const STORAGE_URL = "<?= STORAGE_URL ?>";
-    </script>
-    <!-- JavaScript Library -->
-    <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/debounce.js" defer></script>
-    <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/utils.js" defer></script>
-    <!-- JavaScript DOM and AJAX -->
-    <title>Explore</title>
 </head>
 <body>
-    <div class="explorepage-container">
         <div class="top-util-div">
             <div class="search-ico">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -70,7 +48,7 @@
                 <?php while($music = pg_fetch_assoc($this->data['musics'])) : ?>
                     <div class="search-song-container">
                         <div class="search-song-cover">
-                            <img class="cover-img" src="<?= BASE_URL ?>/assets/images/default-profpic.jpg">
+                            <img class="cover-img" src="<?= STORAGE_URL ?>/images/<?= $music['cover_file'] ?>">
                         </div>
                         <h3 onclick="play(<?=$music['music_id']?>)" class="search-song-title"><?php echo $music['title'] ?></h3>
                         <h3 class="search-song-artist"><?php echo $music['name'] ?></h3>
@@ -81,7 +59,7 @@
                 <?php endwhile; ?>
             <?php endif; ?>
         </div>
-    </div>
+    
     <div>
         <?php include(dirname(__DIR__) . '/template/Player.php') ?>
     </div>
@@ -89,4 +67,4 @@
 
 
 
-</html>
+</song>

@@ -39,13 +39,11 @@
     <h2>New Song Release</h2>
     <div class="new-song-list">
         <?php while ($song = pg_fetch_array($this->data['songs'])) : ?>
-            <a href="#">
-                <div class="new-song" onclick="play(<?=$song['music_id']?>)">
-                    <img class="new-song-cover" src="<?= STORAGE_URL ?>/images/<?= $song['cover_file'] ?>">
-                    <div class="new-song-title"><?php echo $song['title']?></div>
-                    <div class="new-song-artist"><?php echo $song['name']?></div>
-                </div>
-            </a>
+            <div class="new-song" onclick="play(<?=$song['music_id']?>)">
+                <img class="new-song-cover" src="<?= STORAGE_URL ?>/images/<?= $song['cover_file'] ?>">
+                <div class="new-song-title"><?php echo $song['title']?></div>
+                <div class="new-song-artist"><?php echo $song['name']?></div>
+            </div>
         <?php endwhile; ?>
     </div>
 </div>

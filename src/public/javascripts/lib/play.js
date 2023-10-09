@@ -22,7 +22,7 @@ if(id){
     formData.append("song_id", id);
     axios({
         method:"get",
-        url:"/public/song/",
+        url:"/public/song/play",
         payload:formData
     }).then((response)=>{
         var jsonObject = JSON.parse(response);

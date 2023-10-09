@@ -1,11 +1,12 @@
 // let newAlbumList = document.querySelector('.new-album-list');
 
 function play(id) {
+    console.log(id);
     const formData = new FormData();
     formData.append("song_id", id);
     axios({
         method:"get",
-        url:"/public/song/",
+        url:"/public/song/play",
         payload:formData
     }).then((response)=>{
         var jsonObject = JSON.parse(response);

@@ -106,5 +106,37 @@ class SongController extends controller implements ControllerInterface
             http_response_code($e->getCode());
             exit;
         }
-    } 
+    }
+
+
+    public function play()
+    {
+        try {
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $isAuth = new AuthenticationMiddleware();
+                    $result = $isAuth->isAuthenticated();
+                    $songModel = $this->model("SongModel");
+                    $song = $songModel->getSong($_GET["song_id"]);
+                    $_SESSION["music"]["id"] = $_GET["song_id"];
+                    if($song){
+                        http_response_code(201);
+                        echo json_encode($song) ;
+                        exit;
+                    }else{
+                        http_response_code(401);
+                        echo $_GET["song_id"];
+                        echo "Login Gagal";
+                        exit;
+                    }
+                    exit;
+                default:
+                    throw new Exception('Method Not Allowed', 405);
+            }
+        } catch (Exception $e) {
+            $errorView = $this->view('error', 'ErrorView');
+            $errorView->render();
+            http_response_code($e->getCode());
+        }
+    }
 }

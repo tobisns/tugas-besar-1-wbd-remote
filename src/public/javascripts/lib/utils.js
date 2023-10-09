@@ -37,7 +37,7 @@ async function axios({
             xhr.send(json);
         }else{
             const params = new URLSearchParams(payload).toString();
-
+            console.log(params)
             xhr.open(method,`${url}?${params}`);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.send();

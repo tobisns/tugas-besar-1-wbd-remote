@@ -24,7 +24,7 @@
 
 <body>
 <div class="green-body">
-    <!-- Navbar -->
+    <!-- Sidebar -->
     <?php include(dirname(__DIR__) . '/template/Sidebar.php') ?>
     <div class="wrapper">
         <div class="profile-container-wrap">
@@ -96,10 +96,14 @@
                     <p id="edit-alert" class="alert-hide">Fail to upload!</p>
                     <button type="reset" class="button cancel-button">Cancel</button>
                     <button type="submit" class="button">Edit</button>
+                    <button  onclick="openpop()" type="button" id="delete-button">Delete</button>
                 </div>
             </form>
         </div>
     </div>
+    <!-- Delete -->
+    <?php include(dirname(__DIR__) . '/user/DeletePopUp.php') ?>
+    <!-- Player -->
     <?php include(dirname(__DIR__) . '/template/Player.php') ?>
 </div>
 </body>

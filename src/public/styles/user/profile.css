@@ -155,4 +155,14 @@ input {
     color: var(--Red);
 }
 
+#delete-button {
+    background-color: #17D581;
+    border: 0px;
+    border-radius: 5px;
+    padding: 8px 20px;
+    font-family: var(--sen);
+    font-style: normal;
+    font-weight: bold;
+    margin-right: 12px;
+}
 

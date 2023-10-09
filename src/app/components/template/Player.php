@@ -1,7 +1,13 @@
 <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/play.js" defer></script>
 <!-- JavaScript Constant and Variables -->
 <script type="text/javascript" defer>
-    const id = "<?= $_SESSION["music"]["id"] ?>";
+    <?php
+        $idMusic = null;
+        if(isset($_SESSION["music"]["id"])){
+            $idMusic = $_SESSION["music"]["id"];
+        }
+    ?>
+    const id = "<?= $idMusic ?>";
 </script>
 <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/template/player.css">
 <div class="player">
@@ -26,7 +32,7 @@
         </div>
 
         <audio controls id="song">
-            <source src="<?= STORAGE_URL ?>/music/audio_tester.m4a" type="audio/mpeg">
+            <source src="" type="audio/mpeg">
         </audio>
     </div>
 

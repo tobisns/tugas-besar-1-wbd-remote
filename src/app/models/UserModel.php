@@ -85,11 +85,11 @@ class UserModel
         $result = pg_prepare($conn, "get_user", $query);
         $result = pg_execute($conn, "get_user", array($username));
 
-        $user = pg_fetch_assoc($result);
-        if (!$user) {
+        $image = pg_fetch_assoc($result);
+        if (!$image) {
             return false;
         }else{
-            return $user;
+            return $image;
         }
     }
 
@@ -174,6 +174,46 @@ class UserModel
             } else {
                 return false;
             }
+    }
+    public function deleteUser($username)
+    {
+        $conn = $this->database->getConn();
+
+        // Check if the user exists before attempting to delete
+        if (!$this->isUsernameExists($username)) {
+            return false; // User does not exist
+        }
+
+        $query = "DELETE FROM users WHERE username = $1";
+        $result = pg_prepare($conn, "delete_user_query", $query);
+        $result = pg_execute($conn, "delete_user_query", array($username));
+
+        if ($result) {
+            return true; // User successfully deleted
+        } else {
+            return false; // Deletion failed
+        }
+    }
+
+
+    public function getImage($username)
+    {
+        $conn = $this->database->getConn();
+
+        // Check if the user exists before attempting to delete
+        if (!$this->isUsernameExists($username)) {
+            return false; // User does not exist
+        }
+
+        $query = "SELECT profile_picture_file FROM users WHERE username = $1";
+        $result = pg_prepare($conn, "get_image_query", $query);
+        $result = pg_execute($conn, "get_image_query", array($username));
+        $image = pg_fetch_assoc($result);
+        if (!$image["profile_picture_file"]) {
+            return $image["profile_picture_file"]; // User successfully deleted
+        } else {
+            return false; // Deletion failed
+        }
     }
 
 

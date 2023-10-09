@@ -5,6 +5,43 @@ const phoneNumberInput = document.querySelector("#phone-number");
 const passwordInput = document.querySelector("#password");
 const confirmPasswordInput = document.querySelector("#confirm-password");
 const fileInput = document.querySelector("#file-input")
+const popup = document.getElementById("popup");
+function openpop(){
+    if (popup.classList.contains("display-show")) {
+        popup.classList.remove("display-show");
+        popup.classList.add("display-hidden");
+    } else {
+        popup.classList.remove("display-hidden");
+        popup.classList.add("display-show");
+    }
+}
+
+function cancelpopup(){
+    if (popup.classList.contains("display-show")) {
+        popup.classList.remove("display-show");
+        popup.classList.add("display-hidden");
+    } else {
+        popup.classList.remove("display-hidden");
+        popup.classList.add("display-show");
+    }
+}
+
+function callaxios(){
+    const formData = new FormData();
+    formData.append("username", username);
+    axios({
+        method: "delete",
+        url: "/public/user/delete",
+        payload: formData,
+    })
+        .then((response) => {
+            location.replace("http:\/\/localhost:8080\/public\/user\/login")
+        })
+        .catch((error) => {
+            console.log("error");
+            console.log(error);
+        });
+}
 
 //form
 const editForm = document.querySelector(".edit-form");
@@ -175,25 +212,46 @@ editForm.addEventListener("submit", async (e) => {
     const phoneNumber = phoneNumberInput.value;
     const password = passwordInput.value;
     const file = fileInput.files[0];
-    const formData = new FormData();
 
-    formData.append("username", username);
-    formData.append("displayname", displayName);
-    formData.append("phonenumber", phoneNumber);
-    formData.append("password", password);
-    formData.append("file", file);
+    let filepath = null;
+    const imageData = new FormData();
+    imageData.append("file", file);
 
     axios({
-        method: "post",
-        url: "/public/user/edit",
-        payload: formData,
+        method: "POST",
+        url: "/public/user/updateImage",
+        payload: imageData,
     })
         .then((response) => {
-            location.reload();
+            console.log(response)
+            filepath = response
+            const formData = new FormData();
+            console.log(filepath)
+            formData.append("username", username);
+            formData.append("displayname", displayName);
+            formData.append("phonenumber", phoneNumber);
+            formData.append("password", password);
+            formData.append("file", filepath);
+
+            axios({
+                method: "PUT",
+                url: "/public/user/edit",
+                payload: formData,
+            })
+                .then((response) => {
+                    location.reload();
+                })
+                .catch((error) => {
+                    submitAlert.textContent = "Minimal 1 field";
+                    submitAlert.className = "alert-show";
+                    console.log(error);
+                });
         })
         .catch((error) => {
             submitAlert.textContent = "Minimal 1 field";
             submitAlert.className = "alert-show";
             console.log(error);
         });
+
+
 });

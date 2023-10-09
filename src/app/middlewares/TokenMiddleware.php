@@ -58,6 +58,8 @@ class TokenMiddleware
         return '<input type="hidden" id="csrftoken" name="csrftoken" value="'. $token->sessiontoken .'">';
     }
 
+
+
     public static function verifyToken(string $page, $removeToken = false, $requestToken = null) : bool {
 
         self::confirmSessionStarted();

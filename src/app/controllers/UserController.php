@@ -13,7 +13,6 @@ class UserController extends Controller implements ControllerInterface
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'GET':
                     $token = (TokenMiddleware::getSessionToken('edit') ?? TokenMiddleware::setNewToken('edit'));
-                    $token = (TokenMiddleware::getSessionToken('logout') ?? TokenMiddleware::setNewToken('logout'));
 
                     $isAuth = new AuthenticationMiddleware();
                     $result = $isAuth->isAuthenticated();
@@ -154,9 +153,6 @@ class UserController extends Controller implements ControllerInterface
                     $isAuth = new AuthenticationMiddleware();
                     $result = $isAuth->isAuthenticated();
 
-                    //prevent crsf
-                    TokenMiddleware::verifyToken('logout');
-
                     unset($_SESSION['username']);
                     unset($_SESSION['music']);
                     header('Location: ' . BASE_URL . '/user/login');
@@ -173,34 +169,32 @@ class UserController extends Controller implements ControllerInterface
     {
         try {
             switch ($_SERVER['REQUEST_METHOD']) {
-                case 'POST':
-                    //prevent crsf
-                    TokenMiddleware::verifyToken('edit');
+                case 'PUT':
                     //check auth
                     $isAuth = new AuthenticationMiddleware();
                     $result = $isAuth->isAuthenticated();
 
-                    $uploadedImage = null;
+                    $_PUT = array();
+                    $input = file_get_contents('php://input');
+                    $_PUT = (array) json_decode($input);
 
-                    if(isset($_FILES['file'])){
-                        $image = new AccessStorage("images");
-                        $uploadedImage = $image->saveImage($_FILES['file']['tmp_name']);
-                    }
+                    // crsf verify
+                    TokenMiddleware::verifyToken('edit',false,$_PUT["csrftoken"]);
+
 
                     $userModel = $this->model('UserModel');
                     $result = $userModel->updateUser(
-                        $_POST["username"],
-                        $_POST["displayname"],
-                        $uploadedImage,
-                        $_POST["phonenumber"],
-                        $_POST["password"]
+                        $_PUT["username"],
+                        $_PUT["displayname"],
+                        $_PUT["file"],
+                        $_PUT["phonenumber"],
+                        $_PUT["password"]
                     );
 
                     header('Content-Type: application/json');
 
                     if($result){
                         http_response_code(201);
-                        echo json_encode(["redirect_url" => BASE_URL . "/user/login"]);
                         exit;
                     }else{
                         http_response_code(500);
@@ -216,5 +210,64 @@ class UserController extends Controller implements ControllerInterface
             http_response_code($e->getCode());
         }
 
+    }
+
+    public  function delete()
+    {
+        try {
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'DELETE':
+                    //check auth
+                    $isAuth = new AuthenticationMiddleware();
+                    $result = $isAuth->isAuthenticated();
+                    $userModel = $this->model('UserModel');
+                    $responses = $userModel->deleteUser($_SESSION["username"]);
+                    unset($_SESSION['username']);
+                    unset($_SESSION['music']);
+                    http_response_code(201);
+                    exit;
+                default:
+                    throw new Exception('Method Not Allowed', 405);
+            }
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+        }
+    }
+
+    public function updateImage(){
+        try {
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'POST':
+                    //check auth
+                    $isAuth = new AuthenticationMiddleware();
+                    $result = $isAuth->isAuthenticated();
+                    $userModel = $this->model('UserModel');
+                    $responses = $userModel->getImage($_SESSION["username"]);
+                    $oldImage = new AccessStorage("images");
+                    if($responses){
+                        $oldImage->deleteFile($responses);
+                    }
+                    $uploadedImage ='';
+                    if(isset($_FILES['file'])){
+                        $newImage = new AccessStorage("images");
+                        $uploadedImage = $newImage->saveImage($_FILES['file']['tmp_name']);
+                    }
+
+                    if($uploadedImage !== '' && isset($_FILES['file'])){
+                        http_response_code(201);
+                        echo $uploadedImage;
+                    }else if(!isset($_FILES['file'])){
+                        http_response_code(201);
+                    }
+                    else{
+                        http_response_code(500);
+                    }
+                    exit;
+                default:
+                    throw new Exception('Method Not Allowed', 405);
+            }
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+        }
     }
 }

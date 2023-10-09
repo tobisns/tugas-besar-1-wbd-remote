@@ -19,7 +19,7 @@ class ArtistController extends Controller implements ControllerInterface
 
                     break;      
                 default:
-                    throw new LoggedException('Method Not Allowed', 405);
+                    throw new Exception('Method Not Allowed', 405);
             }
         } catch(Exception $e){
             http_response_code($e->getCode());
@@ -59,7 +59,7 @@ class ArtistController extends Controller implements ControllerInterface
                     break;
                 
                 default:
-                    throw new LoggedException('Method Not Allowed', 405);
+                    throw new Exception('Method Not Allowed', 405);
             }
         } catch(Exception $e){
             http_response_code($e->getCode());

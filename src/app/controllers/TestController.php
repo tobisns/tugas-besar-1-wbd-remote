@@ -23,7 +23,7 @@ class TestController extends Controller implements ControllerInterface
                     exit;
                     break;
                 default:
-                    throw new LoggedException('Method Not Allowed', 405);
+                    throw new Exception('Method Not Allowed', 405);
             }
         } catch(Exception $e){
             http_response_code($e->getCode());
@@ -45,7 +45,7 @@ class TestController extends Controller implements ControllerInterface
                     exit;
                     break;
                 default:
-                    throw new LoggedException('Method Not Allowed', 405);
+                    throw new Exception('Method Not Allowed', 405);
             }
         } catch(Exception $e){
             http_response_code($e->getCode());

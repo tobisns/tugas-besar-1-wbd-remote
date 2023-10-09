@@ -37,11 +37,19 @@ Muse app merupakan sebuah <i>vanilla web application</i> yang dibangun dengan me
 ## Panduan Menjalankan Server
 1. Buka terminal pada <i>directory</i> repositori aplikasi ini.
 2. Jalankan perintah ```docker-compose up -d``` pada terminal.
-3. Akses web dengan URL ```http://localhost:8080/public/home```.
+3. Akses web dengan URL ```http://localhost:8080/public/user/login```.
 4. Untuk menghentikan aplikasi, jalankan perintah ```docker-compose down``` pada terminal.
 
 ## Screenshot
-
+![img.png](images/img3.png)
+![img_2.png](images/img_2.png)
+![img.png](images/img.png)
+![img.png](images/imgas.png)
+![img_1.png](images/img_1.png)
+![img_2.png](images/img_2aa.png)
+![img_3.png](images/img_3.png)
+![img_1.png](images/img_1asd.png)
+![img_3.png](images/asda.png)
 ## Pembagian Tugas
 ### Server-side
 | Fitur                     | NIM                      |

@@ -22,11 +22,13 @@ class AdminController extends Controller implements ControllerInterface
 
                     if($sub_div == 'albums'){
                         $albumModel = $this->model('AlbumModel');
+                        $songModel = $this->model('SongModel');
                         $search = isset($_GET['search']) ? $_GET['search'] : '';
                         $sort = isset($_GET['sort']) ? $_GET['sort'] : 'name';
                         $res = $albumModel->readAlbumPaged($page, $search, $sort);
 
                         $total_page = ceil($albumModel->albumCount($search) / 5);
+                        $genres = $songModel->getGenres();
 
                         $userModel = $this->model('UserModel');
                         $user = $userModel->getUser($_SESSION['username']);
@@ -34,7 +36,7 @@ class AdminController extends Controller implements ControllerInterface
 
                         
 
-                        $adminAlbumView = $this->view('admin', 'AdminView', ['from_admin' => true, 'username' => $user, 'admin' => $isAdmin, 'current_page' => $page, 'total_page' => $total_page, 'content' => $sub_div, 'albums' => $res]);
+                        $adminAlbumView = $this->view('admin', 'AdminView', ['from_admin' => true, 'username' => $user, 'admin' => $isAdmin, 'current_page' => $page, 'total_page' => $total_page, 'content' => $sub_div, 'albums' => $res, 'genres' => $genres]);
                         $adminAlbumView->render();
                     } else if($sub_div == 'songs') {
                         
@@ -44,8 +46,9 @@ class AdminController extends Controller implements ControllerInterface
 
                         $songModel = $this->model('SongModel');
                         $musics = $songModel->readSongAll();
+                        $genres = $songModel->getGenres();
 
-                        $SongView = $this->view('admin', 'AdminView', ['from_admin' => true, 'username' => $user, 'admin' => $isAdmin, 'content' => $sub_div, 'albums' => null, 'musics' => $musics]);
+                        $SongView = $this->view('admin', 'AdminView', ['from_admin' => true, 'username' => $user, 'admin' => $isAdmin, 'content' => $sub_div, 'albums' => null, 'musics' => $musics, 'genres' => $genres]);
                         $SongView->render();
                     } else {
                         $notFoundView = $this->view('not-found', 'NotFoundView');
@@ -104,8 +107,9 @@ class AdminController extends Controller implements ControllerInterface
 
                     $songModel = $this->model('SongModel');
                     $musics = $songModel->readSongAll();
+                    $genres = $songModel->getGenres();
 
-                    $SongView = $this->view('admin', 'SongView', ['from_admin' => true, 'username' => $user, 'admin' => $isAdmin, 'albums' => null, 'musics' => $musics]);
+                    $SongView = $this->view('admin', 'SongView', ['from_admin' => true, 'username' => $user, 'admin' => $isAdmin, 'albums' => null, 'musics' => $musics, 'genres' => $genres]);
                     ob_start();
                     $SongView->render();
                     $return = ob_get_clean();

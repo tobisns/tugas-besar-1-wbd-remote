@@ -12,6 +12,21 @@
             </div>
             <form action="<?= BASE_URL ?>/admin/albums/1" class="search-form">
                 <input type="text" name="search" class="search-bar">
+                <select class="sort-list" name="sort" id="sort">
+                    <option value="name asc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'name asc') : ?> selected="selected" <?php endif; ?>>Title (A-Z)</option>
+                    <option value="name desc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'name desc') : ?> selected="selected" <?php endif; ?>>Title (Z-A)</option>
+                    <option value="upload_date asc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'upload_date asc') : ?> selected="selected" <?php endif; ?>>Release Date (Latest)</option>
+                    <option value="upload_date desc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'upload_date desc') : ?> selected="selected" <?php endif; ?>>Release Date (Earliest)</option>
+                </select>
+                <select class="filter-genre-list" name="filtergenre" id="filtergenre">
+                    <option value="all">All genre</option>
+                    
+                    <?php while ($genres = pg_fetch_array($this->data['genres'])) : ?>
+                        <option value="<?= $genres['genre'] ?>">
+                            <?php echo $genres['genre']?>
+                        </option>
+                    <?php endwhile; ?>
+                </select>
             </form>
             <?php if($this->data['from_admin']) : ?>
             <button class="add-button" id="add-album">

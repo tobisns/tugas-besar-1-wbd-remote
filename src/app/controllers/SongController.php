@@ -26,6 +26,8 @@ class SongController extends controller implements ControllerInterface
     
                         $qres = $songModel->readSongsPaged($page, $keyword, $filtergenre, $sort);
                         $total_page = ceil($songModel->songsCount($keyword) / 5);
+
+                        $genres = $songModel->getGenres();
     
                         if ($qres && $total_page) {
                             $songs = array();
@@ -78,6 +80,7 @@ class SongController extends controller implements ControllerInterface
 
                     $songModel = $this->model('SongModel');
                     $qres = $songModel->readSongsPaged(1 ,$search, $filter, $sort);
+                    $genres = $songModel->getGenres();
                     if($qres){
                         $songs = array();
                         while ($row = pg_fetch_assoc($qres)) {

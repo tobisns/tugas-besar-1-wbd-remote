@@ -24,10 +24,12 @@ class AlbumController extends Controller implements ControllerInterface
                     $from_admin = isset($_GET['admin']) ? $_GET['admin'] : false;
 
                     $albumModel = $this->model('AlbumModel');
+                    $songModel = $this->model('SongModel');
                     $res = $albumModel->readAlbumPaged($page);
                     $total_page = ceil($albumModel->albumCount('') / 5);
+                    $genres = $songModel->getGenres();
                     if($res && $total_page){
-                        $AlbumView = $this->view('album', 'AlbumView', ['from_admin' => $from_admin, 'username' => $user, 'admin' => $isAdmin, 'current_page' => $page, 'total_page' => $total_page, 'albums' => $res]);
+                        $AlbumView = $this->view('album', 'AlbumView', ['from_admin' => $from_admin, 'username' => $user, 'admin' => $isAdmin, 'current_page' => $page, 'total_page' => $total_page, 'albums' => $res, 'genres' => $genres]);
                         ob_start();
                         $AlbumView->render();
                         $return = ob_get_clean();
@@ -129,8 +131,10 @@ class AlbumController extends Controller implements ControllerInterface
                     $sort = isset($_GET['sort']) ? $_GET['sort'] : 'name';
 
                     $albumModel = $this->model('AlbumModel');
+                    $songModel = $this->model('SongModel');
                     $qres = $albumModel->readAlbumPaged($page, $search, $sort);
                     $total_page = ceil($albumModel->albumCount($search) / 5);
+                    $genres = $songModel->getGenres();
                     if($qres && $total_page){
                         $albums = array();
                         while ($row = pg_fetch_assoc($qres)) {

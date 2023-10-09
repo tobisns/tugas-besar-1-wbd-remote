@@ -29,7 +29,7 @@ class SongModel
         }
     }
 
-    public function readSongsPaged($keyword='', $filtergenre='all', $sort='title asc')
+    public function readSongsPaged($page=1, $keyword='', $filtergenre='all', $sort='title asc')
     {
         $offset = ((int) $page - 1) * 5;
         if ($filtergenre==='all'){

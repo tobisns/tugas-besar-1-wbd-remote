@@ -51,6 +51,12 @@ header {
     padding: 8%;
 }
 
+@media screen and (min-width: 600px){
+    .card {
+        padding: 2% 8%;
+    }
+}
+
 p, label, a {
     color: white;
 }

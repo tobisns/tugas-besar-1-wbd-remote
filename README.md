@@ -61,6 +61,7 @@ Muse app merupakan sebuah <i>vanilla web application</i> yang dibangun dengan me
 | Explore (Search)          |13521059|
 | Profile (User CRUD)       |13521080|
 | Admin (Album & Song CRUD) |13521090|
+| Pagination                |13521090|
 ### Client-side
 | Fitur                     | NIM                      |
 |---------------------------| --------------------------|
@@ -71,3 +72,4 @@ Muse app merupakan sebuah <i>vanilla web application</i> yang dibangun dengan me
 | Explore (Search)          | 13521059|
 | Profile (User CRUD)       |13521080|
 | Admin (Album & Song CRUD) |13521090|
+| Pagination                |13521090|

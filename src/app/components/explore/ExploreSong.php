@@ -29,12 +29,6 @@
 <body>
 <div class="explorepage-container">
         <div class="top-util-div">
-            <div class="search-ico">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17.0938 17.0938L22.7188 22.7188" stroke="#FEFEFE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M10.0625 18.9688C14.9813 18.9688 18.9688 14.9813 18.9688 10.0625C18.9688 5.14371 14.9813 1.15625 10.0625 1.15625C5.14371 1.15625 1.15625 5.14371 1.15625 10.0625C1.15625 14.9813 5.14371 18.9688 10.0625 18.9688Z" stroke="#FEFEFE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
             <div class="search-container">
                 <form action="<?= BASE_URL ?>/explore/songs/1" METHOD="GET" class="search-form">
                     <input class="search-bar" type="text" id="search" name="search" placeholder="Search...">

@@ -161,7 +161,7 @@ const updateAlbumPage = (page) => {
         history.pushState(null, null, currentURL);
 
         const parts = currentURL.split('/');
-        let partIndex = parts.indexOf('admin');
+        let partIndex = parts.indexOf('explore');
 
         var newURL;
 

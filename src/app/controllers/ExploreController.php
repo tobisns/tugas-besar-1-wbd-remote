@@ -25,19 +25,26 @@ class ExploreController extends Controller implements ControllerInterface{
                         $user = $userModel->getUser($_SESSION['username']);
                         $isAdmin = $userModel->isAdmin($_SESSION['username']);
 
-                        $exploreAlbumView = $this->view('explore', 'ExploreView', ['username' => $user, 'admin' => $isAdmin, 'current_page' => $page, 'total_page' => $total_page, 'content' => $sub_div, 'albums' => $res]);
-                        $exploreAlbumView->render();
+                        $albumView = $this->view('explore', 'ExploreView', ['from_admin' => false, 'username' => $user, 'admin' => $isAdmin, 'current_page' => $page, 'total_page' => $total_page, 'content' => $sub_div, 'albums' => $res]);
+                        ob_start();
+                        $albumView->render();
+                        $return = ob_get_clean();
+                        header('Content-Type: text/html');
+                        http_response_code(201);
+                        echo $return;
+                        exit;
+                        break;
                     } else if($sub_div == 'songs') {
                         $sort = isset($_GET['sort']) ? $_GET['sort'] : 'title asc';
                         $filter = isset($_GET['filtergenre']) ? $_GET['filtergenre'] : 'all';
                         $songModel = $this->model('SongModel');
-                        $musics = $songModel->readSongAll();
+                        $musics = $songModel->readSongPaged($search, $filter, $sort);
 
                         $userModel = $this->model('UserModel');
                         $user = $userModel->getUser($_SESSION['username']);
                         $isAdmin = $userModel->isAdmin($_SESSION['username']);
 
-                        $exploreSongView = $this->view('explore', 'ExploreView', ['username' => $user, 'admin' => $isAdmin, 'content' => $sub_div, 'albums' => null, 'musics' => $musics]);
+                        $exploreSongView = $this->view('explore', 'ExploreView', ['from_admin' => false, 'username' => $user, 'admin' => $isAdmin, 'content' => $sub_div, 'albums' => null, 'musics' => $musics]);
                         $exploreSongView->render();
                     } else {
                         $notFoundView = $this->view('not-found', 'NotFoundView');
@@ -69,6 +76,38 @@ class ExploreController extends Controller implements ControllerInterface{
             http_response_code($e->getCode());
         }
     }
+    public function song_render(){
+        try {
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $isAuth = new AuthenticationMiddleware();
+                    $result = $isAuth->isAdmin();
 
+                    $userModel = $this->model('UserModel');
+                    $user = $userModel->getUser($_SESSION['username']);
+                    $isAdmin = $userModel->isAdmin($_SESSION['username']);
+
+                    $songModel = $this->model('SongModel');
+                    $musics = $songModel->readSongAll();
+
+                    $SongView = $this->view('admin', 'SongView', ['from_admin' => false, 'username' => $user, 'admin' => $isAdmin, 'albums' => null, 'musics' => $musics]);
+                    ob_start();
+                    $SongView->render();
+                    $return = ob_get_clean();
+                    header('Content-Type: text/html');
+                    http_response_code(201);
+                    echo $return;
+
+                    exit;
+                    break;
+                
+                default:
+                    throw new LoggedException('Method Not Allowed', 405);
+            }
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+            exit;
+        }
+    }
     
 }

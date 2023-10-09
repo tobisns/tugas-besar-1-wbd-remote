@@ -23,8 +23,8 @@
     <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/utils.js" defer></script>
     <!-- JavaScript DOM and AJAX -->
     <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/explore/explore.js" defer></script>
-    <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/explore/exploreAlbum.js" defer></script>
-    <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/explore/exploreSong.js" defer></script>
+    <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/album/album.js" defer></script>
+    <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/admin/song.js" defer></script>
     
     <title>Explore</title>
 </head>
@@ -56,9 +56,9 @@
     <div id="dynamic-content-container">
         <?php 
         if($this->data['content'] == 'songs'){
-            require_once(dirname(__DIR__) . '/explore/ExploreSong.php');
+            require_once(dirname(__DIR__) . '/admin/Song.php');
         } else {
-            require_once(dirname(__DIR__) . '/explore/ExploreAlbum.php');
+            require_once(dirname(__DIR__) . '/album/Album.php');
         } 
         ?>
     </div>

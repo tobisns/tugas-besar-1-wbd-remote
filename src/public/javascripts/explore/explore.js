@@ -25,7 +25,7 @@ albumsButton.addEventListener('click', (e) => {
 
             reallign_album();
             reload_page_button();  
-            reload_add_button();                                                                                  
+            // reload_add_button();                                                                                  
 
             //set new url
             const currentURL = window.location.href;
@@ -61,7 +61,7 @@ songsButton.addEventListener('click', (e) => {
             const currentURL = window.location.href;
             history.pushState(null, null, currentURL);
 
-            reload_add_button();
+            // reload_add_button();
     
             const parts = currentURL.split('/');
             let partIndex = parts.indexOf('explore');
@@ -121,7 +121,7 @@ const updateContainer = (content) => {
         formData.append("test", username);
         axios({
             method: "GET",
-            url: "/public/explore/test",
+            url: "/public/admin/test",
             payload: formData,
         })
         .then((response) => {

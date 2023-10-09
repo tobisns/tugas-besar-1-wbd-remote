@@ -6,6 +6,12 @@ const musicGenre = document.querySelector('#genre');
 const musicDuration = document.querySelector('#duration');
 const audioInput = document.querySelector("#audio-input");
 const coverInput = document.querySelector("#cover-input");
+const baseCover = document.querySelector("#base-cover");
+const baseAudio = document.querySelector("#base-audio");
+const musicId = document.querySelector("#music-id");
+
+
+
 
 const registerForm = document.querySelector(".register-form")
 
@@ -72,6 +78,11 @@ registerForm.addEventListener("submit", async (e) => {
     const duration = musicDuration.value;
     const audio_file = audioInput.files[0];
     const cover_file = coverInput.files[0];
+    const base_cover = baseCover.value;
+    const base_audio = baseAudio.value;
+    const music_id = musicId.value;
+
+    
     console.log(cover_file);
     console.log(audio_file);
 
@@ -84,17 +95,21 @@ registerForm.addEventListener("submit", async (e) => {
     formData.append("genre", genre);
     formData.append("audio_file", audio_file);
     formData.append("cover_file", cover_file);
+    formData.append("base_cover", base_cover);
+    formData.append("base_audio", base_audio);
+
+
 
     axios({
         method: "post",
-        url: "/public/admin/add_song",
+        url: `/public/admin/edit_song/${music_id}`,
         payload: formData,
     })
     .then((response) => {
         console.log(response);
         location.replace("http:\/\/localhost:8080\/public\/admin\/songs");
     })
-    .catch((reponse) => {
-        console.log(reponse);
+    .catch((response) => {
+        console.log(response);
     });
 });

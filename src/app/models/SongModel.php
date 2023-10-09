@@ -13,7 +13,7 @@ class SongModel
     {
         $conn = $this->database->getConn();
 
-        $query = "SELECT s.title, a.name,s.audio_file
+        $query = "SELECT s.title, a.name,s.audio_file, a.artist_id, s.upload_date, s.genre, s.duration, s.cover_file, s.music_id  
               FROM music s
               INNER JOIN artist a ON s.artist_id = a.artist_id
               WHERE s.music_id = $1";
@@ -29,20 +29,25 @@ class SongModel
         }
     }
 
-    public function readSongsPaged($keyword='', $filtergenre='all', $sort='title asc')
+    public function readSongsPaged($page=1, $keyword='', $filtergenre='all', $sort='title asc')
     {
+        $offset = ((int) $page - 1) * 5;
         if ($filtergenre==='all'){
             $query = 
                 "SELECT music_id, cover_file, title, artist.name, duration
                 FROM music NATURAL JOIN artist
                 WHERE (title ILIKE '%{$keyword}%' OR artist.name ILIKE '%{$keyword}%')
-                ORDER BY {$sort}";
+                ORDER BY {$sort}
+                LIMIT 5
+                OFFSET {$offset};";
         } else {
             $query = 
                 "SELECT music_id, cover_file, title, artist.name, duration
                 FROM music NATURAL JOIN artist
                 WHERE (title ILIKE '%{$keyword}%' OR artist.name ILIKE '%{$keyword}%') AND genre = '%{$filtergenre}%'
-                ORDER BY {$sort}";
+                ORDER BY {$sort}
+                LIMIT 5
+                OFFSET {$offset};";
         }
         $result = $this->database->query($query);
         return $result;
@@ -87,7 +92,6 @@ class SongModel
                             $genre, $duration, $upload_date,
                             $audio_file, $cover_file){
         $conn = $this->database->getConn();
-        $duration = $duration . ' M';
         $query = "INSERT INTO music(title, artist_id, genre, duration, upload_date, audio_file, cover_file) VALUES ($1, $2, $3, $4, $5, $6, $7)";
         $result = pg_prepare($conn, "insert_user_query", $query);
         $result = pg_execute($conn, "insert_user_query", array($title, $artist_id, $genre, $duration, $upload_date, $audio_file, $cover_file));
@@ -125,6 +129,22 @@ class SongModel
             return true;
         } else {
             echo "Error deleting record: " . pg_last_error($conn);
+            return false;
+        }
+    }
+
+    public function update($music_id, $title, $artist_id,
+                            $genre, $duration, $upload_date,
+                            $audio_file, $cover_file){
+        $conn = $this->database->getConn();
+        $query = "UPDATE music SET title = $1, artist_id = $2, genre = $3, duration = $4, upload_date = $5, audio_file = $6, cover_file = $7 
+                WHERE music_id = $8";
+        $result = pg_prepare($conn, "insert_user_query", $query);
+        $result = pg_execute($conn, "insert_user_query", array($title, $artist_id, $genre, $duration, $upload_date, $audio_file, $cover_file, $music_id));
+
+        if ($result) {
+            return true;
+        } else {
             return false;
         }
     }

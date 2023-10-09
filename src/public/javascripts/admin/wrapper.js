@@ -3,6 +3,7 @@ const albumsButton = document.querySelector("#albums-button");
 const songsButton = document.querySelector("#songs-button");
 
 reload_add_button();
+reload_song_button();
 
 albumsButton &&
 albumsButton.addEventListener('click', (e) => {
@@ -75,7 +76,7 @@ songsButton.addEventListener('click', (e) => {
             newURL = urlUntilAdmin+'/songs';
             history.pushState(null, null, newURL);
         }).catch((e)=>{
-            console.log("error")
+            console.log(e)
         })
     }
 });
@@ -159,3 +160,38 @@ function reload_add_button() {
     );
 }
 
+function reload_song_button(){
+    const deleteButtons = document.querySelectorAll(".delete-music");
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", (e) => {
+            e.preventDefault();
+            const formData = new FormData();
+            const music_id = button.getAttribute('music_id');
+            formData.append("music_id", music_id);
+            if (window.confirm('Are you sure you want to delete this record?')) {
+                axios({
+                    method: "post",
+                    url: "/public/admin/songs",
+                    payload: formData,
+                })
+                .then((response) => {
+                    console.log(response);
+                    location.replace("http:\/\/localhost:8080\/public\/admin\/songs");
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            }
+        })
+
+        const editButtons = document.querySelectorAll(".edit-music");
+        editButtons.forEach(button => {
+            button.addEventListener("click", (e) => {
+                e.preventDefault();
+                const music_id = button.getAttribute('music_id');
+                location.replace(`http://localhost:8080/public/admin/edit_song/${music_id}`);
+
+            })
+        });
+    });
+}

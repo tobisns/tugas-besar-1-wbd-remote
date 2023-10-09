@@ -22,13 +22,11 @@ class AdminController extends Controller implements ControllerInterface
 
                     if($sub_div == 'albums'){
                         $albumModel = $this->model('AlbumModel');
-                        $songModel = $this->model('SongModel');
                         $search = isset($_GET['search']) ? $_GET['search'] : '';
                         $sort = isset($_GET['sort']) ? $_GET['sort'] : 'name';
                         $res = $albumModel->readAlbumPaged($page, $search, $sort);
 
                         $total_page = ceil($albumModel->albumCount($search) / 5);
-                        $genres = $songModel->getGenres();
 
                         $userModel = $this->model('UserModel');
                         $user = $userModel->getUser($_SESSION['username']);
@@ -36,22 +34,18 @@ class AdminController extends Controller implements ControllerInterface
 
                         
 
-                        $adminAlbumView = $this->view('admin', 'AdminView', ['from_admin' => true, 'username' => $user, 'admin' => $isAdmin, 'current_page' => $page, 'total_page' => $total_page, 'content' => $sub_div, 'albums' => $res, 'genres' => $genres]);
+                        $adminAlbumView = $this->view('admin', 'AdminView', ['from_admin' => true, 'username' => $user, 'admin' => $isAdmin, 'current_page' => $page, 'total_page' => $total_page, 'content' => $sub_div, 'albums' => $res]);
                         $adminAlbumView->render();
                     } else if($sub_div == 'songs') {
-                        $search = isset($_GET['search']) ? $_GET['search'] : '';
-                        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'name';
-                        $filter = isset($_GET['filtergenre']) ? $_GET['filtergenre'] : 'all';
                         
                         $userModel = $this->model('UserModel');
                         $user = $userModel->getUser($_SESSION['username']);
                         $isAdmin = $userModel->isAdmin($_SESSION['username']);
 
                         $songModel = $this->model('SongModel');
-                        $musics = $songModel->readSongsPaged($search, $filter, $sort);
-                        $genres = $songModel->getGenres();
+                        $musics = $songModel->readSongAll();
 
-                        $SongView = $this->view('admin', 'AdminView', ['from_admin' => true, 'username' => $user, 'admin' => $isAdmin, 'content' => $sub_div, 'albums' => null, 'musics' => $musics, 'genres' => $genres]);
+                        $SongView = $this->view('admin', 'AdminView', ['from_admin' => true, 'username' => $user, 'admin' => $isAdmin, 'content' => $sub_div, 'albums' => null, 'musics' => $musics]);
                         $SongView->render();
                     } else {
                         $notFoundView = $this->view('not-found', 'NotFoundView');
@@ -110,9 +104,8 @@ class AdminController extends Controller implements ControllerInterface
 
                     $songModel = $this->model('SongModel');
                     $musics = $songModel->readSongAll();
-                    $genres = $songModel->getGenres();
 
-                    $SongView = $this->view('admin', 'SongView', ['from_admin' => true, 'username' => $user, 'admin' => $isAdmin, 'albums' => null, 'musics' => $musics, 'genres' => $genres]);
+                    $SongView = $this->view('admin', 'SongView', ['from_admin' => true, 'username' => $user, 'admin' => $isAdmin, 'albums' => null, 'musics' => $musics]);
                     ob_start();
                     $SongView->render();
                     $return = ob_get_clean();
@@ -299,4 +292,80 @@ class AdminController extends Controller implements ControllerInterface
             exit;
         }
     }
+
+    public function edit_song($music_id){
+        try {
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $token = (TokenMiddleware::getSessionToken('edit') ?? TokenMiddleware::setNewToken('edit'));
+
+                    $isAuth = new AuthenticationMiddleware();
+                    $result = $isAuth->isAdmin();
+
+                    $songModel = $this->model('SongModel');
+                    $music_data = $songModel->getSong($music_id);
+
+                    $adminSongView = $this->view('admin', 'EditSongView', ["music_data" => $music_data]);
+                    $adminSongView->render();
+
+                    break;
+                    exit;
+                case 'POST':
+                    //prevent crsf
+                    if(!TokenMiddleware::verifyToken('edit')){
+                        exit;
+                    }
+                    $uploadedImage = $_POST['base_cover'];
+                    $uploadedAudio = $_POST['base_audio'];
+                    
+                    // echo json_encode($_FILES['audio_file']['tmp_name']);
+
+                    if(!empty($_FILES['cover_file'])){
+                        $image = new AccessStorage("images");
+                        $res= $image->deleteFile($uploadedImage);
+                        $uploadedImage = $image->saveImage($_FILES['cover_file']['tmp_name']);
+                    }
+                    if(!empty($_FILES['audio_file'])){
+                        $image = new AccessStorage("music");
+                        $res= $image->deleteFile($uploadedAudio);
+                        $uploadedAudio = $image->saveAudio($_FILES['audio_file']['tmp_name']);
+                    }
+
+
+                    $userModel = $this->model('SongModel');
+                    $result = $userModel->update(
+                        $music_id,
+                        $_POST["title"],
+                        $_POST["artist_id"],
+                        $_POST["genre"],
+                        $_POST["duration"],
+                        $_POST["upload_date"],
+                        $uploadedAudio,
+                        $uploadedImage
+                    );
+
+                    header('Content-Type: application/json');
+
+                    if($result){
+                        
+                        http_response_code(201);
+                        echo json_encode(["redirect_url" => BASE_URL . "/admin/songs"]);
+                        exit;
+                    }else{
+                        echo "asu";
+                        http_response_code(500);
+                        echo "Update Gagal";
+                        exit;
+                    }
+
+                    exit;
+                default:
+                    throw new LoggedException('Method Not Allowed', 405);
+                }
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+            exit;
+        }
+    }
+
 }

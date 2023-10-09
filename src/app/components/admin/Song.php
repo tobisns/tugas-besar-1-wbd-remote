@@ -22,7 +22,6 @@
     <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/debounce.js" defer></script>
     <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/utils.js" defer></script>
     <!-- JavaScript DOM and AJAX -->
-    <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/admin/song.js" defer></script>
     <title>Explore</title>
 </head>
 <body>
@@ -35,22 +34,8 @@
                 </svg>
             </div>
             <form action="<?= BASE_URL ?>/admin/songs" class="search-form">
+            
                 <input type="text" name="search" class="search-bar">
-                <select class="sort-list" name="sort" id="sort">
-                    <option value="title asc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'title asc') : ?> selected="selected" <?php endif; ?>>Title (A-Z)</option>
-                    <option value="title desc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'title desc') : ?> selected="selected" <?php endif; ?>>Title (Z-A)</option>
-                    <option value="upload_date asc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'upload_date asc') : ?> selected="selected" <?php endif; ?>>Release Date (Latest)</option>
-                    <option value="upload_date desc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'upload_date desc') : ?> selected="selected" <?php endif; ?>>Release Date (Earliest)</option>
-                </select>
-                <select class="filter-genre-list" name="filtergenre" id="filtergenre">
-                    <option value="all">All genre</option>
-                    
-                    <?php while ($genres = pg_fetch_array($this->data['genres'])) : ?>
-                        <option value="<?= $genres['genre'] ?>">
-                            <?php echo $genres['genre']?>
-                        </option>
-                    <?php endwhile; ?>
-                </select>
             </form>
             <button class="add-button" id="add-song">
                 <div class="add-ico">
@@ -60,6 +45,17 @@
                 </div>
                 Song
             </button>
+        </div>
+        <div class="search-container">
+            <div class="sort-container">
+                <h4>Sort: </h4>
+                <select class="sort-list" name="sort-list[]">
+                    <option value="sort-album-asc">Title (A-Z)</option>
+                    <option value="sort-album-desc">Title (Z-A)</option>
+                    <option value="sort-album-asc">Release Date (Latest)</option>
+                    <option value="sort-album-desc">Release Date (Earliest)</option>
+                </select>
+            </div>
         </div>
 
         <div class="search-content">
@@ -74,7 +70,9 @@
                         </div>
                         <h3 class="search-song-title"><?php echo $music['title'] ?></h3>
                         <h3 class="search-song-artist"><?php echo $music['name'] ?></h3>
-                        <h3 class="search-song-duration"><?php echo $music['duration'] ?></h3>
+                        <div class="search-song-like">
+                            <img class="cover-img" src="<?= BASE_URL ?>/assets/images/icon_like_default.svg">
+                        </div>
                         <button class="edit-music" music_id="<?= $music['music_id'] ?>">edit</button>
                         <button class="delete-music" music_id="<?= $music['music_id'] ?>">delete</button>
                     </div>
@@ -84,9 +82,5 @@
         </div>
     </div>
 </body>
-
-<div>
-    <?php include(dirname(__DIR__) . '/template/Player.php') ?>
-</div>
 
 </html>

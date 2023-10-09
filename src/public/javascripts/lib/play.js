@@ -25,6 +25,7 @@ if(id){
         url:"/public/song/play",
         payload:formData
     }).then((response)=>{
+        console.log("response")
         var jsonObject = JSON.parse(response);
         title = document.querySelector(".title");
         artist = document.querySelector(".artist");
@@ -33,6 +34,7 @@ if(id){
         song.src = "http://localhost:8080/storage" + "/music/" + jsonObject.audio_file;
         song.load();
     }).catch((err)=>{
+        console.log("errr")
         console.log(err);
     })
 }
@@ -51,7 +53,7 @@ function playpause() {
     }
  }
 
- if(!song.paused){
+ if(song.play){
      setInterval(()=>{
          progress.value = song.currentTime;
          minute = 0

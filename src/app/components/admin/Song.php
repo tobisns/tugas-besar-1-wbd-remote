@@ -68,26 +68,25 @@
                 No songs available yet.
             <?php else : ?>
                 <?php while($music = pg_fetch_assoc($this->data['musics'])) : ?>
-                    <a href="">
                     <div class="search-song-container">
                         <div class="search-song-cover">
                             <img class="cover-img" src="<?= BASE_URL ?>/assets/images/default-profpic.jpg">
                         </div>
-                        <h3 class="search-song-title"><?php echo $music['title'] ?></h3>
+                        <h3 onclick="play(<?=$music['music_id']?>)" class="search-song-title"><?php echo $music['title'] ?></h3>
                         <h3 class="search-song-artist"><?php echo $music['name'] ?></h3>
                         <h3 class="search-song-duration"><?php echo $music['duration'] ?></h3>
                         <button class="edit-music" music_id="<?= $music['music_id'] ?>">edit</button>
                         <button class="delete-music" music_id="<?= $music['music_id'] ?>">delete</button>
                     </div>
-                    </a>
                 <?php endwhile; ?>
             <?php endif; ?>
         </div>
     </div>
+    <div>
+        <?php include(dirname(__DIR__) . '/template/Player.php') ?>
+    </div>
 </body>
 
-<div>
-    <?php include(dirname(__DIR__) . '/template/Player.php') ?>
-</div>
+
 
 </html>

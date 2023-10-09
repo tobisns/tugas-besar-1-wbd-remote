@@ -44,20 +44,22 @@ Muse app merupakan sebuah <i>vanilla web application</i> yang dibangun dengan me
 
 ## Pembagian Tugas
 ### Server-side
-| Fitur       | NIM                      |
-| --------- | --------------------------|
-| Login  | 13521080   |
-| Register |13521080 |
-| Home |13521059|
-| Explore (Search) |13521059|
-| Profile (User CRUD) |13521080|
+| Fitur                     | NIM                      |
+|---------------------------| --------------------------|
+| Login                     | 13521080   |
+| Register                  |13521080 |
+| Player                    |13521080 |
+| Home                      |13521059|
+| Explore (Search)          |13521059|
+| Profile (User CRUD)       |13521080|
 | Admin (Album & Song CRUD) |13521090|
 ### Client-side
-| Fitur       | NIM                      |
-| --------- | --------------------------|
-| Login  | 13521080, 13521059   |
-| Register | 13521080, 13521059 |
-| Home | 13521059 |
-| Explore (Search) | 13521059|
-| Profile (User CRUD) |13521080|
+| Fitur                     | NIM                      |
+|---------------------------| --------------------------|
+| Login                     | 13521080, 13521059   |
+| Register                  | 13521080, 13521059 |
+| Player                    |13521080 |
+| Home                      | 13521059 |
+| Explore (Search)          | 13521059|
+| Profile (User CRUD)       |13521080|
 | Admin (Album & Song CRUD) |13521090|

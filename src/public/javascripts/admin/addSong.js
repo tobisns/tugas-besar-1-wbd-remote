@@ -10,6 +10,39 @@ const coverInput = document.querySelector("#cover-input");
 const registerForm = document.querySelector(".register-form")
 
 
+
+audioInput &&
+audioInput.addEventListener(
+    "change",
+    (event)=>{
+        const files = event.target.files;
+        // Check if any file is selected
+        if (files && files.length > 0) {
+            // Display the selected file's name in the "file-name" element
+            document.getElementById('file-name-audio').textContent = files[0].name;
+        } else {
+            // No file is selected, display a default message
+            document.getElementById('file-name-audio').textContent = 'no file selected';
+        }
+    }
+)
+
+coverInput &&
+coverInput.addEventListener(
+    "change",
+    (event)=>{
+        const files = event.target.files;
+        // Check if any file is selected
+        if (files && files.length > 0) {
+            // Display the selected file's name in the "file-name" element
+            document.getElementById('file-name-cover').textContent = files[0].name;
+        } else {
+            // No file is selected, display a default message
+            document.getElementById('file-name-cover').textContent = 'no file selected';
+        }
+    }
+)
+
 artistInput &&
 artistInput.addEventListener(
     "keypress",

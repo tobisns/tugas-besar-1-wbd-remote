@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <p>album cover</p>
+                    <p>song cover</p>
                     <div class="input-file">
                         <input type="file" name="cover_file" id="cover-input" class="hidden-input" accept="image/*">
                         <label for="cover-input" class="input-button">choose image</label>

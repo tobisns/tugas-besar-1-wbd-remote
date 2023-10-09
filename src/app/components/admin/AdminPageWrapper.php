@@ -14,10 +14,23 @@
         <script type="text/javascript" defer>
             const DEBOUNCE_DELAY = "<?= DEBOUNCE_DELAY ?>";
             const STORAGE_URL = "<?= STORAGE_URL ?>";
+            const BASE_URL = '<?= BASE_URL ?>';
         </script>
+
+
         <!-- JavaScript Library -->
         <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/debounce.js" defer></script>
         <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/utils.js" defer></script>
+        <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/play.js" defer></script>
+        <script type="text/javascript" defer>
+            <?php
+            $idMusic = null;
+            if(isset($_SESSION["music"]["id"])){
+                $idMusic = $_SESSION["music"]["id"];
+            }
+            ?>
+            const id = "<?= $idMusic ?>";
+        </script>
         <!-- JavaScript DOM and AJAX -->
         <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/admin/wrapper.js" defer></script>
         <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/admin/album.js" defer></script>
@@ -44,7 +57,7 @@
                                 <input type="radio" name="switch-button" id="songs-button" class="switch-radio">
                                 <label for="songs-button" class="switch-mode-button">Songs</label>
                             </form>
-                        <? endif; ?>
+                        <?php endif; ?>
                     </div>
                     <div id="dynamic-content-container">
                         <?php 

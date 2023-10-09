@@ -57,6 +57,9 @@ class AlbumController extends Controller implements ControllerInterface
         try{
             switch($_SERVER['REQUEST_METHOD']){
                 case 'GET':
+                    $token = (TokenMiddleware::getSessionToken('details') ?? TokenMiddleware::setNewToken('details'));
+
+
                     $isAuth = new AuthenticationMiddleware();
                     $result = $isAuth->isAuthenticated();
 

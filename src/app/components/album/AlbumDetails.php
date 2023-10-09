@@ -94,8 +94,9 @@
                 <?php endwhile; ?>
             <?php endif; ?>
         </div>
-        
-
+        <?=
+            TokenMiddleware::getInputToken('details');
+        ?>
     </div>
 </body>
 

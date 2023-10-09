@@ -14,11 +14,14 @@ class AdminController extends Controller implements ControllerInterface
         try{
             switch($_SERVER['REQUEST_METHOD']){
                 case 'GET':
+                    $token = (TokenMiddleware::getSessionToken('admin') ?? TokenMiddleware::setNewToken('admin'));
+
                     $isAuth = new AuthenticationMiddleware();
                     $result = $isAuth->isAdmin();
 
-                    $albumModel = $this->model('AlbumModel');
+
                     if($sub_div == 'albums'){
+                        $albumModel = $this->model('AlbumModel');
                         $search = isset($_GET['search']) ? $_GET['search'] : '';
                         $sort = isset($_GET['sort']) ? $_GET['sort'] : 'name';
                         $res = $albumModel->readAlbumPaged($page, $search, $sort);
@@ -34,7 +37,6 @@ class AdminController extends Controller implements ControllerInterface
                         $adminAlbumView = $this->view('admin', 'AdminView', ['from_admin' => true, 'username' => $user, 'admin' => $isAdmin, 'current_page' => $page, 'total_page' => $total_page, 'content' => $sub_div, 'albums' => $res]);
                         $adminAlbumView->render();
                     } else if($sub_div == 'songs') {
-
                         
                         $userModel = $this->model('UserModel');
                         $user = $userModel->getUser($_SESSION['username']);
@@ -51,7 +53,34 @@ class AdminController extends Controller implements ControllerInterface
                     }
 
                     break;
-                
+                    exit;
+                case 'POST':
+                    //prevent crsf
+                    if(!TokenMiddleware::verifyToken('admin')){
+                        exit;
+                    }
+
+                    $isAuth = new AuthenticationMiddleware();
+                    $result = $isAuth->isAdmin();
+                    if($sub_div == 'songs') {
+
+                        $result = false;
+                        $songModel = $this->model('SongModel');
+                        if(isset($_POST['music_id'])){
+                            $result = $songModel->delete($_POST['music_id']);
+                        }
+                        if($result){
+                            http_response_code(201);
+                            echo json_encode(["redirect_url" => BASE_URL . "/admin/songs"]);
+                            exit;
+                        }else{
+                            http_response_code(500);
+                            echo "Delete Gagal";
+                            exit;
+                        }
+                    }
+                    break;
+                    exit;
                 default:
                     throw new LoggedException('Method Not Allowed', 405);
             }
@@ -111,7 +140,9 @@ class AdminController extends Controller implements ControllerInterface
                     break;
                 case 'POST':
                     //prevent crsf
-                    TokenMiddleware::verifyToken('add');
+                    if(!TokenMiddleware::verifyToken('add')){
+                        exit;
+                    }
                     $uploadedImage = null;
 
                     if(isset($_FILES['cover_file'])){
@@ -163,7 +194,76 @@ class AdminController extends Controller implements ControllerInterface
                     break;
                 case 'POST':
                     //prevent crsf
-                    TokenMiddleware::verifyToken('add');
+                    if(!TokenMiddleware::verifyToken('add')){
+                        exit;
+                    }
+                    $uploadedImage = null;
+                    $uploadedAudio = null;
+                    
+                    // echo json_encode($_FILES['audio_file']['tmp_name']);
+
+                    if(isset($_FILES['cover_file'])){
+                        $image = new AccessStorage("images");
+                        $uploadedImage = $image->saveImage($_FILES['cover_file']['tmp_name']);
+                    }
+                    if(isset($_FILES['audio_file'])){
+                        $image = new AccessStorage("music");
+                        $uploadedAudio = $image->saveAudio($_FILES['audio_file']['tmp_name']);
+                    }
+
+
+
+                    $userModel = $this->model('SongModel');
+                    $result = $userModel->upload(
+                        $_POST["title"],
+                        $_POST["artist_id"],
+                        $_POST["genre"],
+                        $_POST["duration"],
+                        $_POST["upload_date"],
+                        $uploadedAudio,
+                        $uploadedImage
+                    );
+
+                    header('Content-Type: application/json');
+
+                    if($result){
+                        http_response_code(201);
+                        echo json_encode(["redirect_url" => BASE_URL . "/admin/songs"]);
+                        exit;
+                    }else{
+                        http_response_code(500);
+                        echo "Update Gagal";
+                        exit;
+                    }
+
+                    exit;
+                default:
+                    throw new LoggedException('Method Not Allowed', 405);
+            }
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+            exit;
+        }
+    }
+
+    public function add_to_album($album_id){
+        try {
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $token = (TokenMiddleware::getSessionToken('add') ?? TokenMiddleware::setNewToken('add'));
+
+                    $isAuth = new AuthenticationMiddleware();
+                    $result = $isAuth->isAdmin();
+
+                    $adminSongView = $this->view('admin', 'AddSongView', []);
+                    $adminSongView->render();
+
+                    break;
+                case 'POST':
+                    //prevent crsf
+                    if(!TokenMiddleware::verifyToken('add')){
+                        exit;
+                    }
                     $uploadedImage = null;
                     $uploadedAudio = null;
                     

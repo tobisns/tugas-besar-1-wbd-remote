@@ -58,9 +58,6 @@
         <?php if ($this->data['username']) : ?>
             <li class="logout-bar">
                 <form class="form-sidebar" action="<?= BASE_URL ?>/user/logout" method="post">
-                    <?=
-                    TokenMiddleware::getInputToken('logout');
-                    ?>
                     <div class="logout-container">
                         <img class="logout-icon" src="<?= BASE_URL ?>/assets/images/icon_logout_default.svg" alt="logout">
                         <button class="logout-text">logout</button>

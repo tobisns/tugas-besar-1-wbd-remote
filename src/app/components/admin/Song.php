@@ -22,7 +22,7 @@
     <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/debounce.js" defer></script>
     <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/lib/utils.js" defer></script>
     <!-- JavaScript DOM and AJAX -->
-    <!-- <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/admin/song.js" defer></script> -->
+    <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/admin/song.js" defer></script>
     <title>Explore</title>
 </head>
 <body>
@@ -73,15 +73,13 @@
                         <div class="search-song-like">
                             <img class="cover-img" src="<?= BASE_URL ?>/assets/images/icon_like_default.svg">
                         </div>
-                        <button music_id="<?= $music['music_id'] ?>">edit</button>
-                        <button music_id="<?= $music['music_id'] ?>">delete</button>
+                        <button class="edit-music" music_id="<?= $music['music_id'] ?>">edit</button>
+                        <button class="delete-music" music_id="<?= $music['music_id'] ?>">delete</button>
                     </div>
                     </a>
                 <?php endwhile; ?>
             <?php endif; ?>
         </div>
-        
-
     </div>
 </body>
 

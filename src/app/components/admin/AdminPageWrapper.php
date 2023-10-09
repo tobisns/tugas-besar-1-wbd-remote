@@ -36,7 +36,6 @@
                                 <label for="albums-button" class="switch-mode-button">Albums</label>
                                 <input type="radio" name="switch-button" id="songs-button" checked="checked" class="switch-radio">
                                 <label for="songs-button" class="switch-mode-button">Songs</label>
-                                <?= TokenMiddleware::getInputToken('admin') ?>
                             </form>
                         <?php else : ?>
                             <form action="">
@@ -44,7 +43,6 @@
                                 <label for="albums-button" class="switch-mode-button">Albums</label>
                                 <input type="radio" name="switch-button" id="songs-button" class="switch-radio">
                                 <label for="songs-button" class="switch-mode-button">Songs</label>
-                                <?= TokenMiddleware::getInputToken('admin') ?>
                             </form>
                         <? endif; ?>
                     </div>
@@ -57,7 +55,9 @@
                         } 
                         ?>
                     </div>
-                    
+                    <?=
+                        TokenMiddleware::getInputToken('admin');
+                    ?>
                 </div>
             </div>
         </div>

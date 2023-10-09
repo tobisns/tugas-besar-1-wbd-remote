@@ -64,6 +64,7 @@ songsButton.addEventListener('click', (e) => {
             history.pushState(null, null, currentURL);
 
             reload_add_button();
+            reload_song_button();
     
             const parts = currentURL.split('/');
             let partIndex = parts.indexOf('admin');

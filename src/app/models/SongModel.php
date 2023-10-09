@@ -101,4 +101,34 @@ class SongModel
             return false;
         }
     }
+
+    public function delete($music_id){
+        $conn = $this->database->getConn();
+        $query = "SELECT audio_file, cover_file from music WHERE music_id = $1;";
+        $result = pg_prepare($conn, "get_file", $query);
+        $result = pg_execute($conn, "get_file", array($music_id));
+
+        if($result){
+            $files = pg_fetch_assoc($result);
+            $image = new AccessStorage("music");
+            $uploadedImage = $image->deleteFile($files['audio_file']);
+
+        } else {
+            return false;
+        }
+
+        $query1 = "DELETE from album_music WHERE music_id = $1;";
+        $query2 = "DELETE from music WHERE music_id = $1;";
+        $result1 = pg_prepare($conn, "delete_album_music_query", $query1);
+        $result2 = pg_prepare($conn, "delete_music_query", $query2);
+        $result1 = pg_execute($conn, "delete_album_music_query", array($music_id));
+        $result2 = pg_execute($conn, "delete_music_query", array($music_id));
+
+        if($result1 && $result2){
+            return true;
+        } else {
+            echo "Error deleting record: " . pg_last_error($conn);
+            return false;
+        }
+    }
 }

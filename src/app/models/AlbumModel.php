@@ -87,4 +87,13 @@ class AlbumModel
             return false;
         }
     }
+
+    public function addSong($music_id, $album_id){
+        $conn = $this->database->getConn();
+        $query = "INSERT INTO album_music VALUES ($1,$2);";
+        $result = pg_prepare($conn, "get_file", $query);
+        $result = pg_execute($conn, "get_file", array($album_id, $music_id));
+
+        return $result;
+    }
 }

@@ -25,8 +25,9 @@ button &&
 button.addEventListener(
     "click",
     () => {
+        const album_id = delbutton.getAttribute('album_id');
         history.pushState(null, null, window.location.href);
-        location.replace("http:\/\/localhost:8080\/public\/admin\/add_album");
+        location.replace(`http://localhost:8080/public/admin/add_to_album/${album_id}`);
     }
 );
 

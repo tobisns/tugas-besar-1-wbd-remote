@@ -64,4 +64,44 @@ class SongController extends controller implements ControllerInterface
             http_response_code($e->getCode());
         }
     }
+
+    public function fetch(){
+        try{
+            switch($_SERVER['REQUEST_METHOD']){
+                case 'GET':
+                    $isAuth = new AuthenticationMiddleware();
+                    $result = $isAuth->isAuthenticated();
+
+                    $search = isset($_GET['search']) ? $_GET['search'] : '';
+                    $sort = isset($_GET['sort']) ? $_GET['sort'] : 'name';
+                    $filter = isset($_GET['filter']) ? $_GET['filter'] : 'all';
+
+                    $songModel = $this->model('SongModel');
+                    $qres = $songModel->readSongsPaged(1 ,$search, $filter, $sort);
+                    if($qres){
+                        $songs = array();
+                        while ($row = pg_fetch_assoc($qres)) {
+                            $songs[] = $row;
+                        }
+
+                        header('Content-Type: application/json');
+                        http_response_code(201);
+                        echo json_encode($songs);
+                        exit;
+                    } else {
+                        http_response_code(401);
+                        echo "error occured";
+                        exit;
+                    }
+                    exit;
+                    break;
+                
+                default:
+                    throw new LoggedException('Method Not Allowed', 405);
+            }
+        } catch(Exception $e){
+            http_response_code($e->getCode());
+            exit;
+        }
+    } 
 }

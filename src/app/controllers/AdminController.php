@@ -255,7 +255,7 @@ class AdminController extends Controller implements ControllerInterface
                     $isAuth = new AuthenticationMiddleware();
                     $result = $isAuth->isAdmin();
 
-                    $adminSongView = $this->view('admin', 'AddSongView', []);
+                    $adminSongView = $this->view('admin', 'AddSongToAlbumView', ["album_id" => $album_id]);
                     $adminSongView->render();
 
                     break;
@@ -264,31 +264,11 @@ class AdminController extends Controller implements ControllerInterface
                     if(!TokenMiddleware::verifyToken('add')){
                         exit;
                     }
-                    $uploadedImage = null;
-                    $uploadedAudio = null;
-                    
-                    // echo json_encode($_FILES['audio_file']['tmp_name']);
 
-                    if(isset($_FILES['cover_file'])){
-                        $image = new AccessStorage("images");
-                        $uploadedImage = $image->saveImage($_FILES['cover_file']['tmp_name']);
-                    }
-                    if(isset($_FILES['audio_file'])){
-                        $image = new AccessStorage("music");
-                        $uploadedAudio = $image->saveAudio($_FILES['audio_file']['tmp_name']);
-                    }
-
-
-
-                    $userModel = $this->model('SongModel');
-                    $result = $userModel->upload(
-                        $_POST["title"],
-                        $_POST["artist_id"],
-                        $_POST["genre"],
-                        $_POST["duration"],
-                        $_POST["upload_date"],
-                        $uploadedAudio,
-                        $uploadedImage
+                    $userModel = $this->model('AlbumModel');
+                    $result = $userModel->addSong(
+                        $_POST["music_id"],
+                        $album_id
                     );
 
                     header('Content-Type: application/json');

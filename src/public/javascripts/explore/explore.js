@@ -32,7 +32,7 @@ albumsButton.addEventListener('click', (e) => {
             history.pushState(null, null, currentURL);
 
             const parts = currentURL.split('/');
-            let partIndex = parts.indexOf('explore');
+            let partIndex = parts.indexOf('admin');
 
             var newURL;
 
@@ -53,7 +53,7 @@ songsButton.addEventListener('click', (e) => {
         const formData = new FormData();
         axios({
             method:"get",
-            url:"/public/explore/song_render",
+            url:"/public/admin/song_render",
             payload: formData
         }).then((response)=>{
             dynamicContainer.innerHTML = response;
@@ -64,7 +64,7 @@ songsButton.addEventListener('click', (e) => {
             // reload_add_button();
     
             const parts = currentURL.split('/');
-            let partIndex = parts.indexOf('explore');
+            let partIndex = parts.indexOf('admin');
     
             var newURL;
     
@@ -104,7 +104,7 @@ const updateContainer = (content) => {
             history.pushState(null, null, currentURL);
 
             const parts = currentURL.split('/');
-            let partIndex = parts.indexOf('explore');
+            let partIndex = parts.indexOf('admin');
 
             var newURL;
 

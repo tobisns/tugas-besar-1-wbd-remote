@@ -62,6 +62,9 @@
         } 
         ?>
     </div>
+    <?=
+        TokenMiddleware::getInputToken('admin');
+    ?>
 
 </div>
 </html>
